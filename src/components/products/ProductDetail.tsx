@@ -84,15 +84,15 @@ export function ProductGallery({ product }: ProductGalleryProps) {
 
   return (
     <div className="space-y-4">
-      <div className="relative aspect-square rounded-2xl overflow-hidden bg-surface-100 ring-1 ring-surface-200">
+      <div className="relative aspect-[4/5] sm:aspect-square rounded-2xl overflow-hidden bg-white ring-1 ring-brand-100">
         <Image
           src={images[activeImage]}
           alt={product.name}
           fill
-          sizes="(max-width: 1024px) 100vw, 50vw"
-          className="object-cover img-polish"
+          sizes="(max-width: 1024px) 100vw, 480px"
+          className="object-contain p-2"
           priority
-          quality={90}
+          quality={85}
         />
       </div>
       {images.length > 1 && (
@@ -101,11 +101,11 @@ export function ProductGallery({ product }: ProductGalleryProps) {
             <button
               key={i}
               onClick={() => setActiveImage(i)}
-              className={`relative w-20 h-20 rounded-lg overflow-hidden border-2 transition-colors ${
-                i === activeImage ? "border-brand-600" : "border-transparent"
+              className={`relative w-20 h-20 rounded-lg overflow-hidden bg-white border-2 transition-colors ${
+                i === activeImage ? "border-brand-600" : "border-brand-100"
               }`}
             >
-              <Image src={img} alt="" fill sizes="80px" className="object-cover img-polish" />
+              <Image src={img} alt="" fill sizes="80px" quality={70} loading="lazy" className="object-contain p-1" />
             </button>
           ))}
         </div>

@@ -22,12 +22,16 @@ const playfair = Playfair_Display({
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://calipacks.co.uk"),
+  icons: {
+    icon: "/cali-smoke-logo.png",
+    apple: "/cali-smoke-logo.png",
+  },
   title: {
-    default: "Cali Packs — UK Smoke Shop Supply",
-    template: "%s | Cali Packs",
+    default: "Cali Smoke — Manchester Smoke Shop",
+    template: "%s | Cali Smoke",
   },
   description:
-    "Cali Packs — UK’s best sellers of cali packs, can jars, glassware, scales and accessories. Add to cart and get delivery in 2–3 days.",
+    "Cali Smoke — Manchester smoke shop for cali packs, hookahs, glassware, scales and accessories. Shop online or visit us on Sagar Street.",
   keywords: [
     "cali packs UK",
     "mylar bags",
@@ -39,8 +43,8 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     locale: "en_GB",
-    siteName: "Cali Packs",
-    title: "Cali Packs — UK Smoke Shop Supply",
+    siteName: "Cali Smoke",
+    title: "Cali Smoke — Manchester Smoke Shop",
     description:
       "Shop cali packs, glassware, scales and accessories. Online cart. UK delivery in 2–3 days.",
   },

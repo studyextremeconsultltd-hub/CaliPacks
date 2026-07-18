@@ -1,4 +1,3 @@
-import Image from "next/image";
 import Link from "next/link";
 import { footerLinks, footerNav } from "@/data/navigation";
 import { Logo } from "@/components/layout/Logo";
@@ -64,50 +63,19 @@ const socialItems = [
   { ...socialLinks.youtube, icon: YouTubeIcon },
 ];
 
-const footerBgImages = [
-  "/products/cali-01.jpg",
-  "/products/cali-06.jpg",
-  "/products/cali-10.jpg",
-  "/products/cali-14.jpg",
-  "/products/cali-18.jpg",
-  "/products/cali-22.jpg",
-  "/products/cali-03.jpg",
-  "/products/cali-08.jpg",
-];
-
 export function Footer() {
   return (
-    <footer className="relative overflow-hidden bg-black text-white border-t-4 border-brand-500 footer-glow">
-      {/* Moving product images background */}
-      <div className="absolute inset-0 pointer-events-none opacity-[0.22]" aria-hidden="true">
-        <div className="absolute inset-y-0 left-0 flex w-max footer-marquee">
-          {[...footerBgImages, ...footerBgImages].map((src, i) => (
-            <div
-              key={`${src}-${i}`}
-              className="relative w-40 h-full sm:w-52 md:w-60 shrink-0 mx-1"
-            >
-              <Image
-                src={src}
-                alt=""
-                fill
-                sizes="240px"
-                quality={75}
-                className="object-cover"
-              />
-            </div>
-          ))}
-        </div>
-        <div className="absolute inset-0 bg-gradient-to-b from-black/85 via-black/80 to-black/95" />
-        <div className="absolute inset-0 bg-gradient-to-r from-brand-950/50 via-transparent to-brand-900/40" />
-      </div>
+    <footer className="relative overflow-hidden bg-gradient-to-br from-white via-brand-50 to-brand-200 text-brand-950 shadow-[0_-20px_70px_rgba(236,72,153,0.14)]">
+      <div className="pointer-events-none absolute -left-24 top-12 h-72 w-72 rounded-full bg-brand-300/30 blur-3xl" />
+      <div className="pointer-events-none absolute -right-24 bottom-0 h-80 w-80 rounded-full bg-fuchsia-300/25 blur-3xl" />
 
       <div className="container-site py-12 relative z-10">
-        <nav className="flex flex-wrap items-center justify-center gap-5 sm:gap-8 mb-10 pb-7 border-b border-brand-500/30">
+        <nav className="mb-10 flex flex-wrap items-center justify-center gap-3 rounded-2xl bg-white/75 p-3 shadow-[0_12px_36px_rgba(236,72,153,0.13)] backdrop-blur-sm sm:gap-5">
           {footerNav.map((link) => (
             <Link
               key={link.href}
               href={link.href}
-              className="text-sm font-extrabold uppercase tracking-wider text-brand-200 hover:text-white transition-colors drop-shadow-[0_0_8px_rgba(236,72,153,0.45)]"
+              className="rounded-xl bg-brand-50 px-4 py-2 text-xs font-extrabold uppercase tracking-wider text-brand-800 transition hover:bg-brand-600 hover:text-white sm:text-sm"
             >
               {link.label}
             </Link>
@@ -117,10 +85,11 @@ export function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 mb-10">
           <div>
             <Link href="/" className="inline-block mb-4">
-              <Logo variant="light" size="lg" />
+              <Logo size="lg" />
             </Link>
-            <p className="text-sm text-white/70 leading-relaxed mb-5 font-medium">
-              Cali Packs — UK best sellers. Shop online. Delivery in 2–3 days.
+            <p className="mb-5 text-sm font-medium leading-relaxed text-brand-950/65">
+              Cali Smoke — Manchester&apos;s destination for smoke shop essentials.
+              Shop online or visit us in store.
             </p>
             <div className="flex gap-2.5">
               {socialItems.map((item) => (
@@ -139,7 +108,7 @@ export function Footer() {
           </div>
 
           <div>
-            <h3 className="font-extrabold text-sm uppercase tracking-wider text-brand-300 mb-4">
+            <h3 className="mb-4 text-sm font-extrabold uppercase tracking-wider text-brand-700">
               Shop
             </h3>
             <ul className="space-y-2">
@@ -147,7 +116,7 @@ export function Footer() {
                 <li key={link.href}>
                   <Link
                     href={link.href}
-                    className="text-sm text-white/60 hover:text-brand-200 transition-colors font-medium"
+                    className="text-sm font-semibold text-brand-950/60 transition-colors hover:text-brand-700"
                   >
                     {link.label}
                   </Link>
@@ -157,7 +126,7 @@ export function Footer() {
           </div>
 
           <div>
-            <h3 className="font-extrabold text-sm uppercase tracking-wider text-brand-300 mb-4">
+            <h3 className="mb-4 text-sm font-extrabold uppercase tracking-wider text-brand-700">
               Company
             </h3>
             <ul className="space-y-2">
@@ -165,7 +134,7 @@ export function Footer() {
                 <li key={link.href}>
                   <Link
                     href={link.href}
-                    className="text-sm text-white/60 hover:text-brand-200 transition-colors font-medium"
+                    className="text-sm font-semibold text-brand-950/60 transition-colors hover:text-brand-700"
                   >
                     {link.label}
                   </Link>
@@ -175,27 +144,27 @@ export function Footer() {
           </div>
 
           <div>
-            <h3 className="font-extrabold text-sm uppercase tracking-wider text-brand-300 mb-4">
+            <h3 className="mb-4 text-sm font-extrabold uppercase tracking-wider text-brand-700">
               Contact
             </h3>
             <a
               href={contactInfo.phoneHref}
-              className="block text-sm text-brand-300 font-bold hover:text-brand-200"
+              className="block text-sm font-bold text-brand-700 hover:text-brand-500"
             >
               {contactInfo.phone}
             </a>
-            <p className="text-sm text-white/55 mt-1">{contactInfo.email}</p>
-            <p className="text-sm text-white/45 mt-3 font-medium">
-              Based in Manchester, UK
+            <p className="mt-1 text-sm text-brand-950/55">{contactInfo.email}</p>
+            <p className="mt-3 text-sm font-medium leading-relaxed text-brand-950/55">
+              {contactInfo.address}
             </p>
           </div>
         </div>
 
-        <div className="pt-6 border-t border-brand-500/25 flex flex-col sm:flex-row justify-between items-center gap-4">
-          <p className="text-xs text-white/40">
-            &copy; {new Date().getFullYear()} Cali Packs. All rights reserved.
+        <div className="flex flex-col items-center justify-between gap-4 rounded-2xl bg-white/65 px-5 py-4 sm:flex-row">
+          <p className="text-xs font-medium text-brand-950/50">
+            &copy; {new Date().getFullYear()} Cali Smoke. All rights reserved.
           </p>
-          <div className="flex items-center gap-4 text-xs text-white/40 font-medium">
+          <div className="flex items-center gap-4 text-xs font-semibold text-brand-950/50">
             <span>Visa</span>
             <span>Mastercard</span>
             <span>PayPal</span>

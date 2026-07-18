@@ -46,6 +46,15 @@ export const categories: Category[] = [
     image: "/products/cali-13.jpg",
     productCount: 7,
   },
+  {
+    id: "hookahs",
+    name: "Hookahs & Shisha",
+    slug: "hookahs",
+    tagline: "Statement Shop Pieces",
+    description: "Premium full-size hookahs in bold colours and distinctive designs.",
+    image: "/products/cali-11.jpg",
+    productCount: 2,
+  },
 ];
 
 export function getCategoryBySlug(slug: string): Category | undefined {

@@ -4,11 +4,11 @@ import { notFound } from "next/navigation";
 const pages: Record<string, { title: string; content: string }> = {
   privacy: {
     title: "Privacy Policy",
-    content: "Cali Packs is committed to protecting your privacy. We collect only the information necessary to process your orders and improve your experience. We do not sell or share your personal data with third parties except as required to fulfil your orders.",
+    content: "Cali Smoke is committed to protecting your privacy. We collect only the information necessary to process your orders and improve your experience. We do not sell or share your personal data with third parties except as required to fulfil your orders.",
   },
   terms: {
     title: "Terms of Service",
-    content: "By using the Cali Packs website, you agree to these terms. All products are sold subject to availability. Prices are listed in GBP and exclude VAT where applicable. Cali Packs reserves the right to modify prices and product availability without notice.",
+    content: "By using the Cali Smoke website, you agree to these terms. All products are sold subject to availability. Prices are listed in GBP and exclude VAT where applicable. Cali Smoke reserves the right to modify prices and product availability without notice.",
   },
   shipping: {
     title: "Shipping Policy",

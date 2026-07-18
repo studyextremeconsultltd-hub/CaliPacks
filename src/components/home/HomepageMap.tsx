@@ -15,7 +15,7 @@ export function HomepageMap() {
             <span className="text-gradient-pink shine-text">Manchester</span>
           </h2>
           <p className="text-sm md:text-base text-black/55 font-semibold mt-2 max-w-lg mx-auto">
-            Live map of Manchester, United Kingdom — tap to open directions.
+            Visit Cali Smoke at 5 Sagar Street, M8 8EU — tap to open directions.
           </p>
         </div>
 
@@ -44,7 +44,7 @@ export function HomepageMap() {
             </a>
           </div>
           <iframe
-            title="Cali Packs — Manchester location"
+            title="Cali Smoke — 5 Sagar Street, Manchester"
             src={contactInfo.mapEmbedUrl}
             className="w-full h-[280px] sm:h-[360px] lg:h-[400px] border-0"
             loading="lazy"

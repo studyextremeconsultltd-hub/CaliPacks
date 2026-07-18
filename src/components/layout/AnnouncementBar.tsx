@@ -4,7 +4,7 @@ import { contactInfo } from "@/data/social";
 
 export function AnnouncementBar() {
   return (
-    <div className="bg-black text-white text-center text-sm py-2 px-4 border-b border-brand-500/40">
+    <div className="bg-gradient-to-r from-black via-brand-950 to-black text-white text-center text-sm py-2 px-4">
       <p className="flex flex-wrap items-center justify-center gap-x-2 gap-y-1 font-bold">
         <Sparkles className="w-3.5 h-3.5 text-brand-300 inline shrink-0" />
         <span>

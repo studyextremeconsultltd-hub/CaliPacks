@@ -25,10 +25,11 @@ export const contactInfo = {
   phone: "+44 7911 123456",
   phoneHref: "tel:+447911123456",
   email: "hello@calipacks.co.uk",
-  address: "Manchester, United Kingdom",
+  address: "5 Sagar Street, M8 8EU, Manchester, United Kingdom",
   mapEmbedUrl:
-    "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d75980.3586459986!2d-2.308472!3d53.4807593!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x487a4d4c5226f5db%3A0xd9be143804fe6baa!2sManchester!5e0!3m2!1sen!2suk!4v1700000000000!5m2!1sen!2suk",
-  mapLink: "https://www.google.com/maps/place/Manchester,+UK",
+    "https://www.google.com/maps?q=5%20Sagar%20Street%2C%20M8%208EU%2C%20Manchester%2C%20United%20Kingdom&output=embed",
+  mapLink:
+    "https://www.google.com/maps/search/?api=1&query=5%20Sagar%20Street%2C%20M8%208EU%2C%20Manchester%2C%20United%20Kingdom",
 };
 
 export const whatsappOrderNumber = "447911123456";

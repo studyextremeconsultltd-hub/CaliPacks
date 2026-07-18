@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "FAQ",
-  description: "Frequently asked questions about Cali Packs products, ordering, shipping, and delivery.",
+  description: "Frequently asked questions about Cali Smoke products, ordering, shipping, and delivery.",
 };
 
 const faqs = [

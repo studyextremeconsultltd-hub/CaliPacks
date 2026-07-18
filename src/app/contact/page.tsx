@@ -2,6 +2,7 @@
 
 import { Mail, Phone, MapPin, Clock } from "lucide-react";
 import { contactInfo, socialLinks } from "@/data/social";
+import { PageHero } from "@/components/layout/PageHero";
 
 function FacebookIcon({ className }: { className?: string }) {
   return (
@@ -54,19 +55,49 @@ const socialCards = [
 
 export default function ContactPage() {
   return (
-    <div className="py-10 md:py-14 bg-gradient-to-b from-white via-brand-50/40 to-white">
-      <div className="container-site">
+    <>
+      <PageHero
+        eyebrow="We are here to help"
+        title="Contact"
+        accent="Cali Smoke"
+        description="Questions about stock, wholesale, delivery or an order? Call, message or visit our Manchester shop."
+        images={[
+          "/cali-shop-hero.jpg",
+          "/products/cali-01.jpg",
+          "/products/cali-11.jpg",
+        ]}
+      />
+      <div className="bg-gradient-to-b from-white via-brand-50/40 to-white py-10 md:py-14">
+        <div className="container-site">
         <div className="max-w-2xl mx-auto text-center mb-10">
-          <h1 className="font-display text-3xl md:text-4xl font-extrabold text-surface-950 tracking-tight mb-3 shine-text">
-            Contact <span className="text-gradient-pink">Us</span>
-          </h1>
+          <h2 className="font-display text-3xl md:text-4xl font-extrabold text-surface-950 tracking-tight mb-3 shine-text">
+            How can we <span className="text-gradient-pink">help?</span>
+          </h2>
           <p className="text-surface-800/60 font-medium text-sm md:text-base">
             Stock, wholesale or order questions? Call or message — Mon–Fri.
           </p>
         </div>
 
-        <div className="grid lg:grid-cols-2 gap-8 max-w-5xl mx-auto mb-12">
-          <div className="space-y-4">
+        <div className="grid lg:grid-cols-2 gap-8 max-w-5xl mx-auto mb-12 items-stretch">
+          <aside className="relative overflow-hidden rounded-[1.75rem] bg-gradient-to-br from-brand-950 via-brand-800 to-fuchsia-700 p-5 shadow-[0_22px_60px_rgba(190,24,93,0.3)] sm:p-7">
+            <div className="pointer-events-none absolute -right-16 -top-16 h-52 w-52 rounded-full bg-white/10 blur-2xl" />
+            <div className="pointer-events-none absolute -bottom-20 -left-12 h-56 w-56 rounded-full bg-brand-300/15 blur-2xl" />
+
+            <div className="relative mb-6">
+              <span className="inline-flex items-center gap-2 rounded-full bg-white/10 px-3 py-1.5 text-[10px] font-black uppercase tracking-[0.18em] text-brand-100">
+                <span className="h-2 w-2 rounded-full bg-brand-300 shadow-[0_0_10px_rgba(249,168,212,0.9)]" />
+                Contact information
+              </span>
+              <h2 className="mt-4 font-display text-3xl font-black text-white sm:text-4xl">
+                Let&apos;s talk
+              </h2>
+              <p className="mt-2 max-w-md text-sm font-semibold leading-relaxed text-white/70">
+                Call, email or visit us during opening hours. Our Manchester
+                team is ready to help with products, stock and orders.
+              </p>
+            </div>
+
+            <div className="relative space-y-3">
             {[
               {
                 icon: Phone,
@@ -90,26 +121,26 @@ export default function ContactPage() {
             ].map((item) => (
               <div
                 key={item.label}
-                className="flex items-center gap-3 p-3.5 rounded-xl bg-white border border-brand-100 shadow-sm"
+                className="group flex items-start gap-4 rounded-2xl border border-white/15 bg-white/10 p-4 shadow-lg backdrop-blur-sm transition hover:-translate-y-0.5 hover:bg-white/15"
               >
-                <div className="w-10 h-10 rounded-xl bg-brand-50 flex items-center justify-center flex-shrink-0 ring-1 ring-brand-100">
-                  <item.icon className="w-4.5 h-4.5 text-brand-700 w-5 h-5" />
+                <div className="flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-xl bg-white text-brand-700 shadow-[0_8px_22px_rgba(0,0,0,0.18)]">
+                  <item.icon className="h-5 w-5" />
                 </div>
                 <div className="min-w-0">
-                  <p className="text-[11px] font-bold uppercase tracking-wider text-brand-500">
+                  <p className="text-[10px] font-black uppercase tracking-[0.16em] text-brand-200">
                     {item.label}
                   </p>
                   {item.href ? (
                     <a
                       href={item.href}
-                      className="font-extrabold text-surface-950 hover:text-brand-600 text-sm sm:text-base"
+                      className="mt-1 block break-words text-sm font-extrabold leading-relaxed text-white transition hover:text-brand-200 sm:text-base"
                       target={item.href.startsWith("http") ? "_blank" : undefined}
                       rel={item.href.startsWith("http") ? "noopener noreferrer" : undefined}
                     >
                       {item.value}
                     </a>
                   ) : (
-                    <p className="font-extrabold text-surface-950 text-sm sm:text-base">
+                    <p className="mt-1 text-sm font-extrabold leading-relaxed text-white sm:text-base">
                       {item.value}
                     </p>
                   )}
@@ -117,7 +148,10 @@ export default function ContactPage() {
               </div>
             ))}
 
-            <div className="flex items-center gap-2.5 pt-2">
+            <div className="relative mt-5 flex items-center gap-2.5 border-t border-white/15 pt-5">
+              <span className="mr-1 text-xs font-black uppercase tracking-wider text-white/60">
+                Follow
+              </span>
               {socialCards.map((card) => (
                 <a
                   key={card.label}
@@ -126,13 +160,14 @@ export default function ContactPage() {
                   rel="noopener noreferrer"
                   aria-label={card.label}
                   title={card.handle}
-                  className="w-8 h-8 rounded-full overflow-hidden shadow-md hover:scale-110 transition-transform"
+                  className="h-9 w-9 overflow-hidden rounded-full shadow-lg transition-transform hover:scale-110"
                 >
-                  <card.icon className="w-8 h-8" />
+                  <card.icon className="h-9 w-9" />
                 </a>
               ))}
             </div>
-          </div>
+            </div>
+          </aside>
 
           <form
             className="relative bg-white rounded-2xl border-2 border-brand-200 p-5 md:p-7 space-y-3.5 overflow-hidden shadow-xl shadow-brand-100/50"
@@ -208,7 +243,8 @@ export default function ContactPage() {
             </button>
           </form>
         </div>
+        </div>
       </div>
-    </div>
+    </>
   );
 }

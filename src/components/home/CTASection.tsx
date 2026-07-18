@@ -37,7 +37,7 @@ export function CTASection() {
 
           <div className="relative text-center max-w-2xl mx-auto mb-8">
             <span className="inline-block text-brand-600 text-xs font-extrabold uppercase tracking-widest mb-3">
-              Why Cali Packs
+              Why Cali Smoke
             </span>
             <h2 className="font-display text-2xl md:text-3xl font-extrabold tracking-tight text-surface-950 mb-2">
               UK&apos;s{" "}

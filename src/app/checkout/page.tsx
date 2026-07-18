@@ -22,7 +22,7 @@ export default function CheckoutPage() {
       (i) => `• ${i.product.name} × ${i.quantity} = ${formatPrice(i.product.price * i.quantity)}`
     );
     const text = [
-      "Hi Cali Packs — I'd like to place an order:",
+      "Hi Cali Smoke — I'd like to place an order:",
       "",
       ...lines,
       "",
@@ -196,13 +196,14 @@ export default function CheckoutPage() {
               <ul className="space-y-3 mb-4 max-h-64 overflow-y-auto">
                 {items.map((item) => (
                   <li key={item.product.id} className="flex gap-3">
-                    <div className="relative w-14 h-14 rounded-lg overflow-hidden bg-surface-100 shrink-0">
+                    <div className="relative w-14 h-14 rounded-lg overflow-hidden bg-white shrink-0 ring-1 ring-brand-100">
                       <Image
                         src={item.product.image}
                         alt=""
                         fill
                         sizes="56px"
-                        className="object-cover img-polish"
+                        quality={90}
+                        className="object-contain p-0.5"
                       />
                     </div>
                     <div className="min-w-0 flex-1">

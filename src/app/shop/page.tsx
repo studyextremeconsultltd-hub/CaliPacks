@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { ProductGrid } from "@/components/products/ProductGrid";
 import { ShopCategoriesNav } from "@/components/products/ShopCategoriesNav";
+import { PageHero } from "@/components/layout/PageHero";
 import { products, searchProducts } from "@/data/products";
 import Link from "next/link";
 
@@ -28,16 +29,33 @@ export default async function ShopPage({ searchParams }: ShopPageProps) {
   }
 
   return (
-    <div className="py-8 md:py-12">
-      <div className="container-site">
+    <div className="bg-white">
+      {isNew && (
+        <PageHero
+          eyebrow="Fresh stock"
+          title="New"
+          accent="Arrivals"
+          description="The latest packs, cases, glassware, scales and shop essentials—freshly added and ready for UK delivery."
+          images={[
+            "/products/cali-28.jpg",
+            "/products/cali-13.jpg",
+            "/products/cali-18.jpg",
+          ]}
+          ctaLabel="View all products"
+          ctaHref="/shop"
+        />
+      )}
+      <div className="container-site py-8 md:py-12">
         <div className="mb-8">
-          <h1 className="text-3xl md:text-4xl font-black text-black tracking-tight mb-2">
-            {query
-              ? `Results for "${query}"`
-              : isNew
-                ? "New Arrivals"
-                : "All Products"}
-          </h1>
+          {isNew ? (
+            <h2 className="mb-2 text-2xl font-black tracking-tight text-black md:text-3xl">
+              Available now
+            </h2>
+          ) : (
+            <h1 className="mb-2 text-3xl font-black tracking-tight text-black md:text-4xl">
+              {query ? `Results for "${query}"` : "All Products"}
+            </h1>
+          )}
           <p className="text-black/55 font-semibold">
             {displayProducts.length} product{displayProducts.length !== 1 ? "s" : ""} available
             {isNew ? " · fresh drops ready to ship" : ""}

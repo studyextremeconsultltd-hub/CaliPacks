@@ -1,126 +1,96 @@
-"use client";
-
-import { useEffect, useRef } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { categories } from "@/data/categories";
 import { ArrowRight } from "lucide-react";
 
 export function CategoryShowcase() {
-  const trackRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const el = trackRef.current;
-    if (!el) return;
-    let frame = 0;
-    let x = 0;
-    const speed = 0.55;
-    let paused = false;
-
-    const onEnter = () => {
-      paused = true;
-    };
-    const onLeave = () => {
-      paused = false;
-    };
-    el.addEventListener("mouseenter", onEnter);
-    el.addEventListener("mouseleave", onLeave);
-
-    const tick = () => {
-      if (!paused) {
-        x += speed;
-        const half = el.scrollWidth / 2;
-        if (x >= half) x = 0;
-        el.style.transform = `translateX(-${x}px)`;
-      }
-      frame = requestAnimationFrame(tick);
-    };
-    frame = requestAnimationFrame(tick);
-
-    return () => {
-      cancelAnimationFrame(frame);
-      el.removeEventListener("mouseenter", onEnter);
-      el.removeEventListener("mouseleave", onLeave);
-    };
-  }, []);
-
-  const loop = [...categories, ...categories];
+  const categoryLoop = [...categories, ...categories];
 
   return (
-    <section className="relative py-16 md:py-20 overflow-hidden">
-      {/* Picture background */}
+    <section className="relative overflow-hidden py-14 md:py-20">
       <div className="absolute inset-0">
-        <Image
-          src="/products/cali-06.jpg"
-          alt=""
-          fill
-          sizes="100vw"
-          quality={80}
-          className="object-cover img-polish scale-105"
-        />
-        <div className="absolute inset-0 bg-gradient-to-b from-white/92 via-brand-50/90 to-white/95" />
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_rgba(236,72,153,0.18),_transparent_55%)]" />
+        <div className="absolute inset-0 bg-gradient-to-b from-white via-brand-50 to-white" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_rgba(236,72,153,0.2),_transparent_58%)]" />
       </div>
 
-      <div className="container-site relative mb-8">
-        <div className="rounded-2xl border-2 border-brand-400 bg-white/85 backdrop-blur-sm px-5 py-5 sm:px-7 sm:py-6 shadow-[0_10px_40px_rgba(236,72,153,0.2)]">
-          <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4">
+      <div className="container-site relative mb-7 sm:mb-9">
+        <div className="relative overflow-hidden rounded-[1.75rem] bg-gradient-to-br from-brand-950 via-brand-800 to-fuchsia-700 px-6 py-7 shadow-[0_20px_60px_rgba(190,24,93,0.3)] sm:px-9 sm:py-9">
+          <div className="absolute -right-12 -top-16 h-52 w-52 rounded-full bg-white/10 blur-2xl" />
+          <div className="absolute -bottom-16 left-1/3 h-44 w-44 rounded-full bg-brand-300/15 blur-2xl" />
+          <div className="relative flex flex-col gap-5 md:flex-row md:items-end md:justify-between">
             <div>
-              <span className="inline-block px-4 py-1.5 rounded-full border border-brand-400 bg-black text-brand-200 text-xs font-black uppercase tracking-widest mb-3 shadow-sm">
-                Collections
+              <span className="mb-4 inline-flex items-center gap-2 rounded-full bg-white/12 px-4 py-2 text-[10px] font-black uppercase tracking-[0.2em] text-brand-100 shadow-sm sm:text-xs">
+                <span className="h-2 w-2 rounded-full bg-brand-300 shadow-[0_0_10px_rgba(249,168,212,0.9)]" />
+                06 Bold Collections
               </span>
-              <h2 className="font-display text-3xl md:text-4xl font-black tracking-tight text-gradient-pink shine-text">
-                Shop by Category
+              <h2 className="font-display text-4xl font-black leading-none tracking-tight text-white md:text-5xl">
+                Shop by{" "}
+                <span className="bg-gradient-to-r from-brand-200 via-white to-brand-300 bg-clip-text text-transparent">
+                  Category
+                </span>
               </h2>
-              <p className="text-black/60 mt-2 max-w-md text-sm md:text-base font-bold border-b-2 border-brand-300 pb-2 inline-block">
-                One scroll. Every sellable category — packs, glass, scales &amp; accessories.
+              <p className="mt-4 max-w-2xl text-sm font-bold leading-relaxed text-white/75 md:text-base">
+                Explore our complete range of packs, jars, glassware, scales,
+                accessories and premium hookahs.
               </p>
             </div>
             <Link
               href="/shop"
-              className="inline-flex items-center gap-1.5 text-sm font-black text-black hover:text-brand-600"
+              className="inline-flex w-fit items-center gap-2 rounded-xl bg-white px-5 py-3 text-sm font-black text-brand-800 shadow-lg transition hover:-translate-y-0.5 hover:bg-brand-50"
             >
               View all products
-              <ArrowRight className="w-4 h-4" />
+              <ArrowRight className="h-4 w-4" />
             </Link>
           </div>
         </div>
       </div>
 
-      <div className="relative">
-        <div ref={trackRef} className="flex gap-6 w-max px-4 sm:px-6 lg:px-8 will-change-transform">
-          {loop.map((category, i) => (
-            <Link
-              key={`${category.id}-${i}`}
-              href={`/shop/${category.slug}`}
-              className="group relative w-[280px] sm:w-[340px] rounded-3xl overflow-hidden aspect-[4/5] bg-white ring-2 ring-brand-300 shadow-xl shadow-brand-200/50 hover:ring-brand-500 hover:scale-[1.03] transition-all shrink-0"
-            >
-              <Image
-                src={category.image}
-                alt={category.name}
-                fill
-                sizes="340px"
-                quality={90}
-                className="object-cover img-polish group-hover:scale-110 transition-transform duration-700"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-brand-900/25 to-transparent" />
-              <div className="absolute top-0 left-0 w-14 h-14 bg-brand-500/80 rounded-br-3xl" />
-              <div className="absolute bottom-0 right-0 w-12 h-12 bg-brand-300/70 rounded-tl-3xl" />
-              <div className="absolute bottom-0 left-0 right-0 p-5">
-                <p className="text-[10px] font-black uppercase tracking-widest text-brand-200 mb-1">
-                  {category.tagline}
-                </p>
-                <h3 className="font-display font-black text-2xl text-white">{category.name}</h3>
-                <p className="text-xs text-white/75 mt-1 font-bold">
+      <div className="category-slider-shell relative">
+        <div className="category-marquee flex w-max gap-5">
+          {categoryLoop.map((category, index) => {
+            const isDuplicate = index >= categories.length;
+
+            return (
+              <Link
+                key={`${category.id}-${index}`}
+                href={`/shop/${category.slug}`}
+                aria-hidden={isDuplicate}
+                tabIndex={isDuplicate ? -1 : undefined}
+                className="group relative aspect-[4/5] w-[240px] shrink-0 overflow-hidden rounded-[1.6rem] bg-white shadow-[0_16px_40px_rgba(190,24,93,0.2)] transition hover:-translate-y-1 hover:shadow-[0_22px_55px_rgba(190,24,93,0.34)] sm:w-[280px] lg:w-[300px]"
+              >
+                <Image
+                  src={category.image}
+                  alt={isDuplicate ? "" : category.name}
+                  fill
+                  loading="lazy"
+                  sizes="(max-width: 640px) 240px, (max-width: 1024px) 280px, 300px"
+                  quality={90}
+                  className="object-contain p-2 transition-transform duration-700 group-hover:scale-105"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black via-brand-950/45 to-transparent" />
+                <div className="absolute left-4 top-4 rounded-full bg-white/90 px-3 py-1.5 text-[10px] font-black uppercase tracking-wider text-brand-800 shadow-lg">
                   {category.productCount}+ products
-                </p>
-              </div>
-              <div className="absolute top-4 right-4 w-10 h-10 rounded-full bg-white text-brand-600 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity shadow-lg">
-                <ArrowRight className="w-5 h-5" />
-              </div>
-            </Link>
-          ))}
+                </div>
+                <div className="absolute bottom-0 left-0 right-0 p-5 sm:p-6">
+                  <p className="mb-1.5 text-[10px] font-black uppercase tracking-[0.16em] text-brand-200">
+                    {category.tagline}
+                  </p>
+                  <h3 className="font-display text-2xl font-black leading-tight text-white sm:text-3xl">
+                    {category.name}
+                  </h3>
+                  <p className="mt-2 line-clamp-2 text-xs font-semibold leading-relaxed text-white/70">
+                    {category.description}
+                  </p>
+                </div>
+                <div className="absolute bottom-5 right-5 flex h-10 w-10 items-center justify-center rounded-full bg-brand-500 text-white opacity-0 shadow-lg transition group-hover:opacity-100">
+                  <ArrowRight className="h-5 w-5" />
+                </div>
+              </Link>
+            );
+          })}
         </div>
+        <div className="pointer-events-none absolute inset-y-0 left-0 w-10 bg-gradient-to-r from-white to-transparent sm:w-20" />
+        <div className="pointer-events-none absolute inset-y-0 right-0 w-10 bg-gradient-to-l from-white to-transparent sm:w-20" />
       </div>
     </section>
   );

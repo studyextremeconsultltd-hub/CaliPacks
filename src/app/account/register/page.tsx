@@ -3,7 +3,7 @@ import Link from "next/link";
 
 export const metadata: Metadata = {
   title: "Register",
-  description: "Create a Cali Packs account for order tracking and faster checkout.",
+  description: "Create a Cali Smoke account for order tracking and faster checkout.",
 };
 
 export default function RegisterPage() {

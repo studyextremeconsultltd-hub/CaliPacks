@@ -16,18 +16,21 @@ export function Header() {
   const [searchQuery, setSearchQuery] = useState("");
 
   const navLinkClass =
-    "px-4 py-2.5 text-[15px] font-extrabold tracking-wide text-black hover:text-brand-600 hover:bg-brand-50 rounded-xl transition-colors";
+    "px-4 py-2.5 text-[15px] font-black tracking-wide text-brand-950 bg-gradient-to-br from-white via-brand-50 to-brand-200 hover:from-brand-100 hover:via-brand-200 hover:to-brand-300 rounded-2xl transition-all shadow-[0_8px_24px_rgba(236,72,153,0.16)] hover:shadow-[0_12px_30px_rgba(236,72,153,0.28)] hover:-translate-y-0.5";
 
   return (
-    <header className="sticky top-0 z-50 bg-white/95 backdrop-blur-md border-b-2 border-brand-200 shadow-md shadow-brand-100/50">
+    <header className="sticky top-0 z-50 bg-white/90 backdrop-blur-xl shadow-[0_12px_36px_rgba(80,7,36,0.10)]">
       <div className="container-site">
         <div className="flex items-center justify-between h-16 lg:h-[80px]">
-          <Link href="/" className="group">
+          <Link
+            href="/"
+            className="group rounded-2xl bg-gradient-to-r from-white via-brand-50/80 to-white px-2 py-1 shadow-[0_8px_28px_rgba(236,72,153,0.12)]"
+          >
             <Logo size="md" />
           </Link>
 
           {/* Desktop Nav — Shop → Contact Us */}
-          <nav className="hidden lg:flex items-center gap-0.5">
+          <nav className="hidden lg:flex items-center gap-3">
             {mainNav.map((item) =>
               item.children ? (
                 <div
@@ -40,7 +43,7 @@ export function Header() {
                     className={cn(
                       "flex items-center gap-1",
                       navLinkClass,
-                      shopOpen && "text-brand-600 bg-brand-50"
+                      shopOpen && "from-brand-500 via-brand-500 to-brand-400 text-white"
                     )}
                   >
                     {item.label}
@@ -80,21 +83,21 @@ export function Header() {
           <div className="flex items-center gap-1 sm:gap-2">
             <button
               onClick={() => setSearchOpen(!searchOpen)}
-              className="p-2.5 rounded-lg text-black hover:bg-brand-50 hover:text-brand-600 transition-colors"
+              className="p-2.5 rounded-xl bg-brand-50/80 text-brand-950 hover:bg-brand-200 hover:text-brand-700 transition-colors"
               aria-label="Search"
             >
               <Search className="w-5 h-5" />
             </button>
             <Link
               href="/account"
-              className="hidden sm:flex p-2.5 rounded-lg text-black hover:bg-brand-50 hover:text-brand-600 transition-colors"
+              className="hidden sm:flex p-2.5 rounded-xl bg-brand-50/80 text-brand-950 hover:bg-brand-200 hover:text-brand-700 transition-colors"
               aria-label="Account"
             >
               <User className="w-5 h-5" />
             </Link>
             <Link
               href="/cart"
-              className="relative p-2.5 rounded-lg text-black hover:bg-brand-50 hover:text-brand-600 transition-colors"
+              className="relative p-2.5 rounded-xl bg-brand-50/80 text-brand-950 hover:bg-brand-200 hover:text-brand-700 transition-colors"
               aria-label="Cart"
             >
               <ShoppingBag className="w-5 h-5" />
@@ -106,7 +109,7 @@ export function Header() {
             </Link>
             <button
               onClick={() => setMobileOpen(!mobileOpen)}
-              className="lg:hidden p-2.5 rounded-lg text-black hover:bg-brand-50 transition-colors"
+              className="lg:hidden p-2.5 rounded-xl bg-brand-50/80 text-brand-950 hover:bg-brand-200 transition-colors"
               aria-label="Menu"
             >
               {mobileOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
@@ -133,7 +136,7 @@ export function Header() {
       </div>
 
       {mobileOpen && (
-        <div className="lg:hidden border-t-2 border-brand-100 bg-white">
+        <div className="lg:hidden bg-white/95 shadow-[0_16px_30px_rgba(80,7,36,0.10)]">
           <nav className="container-site py-4 space-y-1">
             {mainNav.map((item) =>
               item.children ? (

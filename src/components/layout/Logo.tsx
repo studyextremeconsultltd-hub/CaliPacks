@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { cn } from "@/lib/utils";
 
 interface LogoProps {
@@ -24,50 +25,22 @@ export function Logo({
 
   return (
     <div className={cn("flex items-center gap-3 group", className)}>
-      {/* Catchy hex pack mark */}
       <div
-        className="relative flex-shrink-0 logo-pulse"
+        className="logo-motion relative flex-shrink-0 rounded-[34%] bg-gradient-to-br from-brand-200 via-brand-500 to-fuchsia-400 p-[2px] shadow-[0_0_26px_rgba(236,72,153,0.48)]"
         style={{ width: s.box, height: s.box }}
       >
-        <div className="absolute inset-0 rounded-[30%] bg-gradient-to-br from-brand-300 via-brand-500 to-brand-700 rotate-6 group-hover:rotate-12 transition-transform duration-500" />
-        <div className="absolute inset-[3px] rounded-[28%] bg-white flex items-center justify-center overflow-hidden shadow-inner">
-          <div className="absolute inset-0 bg-gradient-to-tr from-brand-100 via-white to-brand-50" />
-          <svg viewBox="0 0 64 64" className="relative w-[78%] h-[78%] drop-shadow-sm" aria-hidden="true">
-            <defs>
-              <linearGradient id="logoShine" x1="0" y1="0" x2="64" y2="64">
-                <stop offset="0%" stopColor="#f9a8d4" />
-                <stop offset="40%" stopColor="#ec4899" />
-                <stop offset="100%" stopColor="#be185d" />
-              </linearGradient>
-            </defs>
-            {/* Pack body */}
-            <path
-              d="M18 14h28l-3 36H21L18 14z"
-              fill="url(#logoShine)"
-              opacity="0.95"
-            />
-            <path
-              d="M24 14V10a8 8 0 0116 0v4"
-              stroke="#be185d"
-              strokeWidth="2.5"
-              fill="none"
-              strokeLinecap="round"
-            />
-            <rect x="26" y="26" width="12" height="12" rx="2" fill="white" opacity="0.9" />
-            <text
-              x="32"
-              y="35"
-              textAnchor="middle"
-              fontSize="8"
-              fontWeight="900"
-              fill="#db2777"
-              fontFamily="system-ui,sans-serif"
-            >
-              CP
-            </text>
-          </svg>
-          <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/50 to-transparent animate-[shine-sweep_2.8s_ease-in-out_infinite]" />
+        <div className="smoke-logo-blink relative h-full w-full overflow-hidden rounded-[32%] bg-black">
+          <Image
+            src="/cali-smoke-logo.png"
+            alt=""
+            fill
+            sizes={`${s.box}px`}
+            className="logo-breathe object-cover scale-110 transition-transform duration-500 group-hover:scale-125"
+            priority
+          />
+          <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/45 to-transparent animate-[shine-sweep_2.8s_ease-in-out_infinite]" />
         </div>
+        <span className="logo-orbit-dot absolute -right-1 -top-1 h-3 w-3 rounded-full bg-white shadow-[0_0_12px_4px_rgba(244,114,182,0.85)]" />
       </div>
 
       <div className="flex flex-col leading-none">
@@ -85,7 +58,7 @@ export function Logo({
               isLight && "drop-shadow-[0_0_12px_rgba(249,168,212,0.55)]"
             )}
           >
-            Packs
+            Smoke
           </span>
         </span>
         {showTagline && (
@@ -96,7 +69,7 @@ export function Logo({
               isLight ? "text-brand-200" : "text-brand-600"
             )}
           >
-            UK Best Sellers
+            Manchester Smoke Shop
           </span>
         )}
       </div>

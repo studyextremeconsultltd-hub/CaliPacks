@@ -59,14 +59,15 @@ export default function CartPage() {
               >
                 <Link
                   href={`/product/${item.product.slug}`}
-                  className="relative w-24 h-24 rounded-lg overflow-hidden bg-surface-100 flex-shrink-0"
+                  className="relative w-24 h-24 rounded-lg overflow-hidden bg-white flex-shrink-0 ring-1 ring-brand-100"
                 >
                   <Image
                     src={item.product.image}
                     alt={item.product.name}
                     fill
                     sizes="96px"
-                    className="object-cover"
+                    quality={90}
+                    className="object-contain p-1"
                   />
                 </Link>
                 <div className="flex-1 min-w-0">

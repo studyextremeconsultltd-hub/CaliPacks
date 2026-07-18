@@ -44,14 +44,15 @@ export function ProductCard({ product, accentIndex = 0 }: ProductCardProps) {
       }
     >
       <Link href={`/product/${product.slug}`} className="block">
-        <div className="relative aspect-square rounded-xl overflow-hidden bg-brand-50 mb-3 ring-1 ring-brand-100">
+        <div className="relative aspect-[4/5] sm:aspect-square rounded-xl overflow-hidden bg-gradient-to-b from-white to-brand-50/40 mb-3 ring-1 ring-brand-100">
           <Image
             src={product.image}
             alt={product.name}
             fill
-            sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
-            quality={90}
-            className="object-cover img-polish group-hover:scale-105 transition-transform duration-500"
+            sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 240px"
+            quality={75}
+            loading="lazy"
+            className="object-contain p-1.5 group-hover:scale-105 transition-transform duration-300"
           />
           {product.isNew && (
             <span className="absolute top-2.5 left-2.5 px-2.5 py-1 bg-brand-600 text-white text-[10px] font-bold uppercase tracking-wider rounded-full shadow-md">
