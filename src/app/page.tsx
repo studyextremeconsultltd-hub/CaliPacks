@@ -8,25 +8,17 @@ import { TrustBadges } from "@/components/layout/AnnouncementBar";
 import { heroBanners } from "@/data/hero-banners";
 import { getLatestCaliPacks, getShopDisplayProducts, products } from "@/data/products";
 
-/** Hero preview tiles — unique files never used in homepage product grids */
-function getUniqueHeroPreviewImages(): string[] {
-  const usedOnPage = new Set<string>();
-
-  for (const p of getLatestCaliPacks(8)) usedOnPage.add(p.image);
-  for (const p of getShopDisplayProducts()) usedOnPage.add(p.image);
-
-  // Prefer distinct catalogue shots not already on the homepage sections
-  const candidates = products
+/** All catalogue images for hero tiles — 4 shown at a time, rotating through the full set */
+function getHeroProductImages(): string[] {
+  return products
     .map((p) => p.image)
-    .filter((src, i, arr) => arr.indexOf(src) === i && !usedOnPage.has(src));
-
-  return candidates.slice(0, 12);
+    .filter((src, i, arr) => arr.indexOf(src) === i);
 }
 
 export default function HomePage() {
   const caliPacks = getLatestCaliPacks(8);
   const shopDisplayProducts = getShopDisplayProducts();
-  const productImages = getUniqueHeroPreviewImages();
+  const productImages = getHeroProductImages();
 
   return (
     <>
@@ -34,7 +26,7 @@ export default function HomePage() {
       <TrustBadges />
       <CategorySection
         title="Latest Cali Packs"
-        subtitle="Fresh designs with clear AI studio photography — packs and jars priced for UK shops."
+        subtitle="Fresh designs with clear studio photography — packs and jars priced for UK shops."
         products={caliPacks}
         viewAllHref="/shop/cali-packs"
         className="py-14 md:py-20"

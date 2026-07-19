@@ -37,7 +37,7 @@ export default async function ShopPage({ searchParams }: ShopPageProps) {
           accent="Arrivals"
           description="The latest packs, cases, glassware, scales and shop essentials—freshly added and ready for UK delivery."
           images={[
-            "/products/cali-28.jpg",
+            "/products/cali-06.jpg",
             "/products/cali-13.jpg",
             "/products/cali-18.jpg",
           ]}

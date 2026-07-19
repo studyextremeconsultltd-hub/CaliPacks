@@ -3,7 +3,7 @@
 import { useEffect, useMemo, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowRight, ChevronLeft, ChevronRight, Sparkles } from "lucide-react";
+import { ArrowRight, ChevronLeft, ChevronRight } from "lucide-react";
 import { HeroBanner } from "@/data/hero-banners";
 
 interface HeroBannerSliderProps {
@@ -11,6 +11,7 @@ interface HeroBannerSliderProps {
   productImages: string[];
 }
 
+/** Hero with rotating 4-product tiles (cycles through catalogue instantly) */
 export function HeroBannerSlider({
   banners,
   productImages,
@@ -22,7 +23,6 @@ export function HeroBannerSlider({
   const total = banners.length;
   const isRunning = !isHovered && isPageVisible;
 
-  // De-dupe preview images so the same file never appears twice in the hero grid
   const uniquePreviews = useMemo(
     () => Array.from(new Set(productImages.filter(Boolean))),
     [productImages]
@@ -48,7 +48,7 @@ export function HeroBannerSlider({
     if (!isRunning || uniquePreviews.length <= 4) return;
     const timer = window.setInterval(
       () => setTileOffset((offset) => (offset + 4) % uniquePreviews.length),
-      3200
+      2800
     );
     return () => window.clearInterval(timer);
   }, [isRunning, uniquePreviews.length]);
@@ -76,13 +76,13 @@ export function HeroBannerSlider({
     >
       <div className="container-site relative">
         <div className="hero-frame-glow relative overflow-hidden rounded-[1.5rem] border border-brand-200/40 bg-black shadow-[0_24px_70px_rgba(15,10,20,0.35)] sm:rounded-3xl">
-          <div key={activeBanner.id} className="hero-slide-enter absolute inset-0">
+          <div key={activeBanner.id} className="absolute inset-0">
             <div className="hero-kenburns-active absolute inset-0">
               <Image
                 src={activeBanner.image}
                 alt={activeBanner.imageAlt}
                 fill
-                sizes="(max-width: 768px) 100vw, (max-width: 1280px) 100vw, 1280px"
+                sizes="(max-width: 1280px) 100vw, 1280px"
                 quality={75}
                 priority={activeIndex === 0}
                 className="object-cover object-center"
@@ -92,23 +92,12 @@ export function HeroBannerSlider({
             <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-black/20" />
           </div>
 
-          <div className="absolute right-3 top-3 z-20 flex flex-col items-end gap-2 sm:right-6 sm:top-6">
-            <div className="rounded-xl bg-black/80 px-3 py-2 font-display text-xs font-black tracking-[0.12em] text-white shadow-lg backdrop-blur-md sm:px-4 sm:text-base">
-              CALI <span className="text-brand-300">PACKS</span>
-            </div>
-            <div className="inline-flex items-center gap-1.5 rounded-full border border-brand-300/40 bg-brand-600/30 px-3 py-1 text-[10px] font-black uppercase tracking-widest text-brand-100 backdrop-blur-md">
-              <Sparkles className="h-3 w-3" />
-              AI Studio Photos
-            </div>
-          </div>
-
-          <div className="relative z-10 grid min-h-[480px] lg:min-h-[460px] lg:grid-cols-[1.05fr_0.95fr]">
-            <div className="flex flex-col justify-center px-5 pb-6 pt-24 sm:px-8 sm:py-12 lg:px-11">
+          <div className="relative z-10 grid min-h-[480px] lg:min-h-[500px] lg:grid-cols-[1.05fr_0.95fr]">
+            <div className="flex flex-col justify-center px-5 pb-6 pt-16 sm:px-8 sm:py-12 lg:px-11">
               <div className="max-w-lg">
-                <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/10 px-3 py-1.5 text-[10px] font-black uppercase tracking-widest text-brand-100 backdrop-blur-md sm:text-xs">
-                  <Sparkles className="h-3.5 w-3.5 text-brand-300" />
-                  UK Wholesale Ready
-                </div>
+                <p className="mb-4 text-[11px] font-bold uppercase tracking-[0.24em] text-brand-200 sm:text-xs">
+                  Cali Smoke · Manchester
+                </p>
                 <h1 className="font-display text-3xl font-black leading-[1.08] tracking-tight text-white drop-shadow-lg sm:text-4xl lg:text-[2.85rem]">
                   {activeBanner.headline}
                 </h1>
@@ -135,8 +124,8 @@ export function HeroBannerSlider({
 
             <div className="relative px-3 pb-10 pt-2 sm:p-5 lg:p-6 lg:pl-2">
               <div className="mb-2 flex items-center justify-between px-1 text-[10px] font-black uppercase tracking-[0.16em] text-white/70 sm:text-xs">
-                <span>Product highlights</span>
-                <span>{uniquePreviews.length} unique</span>
+                <span>Products</span>
+                <span>{uniquePreviews.length} in catalogue</span>
               </div>
               <div className="grid h-36 grid-cols-4 gap-2 sm:h-auto sm:min-h-[340px] sm:grid-cols-2 sm:gap-3.5 lg:min-h-[390px]">
                 {showcase.map((src, index) => (
@@ -150,7 +139,7 @@ export function HeroBannerSlider({
                       fill
                       sizes="(max-width: 639px) 22vw, (max-width: 1024px) 40vw, 280px"
                       quality={75}
-                      className="object-contain p-1.5"
+                      className="object-contain object-center p-2 sm:p-3"
                     />
                   </div>
                 ))}
@@ -161,6 +150,7 @@ export function HeroBannerSlider({
           {total > 1 && (
             <>
               <button
+                type="button"
                 onClick={() => goTo(activeIndex - 1)}
                 className="absolute bottom-3 left-3 z-30 flex h-9 w-9 items-center justify-center rounded-full bg-white/95 text-brand-700 shadow-lg transition hover:bg-brand-600 hover:text-white sm:bottom-auto sm:left-3 sm:top-1/2 sm:-translate-y-1/2"
                 aria-label="Previous hero image"
@@ -168,6 +158,7 @@ export function HeroBannerSlider({
                 <ChevronLeft className="h-5 w-5" />
               </button>
               <button
+                type="button"
                 onClick={() => goTo(activeIndex + 1)}
                 className="absolute bottom-3 right-3 z-30 flex h-9 w-9 items-center justify-center rounded-full bg-white/95 text-brand-700 shadow-lg transition hover:bg-brand-600 hover:text-white sm:bottom-auto sm:right-3 sm:top-1/2 sm:-translate-y-1/2"
                 aria-label="Next hero image"
@@ -178,6 +169,7 @@ export function HeroBannerSlider({
                 {banners.map((banner, index) => (
                   <button
                     key={banner.id}
+                    type="button"
                     onClick={() => goTo(index)}
                     className={`h-1.5 rounded-full transition-all ${
                       index === activeIndex ? "w-8 bg-brand-300" : "w-2 bg-white/55"

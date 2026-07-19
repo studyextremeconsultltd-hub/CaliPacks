@@ -24,7 +24,7 @@ export function Header() {
         <div className="flex items-center justify-between h-16 lg:h-[80px]">
           <Link
             href="/"
-            className="group rounded-2xl bg-gradient-to-r from-white via-brand-50/80 to-white px-2 py-1 shadow-[0_8px_28px_rgba(236,72,153,0.12)]"
+            className="rounded-xl px-1 py-0.5 transition hover:opacity-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-300"
           >
             <Logo size="md" />
           </Link>

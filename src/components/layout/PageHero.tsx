@@ -12,6 +12,15 @@ interface PageHeroProps {
   ctaHref?: string;
 }
 
+function isProductShot(src: string) {
+  return src.includes("/products/");
+}
+
+/**
+ * Page hero with properly framed images:
+ * - Product shots: white frame + object-contain (full product visible)
+ * - Scene photos: object-cover
+ */
 export function PageHero({
   eyebrow,
   title,
@@ -21,12 +30,12 @@ export function PageHero({
   ctaLabel,
   ctaHref,
 }: PageHeroProps) {
-  const showcase = images.slice(0, 3);
+  const showcase = images.filter(Boolean).slice(0, 3);
 
   return (
     <section className="bg-gradient-to-b from-brand-50/80 to-white py-4 sm:py-7">
       <div className="container-site">
-        <div className="grid overflow-hidden rounded-[1.75rem] bg-gradient-to-br from-brand-950 via-brand-900 to-fuchsia-800 shadow-[0_22px_65px_rgba(190,24,93,0.24)] lg:min-h-[330px] lg:grid-cols-[0.9fr_1.1fr]">
+        <div className="grid overflow-hidden rounded-[1.75rem] bg-gradient-to-br from-brand-950 via-brand-900 to-fuchsia-800 shadow-[0_22px_65px_rgba(190,24,93,0.24)] lg:min-h-[340px] lg:grid-cols-[0.95fr_1.05fr]">
           <div className="flex flex-col justify-center px-6 py-9 sm:px-9 lg:px-12">
             <div className="mb-4 inline-flex w-fit items-center gap-2 rounded-full bg-white/10 px-3 py-1.5 text-[10px] font-black uppercase tracking-[0.18em] text-brand-100 sm:text-xs">
               <Sparkles className="h-3.5 w-3.5 text-brand-300" />
@@ -52,26 +61,37 @@ export function PageHero({
             )}
           </div>
 
-          <div className="grid h-52 grid-cols-2 gap-2 p-3 sm:h-64 sm:gap-3 sm:p-4 lg:h-auto">
-            {showcase.map((src, index) => (
-              <div
-                key={src}
-                className={`relative overflow-hidden rounded-2xl bg-brand-100 ${
-                  index === 0 ? "row-span-2" : ""
-                }`}
-              >
-                <Image
-                  src={src}
-                  alt=""
-                  fill
-                  priority={index === 0}
-                  sizes="(max-width: 1024px) 50vw, 28vw"
-                  quality={75}
-                  className="object-cover"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-brand-950/25 to-transparent" />
-              </div>
-            ))}
+          <div className="grid h-56 grid-cols-2 grid-rows-2 gap-2.5 bg-black/20 p-3 sm:h-72 sm:gap-3 sm:p-4 lg:h-auto lg:min-h-[340px]">
+            {showcase.map((src, index) => {
+              const product = isProductShot(src);
+              const isMain = index === 0;
+              return (
+                <div
+                  key={`${src}-${index}`}
+                  className={`relative overflow-hidden rounded-2xl ring-1 ring-white/15 ${
+                    isMain ? "row-span-2" : ""
+                  } ${product ? "bg-white" : "bg-brand-950"}`}
+                >
+                  <Image
+                    src={src}
+                    alt=""
+                    fill
+                    priority={isMain}
+                    sizes={
+                      isMain
+                        ? "(max-width: 1024px) 50vw, 28vw"
+                        : "(max-width: 1024px) 25vw, 16vw"
+                    }
+                    quality={75}
+                    className={
+                      product
+                        ? "object-contain object-center p-3 sm:p-4"
+                        : "object-cover object-center"
+                    }
+                  />
+                </div>
+              );
+            })}
           </div>
         </div>
       </div>

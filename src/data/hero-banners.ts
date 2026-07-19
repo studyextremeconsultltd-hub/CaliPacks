@@ -10,12 +10,12 @@ export interface HeroBanner {
   floatingImages: string[];
 }
 
-/** AI studio shots first — fast JPG heroes for the top of the homepage */
+/** Homepage hero banners */
 export const heroBanners: HeroBanner[] = [
   {
-    id: "hero-ai-studio",
+    id: "hero-studio",
     image: "/ai-hero-studio.jpg",
-    imageAlt: "Cali Packs AI studio product collection on white",
+    imageAlt: "Cali Packs studio product collection",
     mood: "pink",
     headline: "Studio-Clear Product Photos.",
     subline:
@@ -25,9 +25,9 @@ export const heroBanners: HeroBanner[] = [
     floatingImages: [],
   },
   {
-    id: "hero-ai-packs",
+    id: "hero-packs",
     image: "/ai-hero-packs.jpg",
-    imageAlt: "Premium Cali Packs fanned studio hero",
+    imageAlt: "Premium Cali Packs display",
     mood: "purple",
     headline: "Packs That Stop the Scroll.",
     subline: "Bold designs, smell-proof finish — wholesale-ready for UK smoke shops.",
@@ -36,9 +36,9 @@ export const heroBanners: HeroBanner[] = [
     floatingImages: [],
   },
   {
-    id: "hero-ai-essentials",
+    id: "hero-essentials",
     image: "/ai-hero-banner.jpg",
-    imageAlt: "Premium Cali Packs tools and essentials studio banner",
+    imageAlt: "Scales and shop essentials",
     mood: "teal",
     headline: "Scales, Sealers & Essentials",
     subline: "Counter-ready tools and packaging — add to cart for 2–3 day UK delivery.",

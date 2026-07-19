@@ -462,6 +462,73 @@
   }
 }
 
+/* AutoMexa-style static mark with living glow (no rotation) */
+.logo-automexa-stage {
+  position: relative;
+}
+
+.logo-automexa-mark {
+  filter: drop-shadow(0 0 6px rgba(236, 72, 153, 0.55))
+    drop-shadow(0 0 14px rgba(236, 72, 153, 0.35));
+  animation: logo-automexa-mark-glow 2.6s ease-in-out infinite;
+}
+
+.logo-automexa-glow {
+  background: radial-gradient(
+    circle,
+    rgba(236, 72, 153, 0.65) 0%,
+    rgba(244, 114, 182, 0.28) 40%,
+    transparent 70%
+  );
+  animation: logo-automexa-pulse 2.4s ease-in-out infinite;
+  pointer-events: none;
+}
+
+@keyframes logo-automexa-pulse {
+  0%,
+  100% {
+    opacity: 0.45;
+    transform: scale(0.9);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.12);
+  }
+}
+
+@keyframes logo-automexa-mark-glow {
+  0%,
+  100% {
+    filter: drop-shadow(0 0 5px rgba(236, 72, 153, 0.45))
+      drop-shadow(0 0 12px rgba(236, 72, 153, 0.28));
+  }
+  50% {
+    filter: drop-shadow(0 0 12px rgba(236, 72, 153, 0.95))
+      drop-shadow(0 0 28px rgba(249, 168, 212, 0.65));
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .logo-automexa-glow,
+  .logo-automexa-mark {
+    animation: none;
+  }
+}
+
+.logo-cs-spin {
+  /* unused — kept harmlessly static */
+}
+
+.logo-mark-glow-dark {
+  filter: drop-shadow(0 0 8px rgba(236, 72, 153, 0.55))
+    drop-shadow(0 0 18px rgba(236, 72, 153, 0.35));
+}
+
+.logo-mark-glow-light {
+  filter: drop-shadow(0 0 10px rgba(249, 168, 212, 0.75))
+    drop-shadow(0 0 22px rgba(236, 72, 153, 0.45));
+}
+
 @keyframes float-a {
   0%,
   100% {
