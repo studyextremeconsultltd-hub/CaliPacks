@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { WithTrustBadges } from "@/components/layout/WithTrustBadges";
 import { pageUrl } from "@/lib/site";
 
 export const metadata: Metadata = {
@@ -18,5 +19,5 @@ export default function ContactLayout({
 }: {
   children: React.ReactNode;
 }) {
-  return children;
+  return <WithTrustBadges>{children}</WithTrustBadges>;
 }

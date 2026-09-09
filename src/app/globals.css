@@ -28,7 +28,7 @@
   --color-surface-950: #0a0a0a;
 
   --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
-  --font-display: var(--font-playfair), Georgia, serif;
+  --font-display: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
 }
 
 @layer base {
@@ -98,8 +98,10 @@
     transform: scale(1.2);
   }
 
-  .group:hover .pack-fill {
-    transform: scale(1.26);
+  @media (min-width: 768px) {
+    .group:hover .pack-fill {
+      transform: scale(1.26);
+    }
   }
 
   .logo-pulse {
@@ -376,6 +378,10 @@
 }
 
 @media (max-width: 767px) {
+  html {
+    scroll-behavior: auto;
+  }
+
   .hero-frame-glow,
   .hero-orb,
   .hero-orb-delay,

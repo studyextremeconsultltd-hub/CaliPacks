@@ -10,7 +10,7 @@ export function StorefrontShowcase() {
       <div className="container-site relative">
         <div className="relative min-h-[520px] overflow-hidden rounded-[2rem] border-2 border-brand-400 storefront-glow">
           <Image
-            src="/cali-smoke-storefront.jpg"
+            src="/cali-smoke-storefront.webp"
             alt="Smoke Cali shop front in Manchester"
             fill
             sizes="(max-width: 1280px) 100vw, 1280px"

@@ -19,9 +19,8 @@ export function HomepageMap() {
           </p>
         </div>
 
-        <div className="relative rounded-3xl overflow-hidden border-[3px] border-brand-400 shadow-[0_0_50px_rgba(236,72,153,0.35)] map-glow">
-          <div className="absolute inset-0 pointer-events-none z-10 ring-1 ring-inset ring-white/20 rounded-3xl" />
-          <div className="bg-gradient-to-r from-black via-brand-900 to-black px-4 sm:px-6 py-3.5 flex flex-wrap items-center justify-between gap-3 relative z-20">
+        <div className="relative rounded-3xl overflow-hidden border-[3px] border-brand-400 shadow-[0_0_50px_rgba(236,72,153,0.35)]">
+          <div className="bg-gradient-to-r from-black via-brand-900 to-black px-4 sm:px-6 py-3.5 flex flex-wrap items-center justify-between gap-3">
             <div>
               <p className="text-base sm:text-lg font-black text-white">
                 {contactInfo.address}
@@ -43,14 +42,18 @@ export function HomepageMap() {
               Open in Google Maps
             </a>
           </div>
-          <iframe
-            title="Smoke Cali — 5 Sagar Street, Manchester"
-            src={contactInfo.mapEmbedUrl}
-            className="w-full h-[280px] sm:h-[360px] lg:h-[400px] border-0"
-            loading="lazy"
-            referrerPolicy="no-referrer-when-downgrade"
-            allowFullScreen
-          />
+          <a
+            href={contactInfo.mapLink}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex min-h-[168px] sm:min-h-[200px] flex-col items-center justify-center gap-2 bg-[radial-gradient(circle_at_30%_40%,rgba(236,72,153,0.22),transparent_46%),linear-gradient(180deg,#111827_0%,#1f2937_100%)] px-6 py-8 text-center"
+          >
+            <MapPin className="h-8 w-8 text-brand-300" />
+            <p className="text-sm font-black text-white">5 Sagar Street · M8 8EU</p>
+            <p className="text-xs font-semibold text-white/65">
+              Opens Google Maps — no map widgets are loaded on this page.
+            </p>
+          </a>
         </div>
       </div>
     </section>

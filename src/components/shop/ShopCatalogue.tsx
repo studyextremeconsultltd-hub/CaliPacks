@@ -48,9 +48,9 @@ export function ShopCatalogue() {
             : "108 named Cali Packs with clear HD photography. £0.20 per pack & minimum 50 pcs order."
         }
         images={[
-          "/products/pack-040.jpg",
-          "/products/pack-072.jpg",
-          "/products/pack-096.jpg",
+          "/products/pack-040.webp",
+          "/products/pack-072.webp",
+          "/products/pack-096.webp",
         ]}
         ctaLabel={isNew ? "View all packs" : undefined}
         ctaHref={isNew ? "/shop" : undefined}

@@ -18,15 +18,22 @@ export function HeroBannerSlider({ products }: HeroBannerSliderProps) {
       <div className="container-site relative">
         <div className="relative overflow-hidden rounded-[1.5rem] border border-brand-200/40 bg-black shadow-[0_24px_70px_rgba(15,10,20,0.35)] sm:rounded-3xl">
           <div className="absolute inset-0">
-            <Image
-              src="/hero-cali-packs.jpg"
-              alt="Smoke Cali Cali Packs wall"
-              fill
-              sizes="(max-width: 1280px) 100vw, 1280px"
-              quality={80}
-              priority
-              className="object-cover object-center"
-            />
+            <picture>
+              <source
+                media="(max-width: 767px)"
+                srcSet="/hero-cali-packs-mobile.webp"
+                type="image/webp"
+              />
+              <img
+                src="/hero-cali-packs.webp"
+                alt="Smoke Cali Cali Packs wall"
+                width={1280}
+                height={720}
+                fetchPriority="high"
+                decoding="async"
+                className="absolute inset-0 h-full w-full object-cover object-center"
+              />
+            </picture>
             <div className="absolute inset-0 bg-gradient-to-r from-black/92 via-black/70 to-black/30" />
             <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-transparent to-black/25" />
           </div>
@@ -71,7 +78,9 @@ export function HeroBannerSlider({ products }: HeroBannerSliderProps) {
                   <Link
                     key={product.id}
                     href={`/product/${product.slug}`}
-                    className="relative aspect-square overflow-hidden rounded-xl border border-white/20 bg-white sm:rounded-2xl sm:aspect-auto sm:min-h-[160px] lg:min-h-[185px]"
+                    className={`relative aspect-square overflow-hidden rounded-xl border border-white/20 bg-white sm:rounded-2xl sm:aspect-auto sm:min-h-[160px] lg:min-h-[185px]${
+                      index >= 2 ? " max-sm:hidden" : ""
+                    }`}
                   >
                     <Image
                       src={product.image}
@@ -79,7 +88,8 @@ export function HeroBannerSlider({ products }: HeroBannerSliderProps) {
                       fill
                       sizes="(max-width: 639px) 42vw, (max-width: 1024px) 28vw, 250px"
                       quality={70}
-                      priority={index < 2}
+                      loading="lazy"
+                      decoding="async"
                       className="pack-fill"
                     />
                   </Link>

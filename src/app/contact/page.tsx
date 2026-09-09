@@ -62,9 +62,9 @@ export default function ContactPage() {
         accent="Smoke Cali"
         description="Questions about stock, wholesale, delivery or an order? Call, message or visit our Manchester shop."
         images={[
-          "/cali-smoke-storefront.jpg",
-          "/products/pack-045.jpg",
-          "/products/pack-088.jpg",
+          "/cali-smoke-storefront.webp",
+          "/products/pack-045.webp",
+          "/products/pack-088.webp",
         ]}
       />
       <div className="bg-gradient-to-b from-white via-brand-50/40 to-white py-10 md:py-14">

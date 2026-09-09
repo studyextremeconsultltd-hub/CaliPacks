@@ -1,9 +1,10 @@
 import type { Metadata } from "next";
+import { WithTrustBadges } from "@/components/layout/WithTrustBadges";
 
 export const metadata: Metadata = {
   robots: { index: false, follow: false },
 };
 
 export default function CheckoutLayout({ children }: { children: React.ReactNode }) {
-  return children;
+  return <WithTrustBadges>{children}</WithTrustBadges>;
 }

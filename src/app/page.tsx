@@ -1,3 +1,4 @@
+import { preload } from "react-dom";
 import { HeroBannerSlider } from "@/components/home/HeroBannerSlider";
 import { CategoryShowcase } from "@/components/home/CategoryShowcase";
 import { CategorySection } from "@/components/products/ProductGrid";
@@ -10,6 +11,7 @@ import { getHomepageSections } from "@/data/products";
 import { SITE_URL } from "@/lib/site";
 
 export default function HomePage() {
+  preload("/hero-cali-packs-mobile.webp", { as: "image", fetchPriority: "high" });
   const { latest, more, heroTiles, featured } = getHomepageSections();
 
   return (
@@ -35,7 +37,8 @@ export default function HomePage() {
         subtitle="HD studio photography. £0.20 per pack · minimum 50 pcs."
         products={latest}
         viewAllHref="/shop/cali-packs"
-        eagerCount={4}
+        eagerCount={0}
+        showCart={false}
         className="py-14 md:py-20"
       />
       <CategorySection
@@ -43,6 +46,8 @@ export default function HomePage() {
         subtitle="108 named Cali Packs in the shop — every image is a clear HD studio shot."
         products={more}
         viewAllHref="/shop"
+        eagerCount={0}
+        showCart={false}
         className="py-14 md:py-20 bg-gradient-to-b from-brand-50/60 via-white to-brand-50/40"
       />
       <CategoryShowcase products={featured} />

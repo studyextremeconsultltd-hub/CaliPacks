@@ -1,9 +1,8 @@
 import type { Metadata, Viewport } from "next";
-import { Inter, Playfair_Display } from "next/font/google";
+import { Inter } from "next/font/google";
 import { AnnouncementBar } from "@/components/layout/AnnouncementBar";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
-import { TrustBadgesGate } from "@/components/layout/TrustBadgesGate";
 import { CartProvider } from "@/context/CartContext";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { contactInfo, socialLinks } from "@/data/social";
@@ -12,15 +11,8 @@ import "./globals.css";
 
 const inter = Inter({
   subsets: ["latin"],
-  display: "swap",
+  display: "optional",
   variable: "--font-inter",
-});
-
-const playfair = Playfair_Display({
-  subsets: ["latin"],
-  display: "swap",
-  variable: "--font-playfair",
-  weight: ["700"],
 });
 
 export const viewport: Viewport = {
@@ -101,7 +93,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en-GB" className={`${inter.variable} ${playfair.variable}`}>
+    <html lang="en-GB" className={inter.variable}>
       <body className="antialiased">
         <JsonLd
           data={{
@@ -162,7 +154,6 @@ export default function RootLayout({
         <CartProvider>
           <AnnouncementBar />
           <Header />
-          <TrustBadgesGate />
           <main className="min-h-[60vh]">{children}</main>
           <Footer />
         </CartProvider>

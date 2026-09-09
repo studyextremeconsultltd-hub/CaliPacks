@@ -18,9 +18,9 @@ export default function AboutPage() {
         accent="Smoke Cali"
         description="A real Manchester shop supplying 108 HD Cali Packs. £0.20 per pack, minimum 50 pcs — shop online or visit us on Sagar Street."
         images={[
-          "/cali-shop-hero.jpg",
-          "/products/pack-030.jpg",
-          "/products/pack-060.jpg",
+          "/cali-shop-hero.webp",
+          "/products/pack-030.webp",
+          "/products/pack-060.webp",
         ]}
         ctaLabel="Shop the catalogue"
         ctaHref="/shop"

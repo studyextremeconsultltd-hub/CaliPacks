@@ -22,7 +22,7 @@ export function LoadMoreGrid({ products }: { products: Product[] }) {
 
   return (
     <>
-      <ProductGrid products={visible} eagerCount={page === 1 ? 4 : 0} />
+      <ProductGrid products={visible} eagerCount={page === 1 ? 2 : 0} />
       {hasMore && (
         <div className="mt-10 text-center">
           <button

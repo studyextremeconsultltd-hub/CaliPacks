@@ -8,7 +8,7 @@ export const categories: Category[] = [
     tagline: "£0.20 per pack · Min 50 pcs",
     description:
       "108 HD-photographed Cali Packs. £0.20 per pack, minimum order 50 pcs. Smell-proof 3.5g designs ready for UK shops.",
-    image: "/products/pack-001.jpg",
+    image: "/products/pack-001.webp",
     productCount: 108,
   },
 ];

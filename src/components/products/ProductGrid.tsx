@@ -6,9 +6,14 @@ import { ProductCard } from "./ProductCard";
 interface ProductGridProps {
   products: Product[];
   eagerCount?: number;
+  showCart?: boolean;
 }
 
-export function ProductGrid({ products, eagerCount = 0 }: ProductGridProps) {
+export function ProductGrid({
+  products,
+  eagerCount = 0,
+  showCart = true,
+}: ProductGridProps) {
   if (products.length === 0) {
     return (
       <div className="text-center py-16">
@@ -25,6 +30,7 @@ export function ProductGrid({ products, eagerCount = 0 }: ProductGridProps) {
           product={product}
           accentIndex={i}
           priority={i < eagerCount}
+          showCart={showCart}
         />
       ))}
     </div>
@@ -38,6 +44,7 @@ interface CategorySectionProps {
   viewAllHref: string;
   className?: string;
   eagerCount?: number;
+  showCart?: boolean;
 }
 
 export function CategorySection({
@@ -47,6 +54,7 @@ export function CategorySection({
   viewAllHref,
   className,
   eagerCount = 0,
+  showCart = true,
 }: CategorySectionProps) {
   return (
     <section className={className ?? "py-12 md:py-16"}>
@@ -71,7 +79,7 @@ export function CategorySection({
             <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
           </Link>
         </div>
-        <ProductGrid products={products} eagerCount={eagerCount} />
+        <ProductGrid products={products} eagerCount={eagerCount} showCart={showCart} />
       </div>
     </section>
   );

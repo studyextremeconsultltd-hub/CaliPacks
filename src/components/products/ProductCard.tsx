@@ -8,6 +8,7 @@ interface ProductCardProps {
   product: Product;
   accentIndex?: number;
   priority?: boolean;
+  showCart?: boolean;
 }
 
 const cornerPairs = [
@@ -17,7 +18,12 @@ const cornerPairs = [
   { a: "#f472b6", b: "#ec4899" },
 ];
 
-export function ProductCard({ product, accentIndex = 0, priority = false }: ProductCardProps) {
+export function ProductCard({
+  product,
+  accentIndex = 0,
+  priority = false,
+  showCart = true,
+}: ProductCardProps) {
   const corners = cornerPairs[accentIndex % cornerPairs.length];
 
   return (
@@ -37,9 +43,10 @@ export function ProductCard({ product, accentIndex = 0, priority = false }: Prod
             alt={product.name}
             fill
             sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 260px"
-            quality={75}
+            quality={70}
             priority={priority}
             loading={priority ? "eager" : "lazy"}
+            decoding="async"
             className="pack-fill transition-transform duration-300"
           />
           {product.isNew && (
@@ -63,7 +70,7 @@ export function ProductCard({ product, accentIndex = 0, priority = false }: Prod
           </p>
         ) : null}
       </Link>
-      <AddToCartMini product={product} />
+      {showCart ? <AddToCartMini product={product} /> : null}
     </article>
   );
 }

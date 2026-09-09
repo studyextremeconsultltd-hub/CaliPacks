@@ -25,7 +25,7 @@ export const heroBanners: HeroBanner[] = [
   },
   {
     id: "hero-rainbow",
-    image: "/products/pack-027.jpg",
+    image: "/products/pack-027.webp",
     imageAlt: "Rainbow Nerds Handbag Cali Pack",
     mood: "purple",
     headline: "Packs That Stop the Scroll.",
@@ -37,7 +37,7 @@ export const heroBanners: HeroBanner[] = [
   },
   {
     id: "hero-gelato",
-    image: "/products/pack-008.jpg",
+    image: "/products/pack-008.webp",
     imageAlt: "Blue Guava Gelato Cali Pack",
     mood: "teal",
     headline: "Wholesale Ready. £0.20 a Pack.",
