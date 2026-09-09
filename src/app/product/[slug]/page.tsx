@@ -108,15 +108,7 @@ export default async function ProductPage({ params }: ProductPageProps) {
         <nav className="text-sm text-surface-800/40 mb-8">
           <Link href="/" className="hover:text-brand-700">Home</Link>
           <span className="mx-2">/</span>
-          <Link href="/shop" className="hover:text-brand-700">Shop</Link>
-          {category && (
-            <>
-              <span className="mx-2">/</span>
-              <Link href={`/shop/${category.slug}`} className="hover:text-brand-700">
-                {category.name}
-              </Link>
-            </>
-          )}
+          <Link href="/shop" className="hover:text-brand-700">Cali Packs</Link>
           <span className="mx-2">/</span>
           <span className="text-surface-800 line-clamp-1">{product.name}</span>
         </nav>
@@ -165,7 +157,7 @@ export default async function ProductPage({ params }: ProductPageProps) {
                   <div>
                     <dt className="text-surface-800/40">Category</dt>
                     <dd>
-                      <Link href={`/shop/${category.slug}`} className="font-medium text-brand-700 hover:underline">
+                      <Link href="/shop" className="font-medium text-brand-700 hover:underline">
                         {category.name}
                       </Link>
                     </dd>

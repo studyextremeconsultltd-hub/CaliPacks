@@ -36,7 +36,7 @@ export default function HomePage() {
         title="Latest Cali Packs"
         subtitle="HD studio photography. £0.20 per pack · minimum 50 pcs."
         products={latest}
-        viewAllHref="/shop/cali-packs"
+        viewAllHref="/shop"
         eagerCount={0}
         showCart={false}
         className="py-14 md:py-20"

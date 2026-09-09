@@ -1,11 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import Link from "next/link";
-import { ShopCategoriesNav } from "@/components/products/ShopCategoriesNav";
-import { WholesaleBanner } from "@/components/shop/WholesaleBanner";
-import { LoadMoreGrid } from "@/components/shop/LoadMoreGrid";
+import { ShopLegacyRedirect } from "@/components/shop/ShopLegacyRedirect";
 import { getCategoryBySlug, categories } from "@/data/categories";
-import { getProductsByCategory } from "@/data/products";
 import { pageUrl } from "@/lib/site";
 
 interface CategoryPageProps {
@@ -22,12 +18,13 @@ export async function generateMetadata({ params }: CategoryPageProps): Promise<M
   if (!category) return { title: "Category Not Found" };
 
   return {
-    title: category.name,
+    title: "Cali Packs",
     description: category.description,
-    alternates: { canonical: pageUrl(`/shop/${category.slug}`) },
+    robots: { index: false, follow: true },
+    alternates: { canonical: pageUrl("/shop") },
     openGraph: {
-      url: pageUrl(`/shop/${category.slug}`),
-      title: `${category.name} — £0.20 per pack | Smoke Cali`,
+      url: pageUrl("/shop"),
+      title: "Cali Packs — £0.20 per pack | Smoke Cali",
       description: category.description,
       images: [{ url: category.image, alt: category.name }],
     },
@@ -36,42 +33,6 @@ export async function generateMetadata({ params }: CategoryPageProps): Promise<M
 
 export default async function CategoryPage({ params }: CategoryPageProps) {
   const { category: slug } = await params;
-  const category = getCategoryBySlug(slug);
-  if (!category) notFound();
-
-  const categoryProducts = getProductsByCategory(slug);
-
-  return (
-    <div className="py-8 md:py-12">
-      <div className="container-site">
-        <nav className="text-sm text-black/40 mb-6 font-medium">
-          <Link href="/" className="hover:text-brand-700">
-            Home
-          </Link>
-          <span className="mx-2">/</span>
-          <Link href="/shop" className="hover:text-brand-700">
-            Shop
-          </Link>
-          <span className="mx-2">/</span>
-          <span className="text-black font-bold">{category.name}</span>
-        </nav>
-
-        <div className="mb-8">
-          <h1 className="text-3xl md:text-4xl font-black text-black tracking-tight mb-2">
-            {category.name}
-          </h1>
-          <p className="text-black/55 max-w-2xl font-semibold">{category.description}</p>
-        </div>
-
-        <WholesaleBanner />
-
-        <div className="flex flex-col lg:flex-row gap-8">
-          <ShopCategoriesNav activeSlug={slug} />
-          <div className="flex-1">
-            <LoadMoreGrid products={categoryProducts} />
-          </div>
-        </div>
-      </div>
-    </div>
-  );
+  if (!getCategoryBySlug(slug)) notFound();
+  return <ShopLegacyRedirect />;
 }

@@ -32,7 +32,7 @@ export const heroBanners: HeroBanner[] = [
     subline:
       "Loud die-cut Cali Packs from £0.20 each. Wholesale minimum 50 pcs — UK dispatch in 2–3 days.",
     ctaLabel: "Browse the Catalogue",
-    ctaHref: "/shop/cali-packs",
+      ctaHref: "/shop",
     floatingImages: [],
   },
   {
