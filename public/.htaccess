@@ -1,0 +1,19 @@
+DirectoryIndex index.html
+Options -MultiViews
+
+RewriteEngine On
+
+# Old category URLs
+RewriteRule ^shop/can-jars/?$ /shop/ [R=301,L]
+RewriteRule ^shop/glassware/?$ /shop/ [R=301,L]
+RewriteRule ^shop/scales/?$ /shop/ [R=301,L]
+RewriteRule ^shop/accessories/?$ /shop/ [R=301,L]
+RewriteRule ^shop/hookahs/?$ /shop/ [R=301,L]
+
+# Serve Next.js trailing-slash folders
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_URI} !/$
+RewriteCond %{REQUEST_FILENAME}/index.html -f
+RewriteRule ^(.*)$ /$1/ [R=301,L]
+
+ErrorDocument 404 /404.html
