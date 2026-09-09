@@ -8,6 +8,11 @@ export function AnnouncementBar() {
       <p className="flex flex-wrap items-center justify-center gap-x-2 gap-y-1 font-bold">
         <Sparkles className="w-3.5 h-3.5 text-brand-300 inline shrink-0" />
         <span>
+          Cali Packs <span className="text-brand-300 font-black">£0.20</span> per pack
+          · min 50 pcs
+        </span>
+        <span className="hidden sm:inline text-white/30">·</span>
+        <span>
           Free UK delivery over <span className="text-brand-300 font-black">£150</span>
         </span>
         <span className="hidden sm:inline text-white/30">·</span>
@@ -42,8 +47,8 @@ export function TrustBadges() {
     },
     {
       icon: Package,
-      title: "Add to Cart & Buy",
-      desc: "Checkout or WhatsApp",
+      title: "£0.20 Per Pack",
+      desc: "Minimum 50 pcs",
       tint: "from-brand-600 to-fuchsia-600",
     },
     {

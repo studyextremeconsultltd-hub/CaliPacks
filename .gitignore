@@ -24,6 +24,9 @@
 
 # source photo backup (site uses /public/products)
 /CaliPacks Photos/
+/CaliPacks New photos/
+/scripts/_unique-photos/
+/scripts/_review-thumbs/
 
 # debug
 npm-debug.log*

@@ -10,39 +10,40 @@ export interface HeroBanner {
   floatingImages: string[];
 }
 
-/** Homepage hero banners */
 export const heroBanners: HeroBanner[] = [
   {
-    id: "hero-studio",
-    image: "/ai-hero-studio.jpg",
-    imageAlt: "Cali Packs studio product collection",
+    id: "hero-wall",
+    image: "/hero-cali-packs.jpg",
+    imageAlt: "Cali Packs wholesale wall — 108 HD designs",
     mood: "pink",
-    headline: "Studio-Clear Product Photos.",
+    headline: "108 Cali Packs. Studio HD.",
     subline:
-      "Cali packs, glass, scales and jars shot for the web — shop online with fast UK delivery.",
-    ctaLabel: "Shop Now",
+      "£0.20 per pack · Minimum 50 pcs. Smell-proof 3.5g designs photographed for the web.",
+    ctaLabel: "Shop Cali Packs",
     ctaHref: "/shop",
     floatingImages: [],
   },
   {
-    id: "hero-packs",
-    image: "/ai-hero-packs.jpg",
-    imageAlt: "Premium Cali Packs display",
+    id: "hero-rainbow",
+    image: "/products/pack-027.jpg",
+    imageAlt: "Rainbow Nerds Handbag Cali Pack",
     mood: "purple",
     headline: "Packs That Stop the Scroll.",
-    subline: "Bold designs, smell-proof finish — wholesale-ready for UK smoke shops.",
-    ctaLabel: "Browse Packs",
+    subline:
+      "Loud die-cut Cali Packs from £0.20 each. Wholesale minimum 50 pcs — UK dispatch in 2–3 days.",
+    ctaLabel: "Browse the Catalogue",
     ctaHref: "/shop/cali-packs",
     floatingImages: [],
   },
   {
-    id: "hero-essentials",
-    image: "/ai-hero-banner.jpg",
-    imageAlt: "Scales and shop essentials",
+    id: "hero-gelato",
+    image: "/products/pack-008.jpg",
+    imageAlt: "Blue Guava Gelato Cali Pack",
     mood: "teal",
-    headline: "Scales, Sealers & Essentials",
-    subline: "Counter-ready tools and packaging — add to cart for 2–3 day UK delivery.",
-    ctaLabel: "View All Products",
+    headline: "Wholesale Ready. £0.20 a Pack.",
+    subline:
+      "Every design is named, priced and photographed in HD. Order 50+ pcs and we ship across the UK.",
+    ctaLabel: "View All 108 Packs",
     ctaHref: "/shop",
     floatingImages: [],
   },

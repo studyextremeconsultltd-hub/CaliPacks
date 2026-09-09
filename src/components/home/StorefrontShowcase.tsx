@@ -31,8 +31,8 @@ export function StorefrontShowcase() {
               <span className="text-gradient-pink shine-text">Cali Smoke</span>
             </h2>
             <p className="mt-4 max-w-md text-base font-semibold leading-relaxed text-white/75 sm:text-lg">
-              Explore our real shop stock online—premium hookahs, glassware, rolling
-              accessories, grinders, scales and the latest colourful packs.
+              Explore our real shop stock online — 108 HD Cali Packs at £0.20
+              per pack, minimum 50 pcs, plus in-store essentials.
             </p>
 
             <div className="mt-6 flex items-start gap-3 rounded-2xl border border-white/15 bg-white/10 p-4 backdrop-blur-md">

@@ -8,7 +8,7 @@ export const metadata: Metadata = {
 const faqs = [
   {
     q: "What is the minimum order quantity?",
-    a: "Minimum order quantities vary by product. Most mylar bags have a 100-unit minimum, glass jars start at 50 units, and blank packaging starts at 250 units. Check each product page for specific details.",
+    a: "Every Cali Pack is £0.20 per pack with a minimum order of 50 pcs. Add 50 or more of any design to your cart to check out.",
   },
   {
     q: "How long does delivery take?",

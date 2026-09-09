@@ -88,8 +88,8 @@ export function Footer() {
               <Logo size="lg" />
             </Link>
             <p className="mb-5 text-sm font-medium leading-relaxed text-brand-950/65">
-              Cali Smoke — Manchester&apos;s destination for smoke shop essentials.
-              Shop online or visit us in store.
+            Cali Smoke — Manchester&apos;s destination for wholesale Cali Packs.
+            £0.20 per pack · min 50 pcs. Shop online or visit us in store.
             </p>
             <div className="flex gap-2.5">
               {socialItems.map((item) => (

@@ -63,8 +63,8 @@ export default function ContactPage() {
         description="Questions about stock, wholesale, delivery or an order? Call, message or visit our Manchester shop."
         images={[
           "/cali-shop-hero.jpg",
-          "/products/cali-01.jpg",
-          "/products/cali-11.jpg",
+          "/products/pack-008.jpg",
+          "/products/pack-046.jpg",
         ]}
       />
       <div className="bg-gradient-to-b from-white via-brand-50/40 to-white py-10 md:py-14">

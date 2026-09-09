@@ -5,7 +5,9 @@ import { getProductBySlug, products } from "@/data/products";
 import { getCategoryBySlug } from "@/data/categories";
 import { ProductGallery, AddToCartButton } from "@/components/products/ProductDetail";
 import { ProductCard } from "@/components/products/ProductCard";
+import { JsonLd } from "@/components/seo/JsonLd";
 import { formatPrice } from "@/lib/utils";
+import { SITE_URL } from "@/lib/site";
 
 interface ProductPageProps {
   params: Promise<{ slug: string }>;
@@ -21,12 +23,15 @@ export async function generateMetadata({ params }: ProductPageProps): Promise<Me
   if (!product) return { title: "Product Not Found" };
 
   return {
-    title: product.name,
-    description: product.shortDescription,
+    title: `${product.name} Cali Pack`,
+    description: `${product.name} — £0.20 per pack, minimum 50 pcs. ${product.shortDescription}`,
     openGraph: {
-      title: product.name,
+      title: `${product.name} — £0.20 per pack`,
       description: product.shortDescription,
       images: [{ url: product.image }],
+    },
+    alternates: {
+      canonical: `${SITE_URL}/product/${product.slug}`,
     },
   };
 }
@@ -43,6 +48,27 @@ export default async function ProductPage({ params }: ProductPageProps) {
 
   return (
     <div className="py-8 md:py-12">
+      <JsonLd
+        data={{
+          "@context": "https://schema.org",
+          "@type": "Product",
+          name: product.name,
+          image: `${SITE_URL}${product.image}`,
+          description: product.description,
+          sku: product.sku,
+          brand: { "@type": "Brand", name: "Cali Smoke" },
+          offers: {
+            "@type": "Offer",
+            url: `${SITE_URL}/product/${product.slug}`,
+            priceCurrency: "GBP",
+            price: product.price.toFixed(2),
+            availability: product.inStock
+              ? "https://schema.org/InStock"
+              : "https://schema.org/OutOfStock",
+            priceValidUntil: "2027-12-31",
+          },
+        }}
+      />
       <div className="container-site">
         <nav className="text-sm text-surface-800/40 mb-8">
           <Link href="/" className="hover:text-brand-700">Home</Link>
@@ -81,7 +107,7 @@ export default async function ProductPage({ params }: ProductPageProps) {
                   {formatPrice(product.originalPrice)}
                 </span>
               )}
-              <span className="text-sm text-brand-600 font-bold">per unit</span>
+              <span className="text-sm text-brand-600 font-bold">per pack</span>
             </div>
 
             <p className="text-black/70 leading-relaxed mb-8 font-semibold">
@@ -113,7 +139,7 @@ export default async function ProductPage({ params }: ProductPageProps) {
                 {product.minOrder && (
                   <div>
                     <dt className="text-surface-800/40">Min. Order</dt>
-                    <dd className="font-medium">{product.minOrder} units</dd>
+                    <dd className="font-medium">{product.minOrder} pcs</dd>
                   </div>
                 )}
               </dl>

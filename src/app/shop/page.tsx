@@ -2,17 +2,27 @@ import type { Metadata } from "next";
 import { ProductGrid } from "@/components/products/ProductGrid";
 import { ShopCategoriesNav } from "@/components/products/ShopCategoriesNav";
 import { PageHero } from "@/components/layout/PageHero";
+import { WholesaleBanner } from "@/components/shop/WholesaleBanner";
+import { JsonLd } from "@/components/seo/JsonLd";
 import { products, searchProducts } from "@/data/products";
+import { SITE_URL } from "@/lib/site";
 import Link from "next/link";
 
 export const metadata: Metadata = {
-  title: "Shop All Products",
+  title: "Shop Cali Packs",
   description:
-    "Browse Cali Packs, can jars, glassware, scales and accessories. Add to cart — UK delivery in 2–3 days.",
+    "Shop 108 HD Cali Packs. £0.20 per pack, minimum order 50 pcs. Smell-proof 3.5g designs with UK delivery in 2–3 days.",
+  openGraph: {
+    title: "Shop Cali Packs — £0.20 per pack",
+    description: "108 HD Cali Packs. £0.20 per pack · minimum 50 pcs.",
+    images: [{ url: "/hero-cali-packs.jpg" }],
+  },
 };
 
+const PAGE_SIZE = 36;
+
 interface ShopPageProps {
-  searchParams: Promise<{ q?: string; filter?: string }>;
+  searchParams: Promise<{ q?: string; filter?: string; page?: string }>;
 }
 
 export default async function ShopPage({ searchParams }: ShopPageProps) {
@@ -20,6 +30,7 @@ export default async function ShopPage({ searchParams }: ShopPageProps) {
   const query = params.q || "";
   const filter = params.filter;
   const isNew = filter === "new";
+  const page = Math.max(1, Number(params.page) || 1);
 
   let displayProducts = products;
   if (query) {
@@ -28,24 +39,52 @@ export default async function ShopPage({ searchParams }: ShopPageProps) {
     displayProducts = products.filter((p) => p.isNew);
   }
 
+  const visibleCount = Math.min(displayProducts.length, page * PAGE_SIZE);
+  const visibleProducts = displayProducts.slice(0, visibleCount);
+  const hasMore = visibleCount < displayProducts.length;
+  const nextHref = query
+    ? `/shop?q=${encodeURIComponent(query)}&page=${page + 1}`
+    : isNew
+      ? `/shop?filter=new&page=${page + 1}`
+      : `/shop?page=${page + 1}`;
+
   return (
     <div className="bg-white">
-      {isNew && (
+      <JsonLd
+        data={{
+          "@context": "https://schema.org",
+          "@type": "ItemList",
+          name: isNew ? "New Cali Packs" : "All Cali Packs",
+          numberOfItems: displayProducts.length,
+          itemListElement: displayProducts.slice(0, 24).map((product, index) => ({
+            "@type": "ListItem",
+            position: index + 1,
+            url: `${SITE_URL}/product/${product.slug}`,
+            name: product.name,
+          })),
+        }}
+      />
+      {page === 1 && (
         <PageHero
-          eyebrow="Fresh stock"
-          title="New"
-          accent="Arrivals"
-          description="The latest packs, cases, glassware, scales and shop essentials—freshly added and ready for UK delivery."
+          eyebrow={isNew ? "Fresh stock" : "Wholesale Cali Packs"}
+          title={isNew ? "New" : "Shop"}
+          accent={isNew ? "Arrivals" : "Cali Packs"}
+          description={
+            isNew
+              ? "Latest Cali Pack drops — £0.20 per pack, minimum 50 pcs. HD studio photos, ready for UK delivery."
+              : "108 named Cali Packs with clear HD photography. £0.20 per pack & minimum 50 pcs order."
+          }
           images={[
-            "/products/cali-06.jpg",
-            "/products/cali-13.jpg",
-            "/products/cali-18.jpg",
+            "/products/pack-001.jpg",
+            "/products/pack-008.jpg",
+            "/products/pack-027.jpg",
           ]}
-          ctaLabel="View all products"
-          ctaHref="/shop"
+          ctaLabel={isNew ? "View all packs" : undefined}
+          ctaHref={isNew ? "/shop" : undefined}
         />
       )}
       <div className="container-site py-8 md:py-12">
+        <WholesaleBanner />
         <div className="mb-8">
           {isNew ? (
             <h2 className="mb-2 text-2xl font-black tracking-tight text-black md:text-3xl">
@@ -53,18 +92,13 @@ export default async function ShopPage({ searchParams }: ShopPageProps) {
             </h2>
           ) : (
             <h1 className="mb-2 text-3xl font-black tracking-tight text-black md:text-4xl">
-              {query ? `Results for "${query}"` : "All Products"}
+              {query ? `Results for "${query}"` : "All Cali Packs"}
             </h1>
           )}
           <p className="text-black/55 font-semibold">
-            {displayProducts.length} product{displayProducts.length !== 1 ? "s" : ""} available
-            {isNew ? " · fresh drops ready to ship" : ""}
+            Showing {visibleProducts.length} of {displayProducts.length} packs · £0.20 each · min
+            50 pcs
           </p>
-          {isNew && (
-            <p className="mt-3 inline-block text-sm font-bold text-brand-700 border-b-2 border-brand-400 pb-0.5">
-              Pick a category on the left — bold new stock that shops reorder.
-            </p>
-          )}
         </div>
 
         <div className="flex flex-col lg:flex-row gap-8">
@@ -75,11 +109,26 @@ export default async function ShopPage({ searchParams }: ShopPageProps) {
               <div className="text-center py-16 rounded-2xl border-2 border-dashed border-brand-200">
                 <p className="text-black/60 font-semibold mb-3">No products found.</p>
                 <Link href="/shop" className="text-brand-600 font-bold hover:underline">
-                  Browse all products
+                  Browse all packs
                 </Link>
               </div>
             ) : (
-              <ProductGrid products={displayProducts} />
+              <>
+                <ProductGrid products={visibleProducts} eagerCount={page === 1 ? 4 : 0} />
+                {hasMore && (
+                  <div className="mt-10 text-center">
+                    <Link
+                      href={nextHref}
+                      className="inline-flex items-center justify-center rounded-xl bg-brand-600 px-6 py-3 text-sm font-black text-white shadow-lg shadow-brand-200 transition hover:bg-brand-500"
+                    >
+                      Load more packs
+                    </Link>
+                    <p className="mt-2 text-xs font-semibold text-black/45">
+                      {displayProducts.length - visibleCount} more designs
+                    </p>
+                  </div>
+                )}
+              </>
             )}
           </div>
         </div>

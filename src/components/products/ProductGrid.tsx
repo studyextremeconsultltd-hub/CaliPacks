@@ -5,9 +5,10 @@ import { ProductCard } from "./ProductCard";
 
 interface ProductGridProps {
   products: Product[];
+  eagerCount?: number;
 }
 
-export function ProductGrid({ products }: ProductGridProps) {
+export function ProductGrid({ products, eagerCount = 0 }: ProductGridProps) {
   if (products.length === 0) {
     return (
       <div className="text-center py-16">
@@ -17,9 +18,14 @@ export function ProductGrid({ products }: ProductGridProps) {
   }
 
   return (
-    <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6">
+    <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 md:gap-5">
       {products.map((product, i) => (
-        <ProductCard key={product.id} product={product} accentIndex={i} />
+        <ProductCard
+          key={product.id}
+          product={product}
+          accentIndex={i}
+          priority={i < eagerCount}
+        />
       ))}
     </div>
   );

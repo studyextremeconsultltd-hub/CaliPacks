@@ -6,7 +6,7 @@ const steps = [
   {
     icon: ShoppingBag,
     title: "Place Your Order",
-    desc: "Tell us what you need — packs, glass, scales or a mixed shop refill.",
+    desc: "Tell us which Cali Packs you need — £0.20 per pack, 50 pcs minimum, or a mixed wholesale refill.",
     corner: "bg-brand-500",
   },
   {

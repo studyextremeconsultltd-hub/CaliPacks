@@ -83,11 +83,11 @@ export function PageHero({
                         : "(max-width: 1024px) 25vw, 16vw"
                     }
                     quality={75}
-                    className={
-                      product
-                        ? "object-contain object-center p-3 sm:p-4"
-                        : "object-cover object-center"
-                    }
+                  className={
+                    product
+                      ? "object-contain object-center scale-[1.12]"
+                      : "object-cover object-center"
+                  }
                   />
                 </div>
               );

@@ -1,9 +1,10 @@
 import type { MetadataRoute } from "next";
 import { products } from "@/data/products";
 import { categories } from "@/data/categories";
+import { SITE_URL } from "@/lib/site";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = "https://calipacks.co.uk";
+  const baseUrl = SITE_URL;
 
   const productUrls = products.map((p) => ({
     url: `${baseUrl}/product/${p.slug}`,

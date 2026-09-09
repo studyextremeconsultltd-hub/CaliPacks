@@ -48,7 +48,7 @@ export function HeroBannerSlider({
     if (!isRunning || uniquePreviews.length <= 4) return;
     const timer = window.setInterval(
       () => setTileOffset((offset) => (offset + 4) % uniquePreviews.length),
-      2800
+      3200
     );
     return () => window.clearInterval(timer);
   }, [isRunning, uniquePreviews.length]);
@@ -83,9 +83,13 @@ export function HeroBannerSlider({
                 alt={activeBanner.imageAlt}
                 fill
                 sizes="(max-width: 1280px) 100vw, 1280px"
-                quality={75}
+                quality={80}
                 priority={activeIndex === 0}
-                className="object-cover object-center"
+                className={
+                  activeBanner.image.startsWith("/products/")
+                    ? "object-contain object-center p-3 sm:p-5 bg-white"
+                    : "object-cover object-center"
+                }
               />
             </div>
             <div className="absolute inset-0 bg-gradient-to-r from-black/92 via-black/65 to-black/25" />
@@ -124,10 +128,10 @@ export function HeroBannerSlider({
 
             <div className="relative px-3 pb-10 pt-2 sm:p-5 lg:p-6 lg:pl-2">
               <div className="mb-2 flex items-center justify-between px-1 text-[10px] font-black uppercase tracking-[0.16em] text-white/70 sm:text-xs">
-                <span>Products</span>
-                <span>{uniquePreviews.length} in catalogue</span>
+                <span>Cali Packs</span>
+                <span>{uniquePreviews.length} designs · £0.20 · min 50</span>
               </div>
-              <div className="grid h-36 grid-cols-4 gap-2 sm:h-auto sm:min-h-[340px] sm:grid-cols-2 sm:gap-3.5 lg:min-h-[390px]">
+              <div className="grid h-40 grid-cols-2 gap-2 sm:h-auto sm:min-h-[340px] sm:grid-cols-2 sm:gap-3.5 lg:min-h-[390px]">
                 {showcase.map((src, index) => (
                   <div
                     key={`${src}-${tileOffset}-${index}`}
@@ -137,9 +141,10 @@ export function HeroBannerSlider({
                       src={src}
                       alt="Cali Packs product"
                       fill
-                      sizes="(max-width: 639px) 22vw, (max-width: 1024px) 40vw, 280px"
-                      quality={75}
-                      className="object-contain object-center p-2 sm:p-3"
+                      sizes="(max-width: 639px) 40vw, (max-width: 1024px) 28vw, 260px"
+                      quality={70}
+                      priority={index < 2}
+                      className="object-contain object-center scale-[1.08]"
                     />
                   </div>
                 ))}

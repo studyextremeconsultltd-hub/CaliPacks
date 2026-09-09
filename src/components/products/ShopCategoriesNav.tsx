@@ -28,7 +28,7 @@ export function ShopCategoriesNav({ activeSlug, highlight = false }: ShopCategor
         Categories
       </h2>
       <p className="text-xs font-semibold text-black/45 mb-4 leading-snug">
-        Browse every collection — packs, glass, scales &amp; more.
+        108 Cali Packs · £0.20 each · min 50 pcs.
       </p>
       <div className="h-px w-full bg-gradient-to-r from-transparent via-brand-400 to-transparent mb-4" />
       <nav className="space-y-1">

@@ -202,7 +202,7 @@ export default function CheckoutPage() {
                         alt=""
                         fill
                         sizes="56px"
-                        quality={90}
+                        quality={75}
                         className="object-contain p-0.5"
                       />
                     </div>

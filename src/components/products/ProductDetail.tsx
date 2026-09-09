@@ -46,6 +46,9 @@ export function AddToCartButton({ product }: AddToCartButtonProps) {
           </button>
         </div>
         <p className="text-sm text-surface-800/60">
+          {min > 1 ? (
+            <span className="mr-3 font-bold text-brand-700">Min. {min} pcs</span>
+          ) : null}
           Total:{" "}
           <span className="font-semibold text-surface-900">
             {formatPrice(product.price * quantity)}
@@ -84,15 +87,15 @@ export function ProductGallery({ product }: ProductGalleryProps) {
 
   return (
     <div className="space-y-4">
-      <div className="relative aspect-[4/5] sm:aspect-square rounded-2xl overflow-hidden bg-white ring-1 ring-brand-100">
+        <div className="relative aspect-square rounded-2xl overflow-hidden bg-white ring-1 ring-brand-100">
         <Image
           src={images[activeImage]}
           alt={product.name}
           fill
           sizes="(max-width: 1024px) 100vw, 480px"
-          className="object-contain p-2"
+          className="object-contain object-center scale-[1.08]"
           priority
-          quality={85}
+          quality={80}
         />
       </div>
       {images.length > 1 && (

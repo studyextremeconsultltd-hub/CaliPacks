@@ -3,8 +3,8 @@ import { ArrowRight, CheckCircle2 } from "lucide-react";
 import { PageHero } from "@/components/layout/PageHero";
 
 const highlights = [
-  "Best-selling Cali pack designs across the UK",
-  "Can jars, glass, scales and cases in one place",
+  "108 HD Cali Pack designs, each named and photographed",
+  "£0.20 per pack · minimum order 50 pcs",
   "Online cart and WhatsApp ordering",
   "Fast 2–3 day UK delivery",
 ];
@@ -16,11 +16,11 @@ export default function AboutPage() {
         eyebrow="Real Manchester stock"
         title="About"
         accent="Cali Smoke"
-        description="A real Manchester shop bringing bold Cali packs, glassware, hookahs, scales and accessories together in one fast online catalogue."
+        description="A real Manchester shop supplying 108 HD Cali Packs. £0.20 per pack, minimum 50 pcs — shop online or visit us on Sagar Street."
         images={[
           "/cali-shop-hero.jpg",
-          "/products/cali-18.jpg",
-          "/products/cali-06.jpg",
+          "/products/pack-001.jpg",
+          "/products/pack-027.jpg",
         ]}
         ctaLabel="Shop the catalogue"
         ctaHref="/shop"
@@ -31,8 +31,8 @@ export default function AboutPage() {
           <div className="mx-auto grid max-w-5xl gap-8 rounded-3xl bg-gradient-to-br from-white via-brand-50/70 to-brand-100/60 p-6 shadow-[0_18px_55px_rgba(236,72,153,0.12)] sm:p-9 lg:grid-cols-[1.1fr_0.9fr]">
             <div>
               <p className="text-lg font-bold leading-relaxed text-brand-950 sm:text-xl">
-                Cali Smoke supplies UK shops and buyers with products selected
-                directly from our real shelves.
+                Cali Smoke supplies UK shops and buyers with Cali Packs selected
+                from our real Manchester shelves — £0.20 per pack, 50 pcs minimum.
               </p>
               <p className="mt-4 font-medium leading-relaxed text-brand-950/65">
                 Browse online, add products to your cart, or contact us through

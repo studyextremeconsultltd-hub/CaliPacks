@@ -66,7 +66,7 @@ export default function CartPage() {
                     alt={item.product.name}
                     fill
                     sizes="96px"
-                    quality={90}
+                    quality={75}
                     className="object-contain p-1"
                   />
                 </Link>
@@ -78,12 +78,22 @@ export default function CartPage() {
                     {item.product.name}
                   </Link>
                   <p className="text-sm text-surface-800/60 mt-1">
-                    {formatPrice(item.product.price)} each
+                    {formatPrice(item.product.price)} per pack
+                    {item.product.minOrder
+                      ? ` · min ${item.product.minOrder} pcs`
+                      : ""}
                   </p>
                   <div className="flex items-center justify-between mt-3">
                     <div className="flex items-center border border-surface-200 rounded-lg overflow-hidden">
                       <button
-                        onClick={() => updateQuantity(item.product.id, item.quantity - 1)}
+                        onClick={() =>
+                          updateQuantity(
+                            item.product.id,
+                            item.quantity - 1 < (item.product.minOrder || 1)
+                              ? item.product.minOrder || 1
+                              : item.quantity - 1
+                          )
+                        }
                         className="p-2 hover:bg-surface-100 transition-colors"
                         aria-label="Decrease"
                       >
