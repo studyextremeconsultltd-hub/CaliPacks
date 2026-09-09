@@ -92,6 +92,16 @@
     contain-intrinsic-size: auto 420px;
   }
 
+  .pack-fill {
+    object-fit: contain;
+    object-position: center;
+    transform: scale(1.2);
+  }
+
+  .group:hover .pack-fill {
+    transform: scale(1.26);
+  }
+
   .logo-pulse {
     animation: logo-glow 2.6s ease-in-out infinite;
   }
@@ -365,20 +375,27 @@
   }
 }
 
-@media (max-width: 639px) {
+@media (max-width: 767px) {
   .hero-frame-glow,
   .hero-orb,
   .hero-orb-delay,
   .hero-shine,
   .hero-tile-shine,
+  .hero-kenburns-active,
   .trust-pulse,
-  .map-glow {
+  .map-glow,
+  .shine-text,
+  .storefront-shimmer,
+  .logo-automexa-glow,
+  .logo-automexa-mark,
+  .category-marquee,
+  .btn-shine-white::after {
     animation: none;
   }
 
   .hero-product-enter.float-a,
   .hero-product-enter.float-c {
-    animation: hero-product-in 0.35s ease-out both;
+    animation: none;
   }
 
   .img-polish {

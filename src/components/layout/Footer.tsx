@@ -88,7 +88,7 @@ export function Footer() {
               <Logo size="lg" />
             </Link>
             <p className="mb-5 text-sm font-medium leading-relaxed text-brand-950/65">
-            Cali Smoke — Manchester&apos;s destination for wholesale Cali Packs.
+            Smoke Cali — Manchester&apos;s destination for wholesale Cali Packs.
             £0.20 per pack · min 50 pcs. Shop online or visit us in store.
             </p>
             <div className="flex gap-2.5">
@@ -162,7 +162,7 @@ export function Footer() {
 
         <div className="flex flex-col items-center justify-between gap-4 rounded-2xl bg-white/65 px-5 py-4 sm:flex-row">
           <p className="text-xs font-medium text-brand-950/50">
-            &copy; {new Date().getFullYear()} Cali Smoke. All rights reserved.
+            &copy; {new Date().getFullYear()} Smoke Cali. All rights reserved.
           </p>
           <div className="flex items-center gap-4 text-xs font-semibold text-brand-950/50">
             <span>Visa</span>

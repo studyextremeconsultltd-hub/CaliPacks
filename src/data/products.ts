@@ -1800,6 +1800,17 @@ export function getShopDisplayProducts(limit = 8): Product[] {
   return products.filter((p) => !latestIds.has(p.id)).slice(0, limit);
 }
 
+/** Non-overlapping homepage sets so no pack photo appears twice above the fold. */
+export function getHomepageSections() {
+  const packs = products.filter((p) => p.categorySlug === "cali-packs");
+  return {
+    latest: packs.slice(0, 8),
+    more: packs.slice(8, 16),
+    heroTiles: packs.slice(16, 20),
+    featured: packs.slice(20, 24),
+  };
+}
+
 export function searchProducts(query: string): Product[] {
   const q = query.toLowerCase();
   return products.filter(

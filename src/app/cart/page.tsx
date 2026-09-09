@@ -43,6 +43,7 @@ export default function CartPage() {
             Shopping Cart
           </h1>
           <button
+            type="button"
             onClick={clearCart}
             className="text-sm text-surface-800/40 hover:text-red-600 transition-colors"
           >
@@ -67,7 +68,7 @@ export default function CartPage() {
                     fill
                     sizes="96px"
                     quality={75}
-                    className="object-contain p-1"
+                    className="pack-fill"
                   />
                 </Link>
                 <div className="flex-1 min-w-0">
@@ -86,6 +87,7 @@ export default function CartPage() {
                   <div className="flex items-center justify-between mt-3">
                     <div className="flex items-center border border-surface-200 rounded-lg overflow-hidden">
                       <button
+                        type="button"
                         onClick={() =>
                           updateQuantity(
                             item.product.id,
@@ -103,6 +105,7 @@ export default function CartPage() {
                         {item.quantity}
                       </span>
                       <button
+                        type="button"
                         onClick={() => updateQuantity(item.product.id, item.quantity + 1)}
                         className="p-2 hover:bg-surface-100 transition-colors"
                         aria-label="Increase"
@@ -115,6 +118,7 @@ export default function CartPage() {
                         {formatPrice(item.product.price * item.quantity)}
                       </span>
                       <button
+                        type="button"
                         onClick={() => removeItem(item.product.id)}
                         className="p-1.5 text-surface-800/40 hover:text-red-600 transition-colors"
                         aria-label="Remove"

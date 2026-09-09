@@ -6,16 +6,11 @@ import { HomepageMap } from "@/components/home/HomepageMap";
 import { StorefrontShowcase } from "@/components/home/StorefrontShowcase";
 import { TrustBadges } from "@/components/layout/AnnouncementBar";
 import { JsonLd } from "@/components/seo/JsonLd";
-import { heroBanners } from "@/data/hero-banners";
-import { getFeaturedProducts, getLatestCaliPacks, getShopDisplayProducts } from "@/data/products";
+import { getHomepageSections } from "@/data/products";
 import { SITE_URL } from "@/lib/site";
 
 export default function HomePage() {
-  const caliPacks = getLatestCaliPacks(8);
-  const morePacks = getShopDisplayProducts(8);
-  const productImages = getFeaturedProducts()
-    .slice(0, 12)
-    .map((p) => p.image);
+  const { latest, more, heroTiles, featured } = getHomepageSections();
 
   return (
     <>
@@ -25,7 +20,7 @@ export default function HomePage() {
           "@type": "ItemList",
           name: "Cali Packs wholesale catalogue",
           numberOfItems: 108,
-          itemListElement: caliPacks.map((product, index) => ({
+          itemListElement: latest.map((product, index) => ({
             "@type": "ListItem",
             position: index + 1,
             url: `${SITE_URL}/product/${product.slug}`,
@@ -33,23 +28,24 @@ export default function HomePage() {
           })),
         }}
       />
-      <HeroBannerSlider banners={heroBanners} productImages={productImages} />
+      <HeroBannerSlider products={heroTiles} />
       <TrustBadges />
       <CategorySection
         title="Latest Cali Packs"
         subtitle="HD studio photography. £0.20 per pack · minimum 50 pcs."
-        products={caliPacks}
+        products={latest}
         viewAllHref="/shop/cali-packs"
+        eagerCount={4}
         className="py-14 md:py-20"
       />
       <CategorySection
         title="More Designs"
         subtitle="108 named Cali Packs in the shop — every image is a clear HD studio shot."
-        products={morePacks}
+        products={more}
         viewAllHref="/shop"
         className="py-14 md:py-20 bg-gradient-to-b from-brand-50/60 via-white to-brand-50/40"
       />
-      <CategoryShowcase />
+      <CategoryShowcase products={featured} />
       <StorefrontShowcase />
       <CTASection />
       <HomepageMap />

@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 80" role="img" aria-label="Smoke Cali">
+  <defs>
+    <linearGradient id="scInk" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#fbcfe8"/>
+      <stop offset="45%" stop-color="#ec4899"/>
+      <stop offset="100%" stop-color="#9d174d"/>
+    </linearGradient>
+  </defs>
+  <polygon points="40,5 68,20.5 68,53.5 40,69 12,53.5 12,20.5" fill="#111827" stroke="url(#scInk)" stroke-width="2.6" stroke-linejoin="round"/>
+  <path d="M49 24.5c-2.2-2.4-5.6-3.6-9.6-3.6-6.6 0-11.2 3.4-11.2 8.2 0 4.6 3.4 6.8 9.4 8.4 4.2 1.1 6.2 2.2 6.2 4.6 0 2.4-2.4 3.8-6 3.8-3.2 0-5.8-1.1-7.4-3" fill="none" stroke="url(#scInk)" stroke-width="4.4" stroke-linecap="round"/>
+  <path d="M50.5 22c3.2-3.6 2.2-7.4-1.2-9.2" fill="none" stroke="#f9a8d4" stroke-width="2.3" stroke-linecap="round"/>
+  <path d="M56 41.5c-1.2-5.8-6.2-9.4-12.4-9.4-7.4 0-12.8 5.2-12.8 13.2S36.2 59 43.6 59c6.2 0 10.8-3.2 12.2-8.4" fill="none" stroke="#fce7f3" stroke-width="4.4" stroke-linecap="round"/>
+</svg>

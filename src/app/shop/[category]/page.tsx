@@ -6,6 +6,7 @@ import { WholesaleBanner } from "@/components/shop/WholesaleBanner";
 import { LoadMoreGrid } from "@/components/shop/LoadMoreGrid";
 import { getCategoryBySlug, categories } from "@/data/categories";
 import { getProductsByCategory } from "@/data/products";
+import { pageUrl } from "@/lib/site";
 
 interface CategoryPageProps {
   params: Promise<{ category: string }>;
@@ -23,10 +24,12 @@ export async function generateMetadata({ params }: CategoryPageProps): Promise<M
   return {
     title: category.name,
     description: category.description,
+    alternates: { canonical: pageUrl(`/shop/${category.slug}`) },
     openGraph: {
-      title: `${category.name} — £0.20 per pack`,
+      url: pageUrl(`/shop/${category.slug}`),
+      title: `${category.name} — £0.20 per pack | Smoke Cali`,
       description: category.description,
-      images: [{ url: category.image }],
+      images: [{ url: category.image, alt: category.name }],
     },
   };
 }

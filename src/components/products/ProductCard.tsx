@@ -40,7 +40,7 @@ export function ProductCard({ product, accentIndex = 0, priority = false }: Prod
             quality={75}
             priority={priority}
             loading={priority ? "eager" : "lazy"}
-            className="object-contain object-center scale-[1.12] group-hover:scale-[1.18] transition-transform duration-300"
+            className="pack-fill transition-transform duration-300"
           />
           {product.isNew && (
             <span className="absolute top-2 left-2 px-2 py-0.5 bg-brand-600 text-white text-[10px] font-bold uppercase tracking-wider rounded-full shadow-md z-10">

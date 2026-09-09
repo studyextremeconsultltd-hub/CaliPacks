@@ -11,7 +11,7 @@ export function StorefrontShowcase() {
         <div className="relative min-h-[520px] overflow-hidden rounded-[2rem] border-2 border-brand-400 storefront-glow">
           <Image
             src="/cali-smoke-storefront.jpg"
-            alt="Cali Smoke shop front in Manchester"
+            alt="Smoke Cali shop front in Manchester"
             fill
             sizes="(max-width: 1280px) 100vw, 1280px"
             quality={70}
@@ -19,7 +19,6 @@ export function StorefrontShowcase() {
             className="object-cover"
           />
           <div className="absolute inset-0 bg-gradient-to-r from-black via-black/70 to-transparent" />
-          <div className="absolute inset-0 storefront-shimmer" />
 
           <div className="relative z-10 flex min-h-[520px] max-w-xl flex-col justify-center p-7 sm:p-10 md:p-14">
             <div className="mb-5 inline-flex w-fit items-center gap-2 rounded-full border border-brand-300/50 bg-brand-600/20 px-3 py-1.5 text-xs font-black uppercase tracking-[0.18em] text-brand-200 backdrop-blur-md">
@@ -28,7 +27,7 @@ export function StorefrontShowcase() {
             </div>
             <h2 className="font-display text-4xl font-black leading-tight text-white sm:text-5xl">
               Step inside{" "}
-              <span className="text-gradient-pink shine-text">Cali Smoke</span>
+              <span className="text-gradient-pink">Smoke Cali</span>
             </h2>
             <p className="mt-4 max-w-md text-base font-semibold leading-relaxed text-white/75 sm:text-lg">
               Explore our real shop stock online — 108 HD Cali Packs at £0.20

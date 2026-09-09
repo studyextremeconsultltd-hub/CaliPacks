@@ -22,7 +22,7 @@ export default function CheckoutPage() {
       (i) => `• ${i.product.name} × ${i.quantity} = ${formatPrice(i.product.price * i.quantity)}`
     );
     const text = [
-      "Hi Cali Smoke — I'd like to place an order:",
+      "Hi Smoke Cali — I'd like to place an order:",
       "",
       ...lines,
       "",
@@ -203,7 +203,7 @@ export default function CheckoutPage() {
                         fill
                         sizes="56px"
                         quality={75}
-                        className="object-contain p-0.5"
+                        className="pack-fill"
                       />
                     </div>
                     <div className="min-w-0 flex-1">

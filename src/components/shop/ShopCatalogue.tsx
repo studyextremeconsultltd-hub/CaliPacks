@@ -48,9 +48,9 @@ export function ShopCatalogue() {
             : "108 named Cali Packs with clear HD photography. £0.20 per pack & minimum 50 pcs order."
         }
         images={[
-          "/products/pack-001.jpg",
-          "/products/pack-008.jpg",
-          "/products/pack-027.jpg",
+          "/products/pack-040.jpg",
+          "/products/pack-072.jpg",
+          "/products/pack-096.jpg",
         ]}
         ctaLabel={isNew ? "View all packs" : undefined}
         ctaHref={isNew ? "/shop" : undefined}
@@ -85,7 +85,7 @@ export function ShopCatalogue() {
                 </Link>
               </div>
             ) : (
-              <LoadMoreGrid products={displayProducts} />
+              <LoadMoreGrid key={`${query}-${isNew}`} products={displayProducts} />
             )}
           </div>
         </div>

@@ -85,7 +85,7 @@ export function PageHero({
                     quality={75}
                   className={
                     product
-                      ? "object-contain object-center scale-[1.12]"
+                      ? "pack-fill"
                       : "object-cover object-center"
                   }
                   />

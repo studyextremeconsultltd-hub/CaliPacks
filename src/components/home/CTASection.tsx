@@ -37,11 +37,11 @@ export function CTASection() {
 
           <div className="relative text-center max-w-2xl mx-auto mb-8">
             <span className="inline-block text-brand-600 text-xs font-extrabold uppercase tracking-widest mb-3">
-              Why Cali Smoke
+              Why Smoke Cali
             </span>
             <h2 className="font-display text-2xl md:text-3xl font-extrabold tracking-tight text-surface-950 mb-2">
               UK&apos;s{" "}
-              <span className="text-gradient-pink shine-text">Best Sellers</span> of Cali Packs
+              <span className="text-gradient-pink">Best Sellers</span> of Cali Packs
             </h2>
             <p className="text-surface-800/65 font-semibold text-sm md:text-base">
               Real stock. Bold designs. Fast UK delivery.

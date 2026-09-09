@@ -33,7 +33,7 @@ export default function CheckoutSuccessPage() {
           Order received
         </h1>
         <p className="text-surface-800/60 mb-2">
-          Thanks{order?.name ? `, ${order.name}` : ""}! We&apos;ve got your Cali Smoke order.
+          Thanks{order?.name ? `, ${order.name}` : ""}! We&apos;ve got your Smoke Cali order.
         </p>
         {order && (
           <p className="text-sm text-surface-800/50 mb-6">

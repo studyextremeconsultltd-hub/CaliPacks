@@ -1,3 +1,5 @@
+import { useId } from "react";
+import { SITE_TAGLINE } from "@/lib/site";
 import { cn } from "@/lib/utils";
 
 interface LogoProps {
@@ -8,16 +10,11 @@ interface LogoProps {
 }
 
 const sizes = {
-  sm: { box: 40, text: "text-[1.35rem]", tagline: "text-[8px]", gap: "gap-2.5" },
-  md: { box: 52, text: "text-[1.75rem]", tagline: "text-[10px]", gap: "gap-3" },
-  lg: { box: 64, text: "text-[2.15rem]", tagline: "text-xs", gap: "gap-3.5" },
+  sm: { box: 42, text: "text-[1.32rem]", tagline: "text-[8px]", gap: "gap-2.5" },
+  md: { box: 52, text: "text-[1.7rem]", tagline: "text-[10px]", gap: "gap-3" },
+  lg: { box: 62, text: "text-[2.1rem]", tagline: "text-xs", gap: "gap-3.5" },
 };
 
-/**
- * AutoMexa-inspired emblem for Cali Smoke:
- * geometric hex mark + bold CS + pink glow (static, no rotation).
- * Ref: https://automexa.co.uk/
- */
 export function Logo({
   variant = "default",
   size = "md",
@@ -26,102 +23,88 @@ export function Logo({
 }: LogoProps) {
   const s = sizes[size];
   const isLight = variant === "light";
-  const face = isLight ? "#0f172a" : "#fdf2f8";
-  const ink = isLight ? "#ffffff" : "#111827";
-  const accent = "#ec4899";
-  const accentHi = "#f9a8d4";
+  const uid = useId().replace(/:/g, "");
+  const face = `sc-face-${uid}`;
+  const ink = `sc-ink-${uid}`;
 
   return (
     <div className={cn("flex items-center", s.gap, className)}>
-      <div
-        className="logo-automexa-stage relative flex-shrink-0"
-        style={{ width: s.box, height: s.box }}
+      <svg
+        viewBox="0 0 80 80"
+        width={s.box}
+        height={s.box}
+        className="flex-shrink-0"
         aria-hidden
       >
-        <div className="logo-automexa-glow absolute inset-[-22%] rounded-full" />
-        <div className="relative h-full w-full">
-          <svg viewBox="0 0 80 80" className="logo-automexa-mark h-full w-full">
-            <defs>
-              <linearGradient id="csHexFace" x1="18%" y1="8%" x2="86%" y2="94%">
-                <stop offset="0%" stopColor={isLight ? "#1e293b" : "#1f2937"} />
-                <stop offset="45%" stopColor={ink} />
-                <stop offset="100%" stopColor={isLight ? "#0f172a" : "#030712"} />
-              </linearGradient>
-              <linearGradient id="csAccent" x1="0%" y1="0%" x2="100%" y2="100%">
-                <stop offset="0%" stopColor={accentHi} />
-                <stop offset="55%" stopColor={accent} />
-                <stop offset="100%" stopColor="#be185d" />
-              </linearGradient>
-              <filter id="csInnerGlow" x="-40%" y="-40%" width="180%" height="180%">
-                <feGaussianBlur stdDeviation="1.4" result="blur" />
-                <feMerge>
-                  <feMergeNode in="blur" />
-                  <feMergeNode in="SourceGraphic" />
-                </feMerge>
-              </filter>
-            </defs>
+        <defs>
+          <linearGradient id={face} x1="16%" y1="6%" x2="88%" y2="96%">
+            <stop offset="0%" stopColor={isLight ? "#334155" : "#1f2937"} />
+            <stop offset="52%" stopColor={isLight ? "#0f172a" : "#111827"} />
+            <stop offset="100%" stopColor="#030712" />
+          </linearGradient>
+          <linearGradient id={ink} x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stopColor="#fbcfe8" />
+            <stop offset="45%" stopColor="#ec4899" />
+            <stop offset="100%" stopColor="#9d174d" />
+          </linearGradient>
+        </defs>
 
-            <polygon
-              points="40,5 68,21 68,53 40,69 12,53 12,21"
-              fill="url(#csHexFace)"
-              stroke={accent}
-              strokeWidth="2.2"
-              strokeLinejoin="round"
-            />
+        <polygon
+          points="40,5 68,20.5 68,53.5 40,69 12,53.5 12,20.5"
+          fill={`url(#${face})`}
+          stroke={`url(#${ink})`}
+          strokeWidth="2.6"
+          strokeLinejoin="round"
+        />
 
-            <polyline
-              points="40,69 68,53 68,30"
-              fill="none"
-              stroke="url(#csAccent)"
-              strokeWidth="4"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            />
-
-            <circle cx="40" cy="42" r="10.5" fill={accent} opacity="0.95" filter="url(#csInnerGlow)" />
-            <circle cx="40" cy="42" r="5.2" fill={face} opacity="0.95" />
-
-            <line
-              x1="20"
-              y1="48"
-              x2="34"
-              y2="34"
-              stroke={face}
-              strokeWidth="2.4"
-              strokeLinecap="round"
-              opacity="0.9"
-            />
-
-            <g fill="none" stroke={face} strokeWidth="4.6" strokeLinecap="round" strokeLinejoin="round">
-              <path d="M31 28.5c-6.2 0-10.4 4.4-10.4 11.5S24.8 51.5 31 51.5c2.9 0 5.3-1 7-2.7" />
-              <path d="M51.2 31.2c-1.1-1.7-3.1-2.8-5.7-2.8-3.5 0-5.8 1.8-5.8 4.4 0 6.8 12.2 3.2 12.2 10.4 0 3.5-3 5.9-7.3 5.9-3.2 0-5.8-1.2-7.2-3.3" />
-            </g>
-          </svg>
-        </div>
-      </div>
+        {/* Smoke-formed S */}
+        <path
+          d="M49 24.5c-2.2-2.4-5.6-3.6-9.6-3.6-6.6 0-11.2 3.4-11.2 8.2 0 4.6 3.4 6.8 9.4 8.4 4.2 1.1 6.2 2.2 6.2 4.6 0 2.4-2.4 3.8-6 3.8-3.2 0-5.8-1.1-7.4-3"
+          fill="none"
+          stroke={`url(#${ink})`}
+          strokeWidth="4.4"
+          strokeLinecap="round"
+        />
+        {/* Rising wisp off the S */}
+        <path
+          d="M50.5 22c3.2-3.6 2.2-7.4-1.2-9.2"
+          fill="none"
+          stroke="#f9a8d4"
+          strokeWidth="2.3"
+          strokeLinecap="round"
+        />
+        {/* Smoke-formed C */}
+        <path
+          d="M56 41.5c-1.2-5.8-6.2-9.4-12.4-9.4-7.4 0-12.8 5.2-12.8 13.2S36.2 59 43.6 59c6.2 0 10.8-3.2 12.2-8.4"
+          fill="none"
+          stroke="#fce7f3"
+          strokeWidth="4.4"
+          strokeLinecap="round"
+        />
+      </svg>
 
       <div className="flex min-w-0 flex-col leading-none">
         <span
           className={cn(
-            "font-display font-extrabold tracking-[-0.045em]",
+            "font-display font-bold tracking-[-0.045em]",
             s.text,
             isLight ? "text-white" : "text-slate-950"
           )}
         >
-          Cali
-          <span className="bg-gradient-to-r from-brand-500 via-brand-400 to-fuchsia-500 bg-clip-text text-transparent">
-            Smoke
+          Smoke
+          <span className="bg-gradient-to-r from-brand-500 to-fuchsia-600 bg-clip-text text-transparent">
+            Cali
           </span>
         </span>
         {showTagline && (
           <span
             className={cn(
-              "mt-1.5 font-semibold uppercase tracking-[0.28em]",
+              "mt-1 font-semibold uppercase tracking-[0.24em]",
               s.tagline,
-              isLight ? "text-brand-100/80" : "text-slate-500"
+              isLight ? "text-white/70" : "text-slate-500"
             )}
           >
-            Manchester Smoke Shop
+            {SITE_TAGLINE}
           </span>
         )}
       </div>

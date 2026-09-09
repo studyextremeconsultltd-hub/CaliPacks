@@ -1,14 +1,18 @@
 "use client";
 
-import { useMemo, useState } from "react";
-import Link from "next/link";
+import { useEffect, useMemo, useState } from "react";
 import { Product } from "@/types";
 import { ProductGrid } from "@/components/products/ProductGrid";
 
-const PAGE_SIZE = 36;
+const PAGE_SIZE = 24;
 
 export function LoadMoreGrid({ products }: { products: Product[] }) {
   const [page, setPage] = useState(1);
+
+  useEffect(() => {
+    setPage(1);
+  }, [products]);
+
   const visibleCount = Math.min(products.length, page * PAGE_SIZE);
   const visible = useMemo(
     () => products.slice(0, visibleCount),

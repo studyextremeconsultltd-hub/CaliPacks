@@ -37,6 +37,7 @@ interface CategorySectionProps {
   products: Product[];
   viewAllHref: string;
   className?: string;
+  eagerCount?: number;
 }
 
 export function CategorySection({
@@ -45,6 +46,7 @@ export function CategorySection({
   products,
   viewAllHref,
   className,
+  eagerCount = 0,
 }: CategorySectionProps) {
   return (
     <section className={className ?? "py-12 md:py-16"}>
@@ -52,7 +54,7 @@ export function CategorySection({
         <div className="flex items-end justify-between mb-10 gap-4">
           <div>
             <div className="w-12 h-1 bg-gradient-to-r from-brand-500 to-brand-300 mb-4 rounded-full" />
-            <h2 className="font-display text-2xl md:text-3xl lg:text-4xl font-black tracking-tight text-gradient-pink shine-text">
+            <h2 className="font-display text-2xl md:text-3xl lg:text-4xl font-black tracking-tight text-gradient-pink">
               {title}
             </h2>
             {subtitle && (
@@ -69,7 +71,7 @@ export function CategorySection({
             <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
           </Link>
         </div>
-        <ProductGrid products={products} />
+        <ProductGrid products={products} eagerCount={eagerCount} />
       </div>
     </section>
   );

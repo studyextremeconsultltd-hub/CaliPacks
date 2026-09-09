@@ -19,7 +19,7 @@ export function Header() {
     "px-4 py-2.5 text-[15px] font-black tracking-wide text-brand-950 bg-gradient-to-br from-white via-brand-50 to-brand-200 hover:from-brand-100 hover:via-brand-200 hover:to-brand-300 rounded-2xl transition-all shadow-[0_8px_24px_rgba(236,72,153,0.16)] hover:shadow-[0_12px_30px_rgba(236,72,153,0.28)] hover:-translate-y-0.5";
 
   return (
-    <header className="sticky top-0 z-50 bg-white/90 backdrop-blur-xl shadow-[0_12px_36px_rgba(80,7,36,0.10)]">
+    <header className="sticky top-0 z-50 bg-white shadow-[0_8px_24px_rgba(80,7,36,0.08)]">
       <div className="container-site">
         <div className="flex items-center justify-between h-16 lg:h-[80px]">
           <Link
@@ -40,6 +40,7 @@ export function Header() {
                   onMouseLeave={() => setShopOpen(false)}
                 >
                   <button
+                    type="button"
                     className={cn(
                       "flex items-center gap-1",
                       navLinkClass,
@@ -82,7 +83,11 @@ export function Header() {
 
           <div className="flex items-center gap-1 sm:gap-2">
             <button
-              onClick={() => setSearchOpen(!searchOpen)}
+              type="button"
+              onClick={() => {
+                setSearchOpen((open) => !open);
+                setMobileOpen(false);
+              }}
               className="p-2.5 rounded-xl bg-brand-50/80 text-brand-950 hover:bg-brand-200 hover:text-brand-700 transition-colors"
               aria-label="Search"
             >
@@ -108,6 +113,7 @@ export function Header() {
               )}
             </Link>
             <button
+              type="button"
               onClick={() => setMobileOpen(!mobileOpen)}
               className="lg:hidden p-2.5 rounded-xl bg-brand-50/80 text-brand-950 hover:bg-brand-200 transition-colors"
               aria-label="Menu"

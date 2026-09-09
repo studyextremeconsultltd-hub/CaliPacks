@@ -1,8 +1,12 @@
 import type { Metadata } from "next";
+import { JsonLd } from "@/components/seo/JsonLd";
+import { pageUrl } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "FAQ",
-  description: "Frequently asked questions about Cali Smoke products, ordering, shipping, and delivery.",
+  description:
+    "FAQ for Smoke Cali Cali Packs: minimum order 50 pcs, £0.20 per pack, UK delivery, custom orders and returns.",
+  alternates: { canonical: pageUrl("/faq") },
 };
 
 const faqs = [
@@ -35,6 +39,20 @@ const faqs = [
 export default function FAQPage() {
   return (
     <div className="py-12 md:py-16">
+      <JsonLd
+        data={{
+          "@context": "https://schema.org",
+          "@type": "FAQPage",
+          mainEntity: faqs.map((faq) => ({
+            "@type": "Question",
+            name: faq.q,
+            acceptedAnswer: {
+              "@type": "Answer",
+              text: faq.a,
+            },
+          })),
+        }}
+      />
       <div className="container-site max-w-3xl">
         <h1 className="text-3xl font-bold text-surface-900 tracking-tight mb-8">
           Frequently Asked Questions

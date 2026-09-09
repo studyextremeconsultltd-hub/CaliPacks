@@ -3,7 +3,7 @@ import Link from "next/link";
 
 export const metadata: Metadata = {
   title: "Register",
-  description: "Create a Cali Smoke account for order tracking and faster checkout.",
+  robots: { index: false, follow: false },
 };
 
 export default function RegisterPage() {

@@ -83,7 +83,11 @@ interface ProductGalleryProps {
 
 export function ProductGallery({ product }: ProductGalleryProps) {
   const [activeImage, setActiveImage] = useState(0);
-  const images = product.images.length > 0 ? product.images : [product.image];
+  const images = Array.from(
+    new Set(
+      (product.images.length > 0 ? product.images : [product.image]).filter(Boolean)
+    )
+  );
 
   return (
     <div className="space-y-4">
@@ -93,7 +97,7 @@ export function ProductGallery({ product }: ProductGalleryProps) {
           alt={product.name}
           fill
           sizes="(max-width: 1024px) 100vw, 480px"
-          className="object-contain object-center scale-[1.08]"
+          className="pack-fill"
           priority
           quality={80}
         />

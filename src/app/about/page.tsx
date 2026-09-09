@@ -15,12 +15,12 @@ export default function AboutPage() {
       <PageHero
         eyebrow="Real Manchester stock"
         title="About"
-        accent="Cali Smoke"
+        accent="Smoke Cali"
         description="A real Manchester shop supplying 108 HD Cali Packs. £0.20 per pack, minimum 50 pcs — shop online or visit us on Sagar Street."
         images={[
           "/cali-shop-hero.jpg",
-          "/products/pack-001.jpg",
-          "/products/pack-027.jpg",
+          "/products/pack-030.jpg",
+          "/products/pack-060.jpg",
         ]}
         ctaLabel="Shop the catalogue"
         ctaHref="/shop"
@@ -31,7 +31,7 @@ export default function AboutPage() {
           <div className="mx-auto grid max-w-5xl gap-8 rounded-3xl bg-gradient-to-br from-white via-brand-50/70 to-brand-100/60 p-6 shadow-[0_18px_55px_rgba(236,72,153,0.12)] sm:p-9 lg:grid-cols-[1.1fr_0.9fr]">
             <div>
               <p className="text-lg font-bold leading-relaxed text-brand-950 sm:text-xl">
-                Cali Smoke supplies UK shops and buyers with Cali Packs selected
+                Smoke Cali supplies UK shops and buyers with Cali Packs selected
                 from our real Manchester shelves — £0.20 per pack, 50 pcs minimum.
               </p>
               <p className="mt-4 font-medium leading-relaxed text-brand-950/65">

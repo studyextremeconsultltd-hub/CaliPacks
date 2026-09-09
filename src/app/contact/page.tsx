@@ -59,18 +59,18 @@ export default function ContactPage() {
       <PageHero
         eyebrow="We are here to help"
         title="Contact"
-        accent="Cali Smoke"
+        accent="Smoke Cali"
         description="Questions about stock, wholesale, delivery or an order? Call, message or visit our Manchester shop."
         images={[
-          "/cali-shop-hero.jpg",
-          "/products/pack-008.jpg",
-          "/products/pack-046.jpg",
+          "/cali-smoke-storefront.jpg",
+          "/products/pack-045.jpg",
+          "/products/pack-088.jpg",
         ]}
       />
       <div className="bg-gradient-to-b from-white via-brand-50/40 to-white py-10 md:py-14">
         <div className="container-site">
         <div className="max-w-2xl mx-auto text-center mb-10">
-          <h2 className="font-display text-3xl md:text-4xl font-extrabold text-surface-950 tracking-tight mb-3 shine-text">
+          <h2 className="font-display text-3xl md:text-4xl font-extrabold text-surface-950 tracking-tight mb-3">
             How can we <span className="text-gradient-pink">help?</span>
           </h2>
           <p className="text-surface-800/60 font-medium text-sm md:text-base">

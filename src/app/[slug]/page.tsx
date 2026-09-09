@@ -1,14 +1,15 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
+import { pageUrl } from "@/lib/site";
 
 const pages: Record<string, { title: string; content: string }> = {
   privacy: {
     title: "Privacy Policy",
-    content: "Cali Smoke is committed to protecting your privacy. We collect only the information necessary to process your orders and improve your experience. We do not sell or share your personal data with third parties except as required to fulfil your orders.",
+    content: "Smoke Cali is committed to protecting your privacy. We collect only the information necessary to process your orders and improve your experience. We do not sell or share your personal data with third parties except as required to fulfil your orders.",
   },
   terms: {
     title: "Terms of Service",
-    content: "By using the Cali Smoke website, you agree to these terms. All products are sold subject to availability. Prices are listed in GBP and exclude VAT where applicable. Cali Smoke reserves the right to modify prices and product availability without notice.",
+    content: "By using the Smoke Cali website, you agree to these terms. All products are sold subject to availability. Prices are listed in GBP and exclude VAT where applicable. Smoke Cali reserves the right to modify prices and product availability without notice.",
   },
   shipping: {
     title: "Shipping Policy",
@@ -32,7 +33,11 @@ export async function generateMetadata({ params }: LegalPageProps): Promise<Meta
   const { slug } = await params;
   const page = pages[slug];
   if (!page) return { title: "Page Not Found" };
-  return { title: page.title };
+  return {
+    title: page.title,
+    description: page.content.slice(0, 155),
+    alternates: { canonical: pageUrl(`/${slug}`) },
+  };
 }
 
 export default async function LegalPage({ params }: LegalPageProps) {

@@ -7,7 +7,7 @@ import { ProductGallery, AddToCartButton } from "@/components/products/ProductDe
 import { ProductCard } from "@/components/products/ProductCard";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { formatPrice } from "@/lib/utils";
-import { SITE_URL } from "@/lib/site";
+import { SITE_NAME, SITE_URL, pageUrl } from "@/lib/site";
 
 interface ProductPageProps {
   params: Promise<{ slug: string }>;
@@ -24,14 +24,22 @@ export async function generateMetadata({ params }: ProductPageProps): Promise<Me
 
   return {
     title: `${product.name} Cali Pack`,
-    description: `${product.name} — £0.20 per pack, minimum 50 pcs. ${product.shortDescription}`,
+    description: `Buy ${product.name} Cali Pack from Smoke Cali. £0.20 per pack, minimum 50 pcs. HD photo, UK delivery in 2–3 days.`,
     openGraph: {
-      title: `${product.name} — £0.20 per pack`,
+      type: "website",
+      url: pageUrl(`/product/${product.slug}`),
+      title: `${product.name} — £0.20 per pack | Smoke Cali`,
       description: product.shortDescription,
-      images: [{ url: product.image }],
+      images: [{ url: product.image, alt: product.name }],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: `${product.name} Cali Pack`,
+      description: product.shortDescription,
+      images: [product.image],
     },
     alternates: {
-      canonical: `${SITE_URL}/product/${product.slug}`,
+      canonical: pageUrl(`/product/${product.slug}`),
     },
   };
 }
@@ -49,25 +57,52 @@ export default async function ProductPage({ params }: ProductPageProps) {
   return (
     <div className="py-8 md:py-12">
       <JsonLd
-        data={{
-          "@context": "https://schema.org",
-          "@type": "Product",
-          name: product.name,
-          image: `${SITE_URL}${product.image}`,
-          description: product.description,
-          sku: product.sku,
-          brand: { "@type": "Brand", name: "Cali Smoke" },
-          offers: {
-            "@type": "Offer",
-            url: `${SITE_URL}/product/${product.slug}`,
-            priceCurrency: "GBP",
-            price: product.price.toFixed(2),
-            availability: product.inStock
-              ? "https://schema.org/InStock"
-              : "https://schema.org/OutOfStock",
-            priceValidUntil: "2027-12-31",
+        data={[
+          {
+            "@context": "https://schema.org",
+            "@type": "Product",
+            name: `${product.name} Cali Pack`,
+            image: `${SITE_URL}${product.image}`,
+            description: product.description,
+            sku: product.sku,
+            brand: { "@type": "Brand", name: SITE_NAME },
+            offers: {
+              "@type": "Offer",
+              url: pageUrl(`/product/${product.slug}`),
+              priceCurrency: "GBP",
+              price: product.price.toFixed(2),
+              availability: product.inStock
+                ? "https://schema.org/InStock"
+                : "https://schema.org/OutOfStock",
+              priceValidUntil: "2027-12-31",
+              seller: { "@type": "Organization", name: SITE_NAME },
+            },
           },
-        }}
+          {
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            itemListElement: [
+              {
+                "@type": "ListItem",
+                position: 1,
+                name: "Home",
+                item: pageUrl("/"),
+              },
+              {
+                "@type": "ListItem",
+                position: 2,
+                name: "Shop",
+                item: pageUrl("/shop"),
+              },
+              {
+                "@type": "ListItem",
+                position: 3,
+                name: product.name,
+                item: pageUrl(`/product/${product.slug}`),
+              },
+            ],
+          },
+        ]}
       />
       <div className="container-site">
         <nav className="text-sm text-surface-800/40 mb-8">
@@ -95,7 +130,7 @@ export default async function ProductPage({ params }: ProductPageProps) {
                 New Arrival
               </span>
             )}
-            <h1 className="text-2xl md:text-3xl font-black tracking-tight mb-3 text-gradient-pink shine-text">
+            <h1 className="text-2xl md:text-3xl font-black tracking-tight mb-3 text-gradient-pink">
               {product.name}
             </h1>
             <div className="flex items-center gap-3 mb-6">
