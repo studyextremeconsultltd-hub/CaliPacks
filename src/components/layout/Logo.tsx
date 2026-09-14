@@ -10,10 +10,103 @@ interface LogoProps {
 }
 
 const sizes = {
-  sm: { box: 42, text: "text-[1.32rem]", tagline: "text-[8px]", gap: "gap-2.5" },
-  md: { box: 52, text: "text-[1.7rem]", tagline: "text-[10px]", gap: "gap-3" },
-  lg: { box: 62, text: "text-[2.1rem]", tagline: "text-xs", gap: "gap-3.5" },
+  sm: { box: 44, text: "text-[1.35rem]", tagline: "text-[7px]", gap: "gap-2.5" },
+  md: { box: 58, text: "text-[1.78rem]", tagline: "text-[9px]", gap: "gap-3" },
+  lg: { box: 70, text: "text-[2.15rem]", tagline: "text-[10px]", gap: "gap-3.5" },
 };
+
+function LogoMark({ id, size }: { id: string; size: number }) {
+  const rim = `sc-rim-${id}`;
+  const smoke = `sc-smoke-${id}`;
+  const glass = `sc-glass-${id}`;
+  const shine = `sc-shine-${id}`;
+
+  return (
+    <svg
+      viewBox="0 0 100 100"
+      width={size}
+      height={size}
+      className="flex-shrink-0 drop-shadow-[0_8px_18px_rgba(236,72,153,0.28)]"
+      aria-hidden
+    >
+      <defs>
+        <linearGradient id={rim} x1="8%" y1="0%" x2="92%" y2="100%">
+          <stop offset="0%" stopColor="#fce7f3" />
+          <stop offset="38%" stopColor="#f472b6" />
+          <stop offset="72%" stopColor="#ec4899" />
+          <stop offset="100%" stopColor="#9d174d" />
+        </linearGradient>
+        <linearGradient id={smoke} x1="20%" y1="10%" x2="85%" y2="95%">
+          <stop offset="0%" stopColor="#fff1f7" />
+          <stop offset="28%" stopColor="#f9a8d4" />
+          <stop offset="62%" stopColor="#ec4899" />
+          <stop offset="100%" stopColor="#be185d" />
+        </linearGradient>
+        <radialGradient id={glass} cx="38%" cy="32%" r="62%">
+          <stop offset="0%" stopColor="#3f3f46" />
+          <stop offset="55%" stopColor="#111113" />
+          <stop offset="100%" stopColor="#050506" />
+        </radialGradient>
+        <radialGradient id={shine} cx="32%" cy="24%" r="42%">
+          <stop offset="0%" stopColor="#ffffff" stopOpacity="0.22" />
+          <stop offset="100%" stopColor="#ffffff" stopOpacity="0" />
+        </radialGradient>
+      </defs>
+
+      <polygon
+        points="50,6 88,28 88,72 50,94 12,72 12,28"
+        fill={`url(#${glass})`}
+        stroke={`url(#${rim})`}
+        strokeWidth="4.2"
+        strokeLinejoin="round"
+      />
+      <polygon
+        points="50,14 80,32 80,68 50,86 20,68 20,32"
+        fill="none"
+        stroke="#fbcfe8"
+        strokeWidth="1.15"
+        strokeLinejoin="round"
+        opacity="0.55"
+      />
+      <polygon
+        points="50,6 88,28 88,72 50,94 12,72 12,28"
+        fill={`url(#${shine})`}
+      />
+
+      {/* Silk smoke S */}
+      <path
+        d="M64 27c-8.5-8-24-9.5-30 1.5-5 9 6.5 13.5 16 16.5 11 3.5 18 10 14.5 19.5-4 10.5-20 13-28 4"
+        fill="none"
+        stroke={`url(#${smoke})`}
+        strokeWidth="7.2"
+        strokeLinecap="round"
+      />
+      {/* Silk smoke C wrapping the S */}
+      <path
+        d="M69 36c5.5 8 4 24-10 31-12 6-24 1-26-9"
+        fill="none"
+        stroke={`url(#${smoke})`}
+        strokeWidth="6.6"
+        strokeLinecap="round"
+      />
+      {/* Fine wisps */}
+      <path
+        d="M66 24c6-6 5-13-2-12"
+        fill="none"
+        stroke="#fce7f3"
+        strokeWidth="2.4"
+        strokeLinecap="round"
+      />
+      <path
+        d="M30 72c-5-3-9 2-5 6"
+        fill="none"
+        stroke="#f9a8d4"
+        strokeWidth="2.2"
+        strokeLinecap="round"
+      />
+    </svg>
+  );
+}
 
 export function Logo({
   variant = "default",
@@ -24,84 +117,30 @@ export function Logo({
   const s = sizes[size];
   const isLight = variant === "light";
   const uid = useId().replace(/:/g, "");
-  const face = `sc-face-${uid}`;
-  const ink = `sc-ink-${uid}`;
 
   return (
     <div className={cn("flex items-center", s.gap, className)}>
-      <svg
-        viewBox="0 0 80 80"
-        width={s.box}
-        height={s.box}
-        className="flex-shrink-0"
-        aria-hidden
-      >
-        <defs>
-          <linearGradient id={face} x1="16%" y1="6%" x2="88%" y2="96%">
-            <stop offset="0%" stopColor={isLight ? "#334155" : "#1f2937"} />
-            <stop offset="52%" stopColor={isLight ? "#0f172a" : "#111827"} />
-            <stop offset="100%" stopColor="#030712" />
-          </linearGradient>
-          <linearGradient id={ink} x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stopColor="#fbcfe8" />
-            <stop offset="45%" stopColor="#ec4899" />
-            <stop offset="100%" stopColor="#9d174d" />
-          </linearGradient>
-        </defs>
-
-        <polygon
-          points="40,5 68,20.5 68,53.5 40,69 12,53.5 12,20.5"
-          fill={`url(#${face})`}
-          stroke={`url(#${ink})`}
-          strokeWidth="2.6"
-          strokeLinejoin="round"
-        />
-
-        {/* Smoke-formed S */}
-        <path
-          d="M49 24.5c-2.2-2.4-5.6-3.6-9.6-3.6-6.6 0-11.2 3.4-11.2 8.2 0 4.6 3.4 6.8 9.4 8.4 4.2 1.1 6.2 2.2 6.2 4.6 0 2.4-2.4 3.8-6 3.8-3.2 0-5.8-1.1-7.4-3"
-          fill="none"
-          stroke={`url(#${ink})`}
-          strokeWidth="4.4"
-          strokeLinecap="round"
-        />
-        {/* Rising wisp off the S */}
-        <path
-          d="M50.5 22c3.2-3.6 2.2-7.4-1.2-9.2"
-          fill="none"
-          stroke="#f9a8d4"
-          strokeWidth="2.3"
-          strokeLinecap="round"
-        />
-        {/* Smoke-formed C */}
-        <path
-          d="M56 41.5c-1.2-5.8-6.2-9.4-12.4-9.4-7.4 0-12.8 5.2-12.8 13.2S36.2 59 43.6 59c6.2 0 10.8-3.2 12.2-8.4"
-          fill="none"
-          stroke="#fce7f3"
-          strokeWidth="4.4"
-          strokeLinecap="round"
-        />
-      </svg>
+      <LogoMark id={uid} size={s.box} />
 
       <div className="flex min-w-0 flex-col leading-none">
         <span
           className={cn(
-            "font-display font-bold tracking-[-0.045em]",
+            "font-sans font-extrabold tracking-[-0.04em]",
             s.text,
-            isLight ? "text-white" : "text-slate-950"
+            isLight ? "text-white" : "text-neutral-900"
           )}
         >
           Smoke
-          <span className="bg-gradient-to-r from-brand-500 to-fuchsia-600 bg-clip-text text-transparent">
+          <span className="bg-gradient-to-r from-pink-400 via-brand-500 to-fuchsia-600 bg-clip-text text-transparent">
             Cali
           </span>
         </span>
         {showTagline && (
           <span
             className={cn(
-              "mt-1 font-semibold uppercase tracking-[0.24em]",
+              "mt-1.5 font-semibold uppercase tracking-[0.28em]",
               s.tagline,
-              isLight ? "text-white/70" : "text-slate-500"
+              isLight ? "text-white/65" : "text-neutral-400"
             )}
           >
             {SITE_TAGLINE}

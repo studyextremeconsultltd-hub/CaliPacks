@@ -21,7 +21,7 @@ export function Header() {
   return (
     <header className="sticky top-0 z-50 bg-white shadow-[0_8px_24px_rgba(80,7,36,0.08)]">
       <div className="container-site">
-        <div className="flex items-center justify-between h-16 lg:h-[80px]">
+            <div className="flex items-center justify-between h-[72px] lg:h-[88px]">
           <Link
             href="/"
             className="rounded-xl px-1 py-0.5 transition hover:opacity-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-300"
