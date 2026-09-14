@@ -1,4 +1,5 @@
 import { Product } from "@/types";
+import { shopStockProducts } from "@/data/shop-stock";
 
 export const products: Product[] = [
   {
@@ -1768,7 +1769,62 @@ export const products: Product[] = [
     isFeatured: true,
     minOrder: 50,
     sku: "CP-108",
-  }
+  },
+  {
+    id: "pack-109",
+    name: "Cookie Blast",
+    slug: "cookie-blast",
+    description: "Holographic Cookie Blast 3.5g Cali Pack. £0.20 per pack. Minimum order 50 pcs. Smell-proof 3.5g Cali Pack with HD shop photography.",
+    shortDescription: "Holographic Cookie Blast 3.5g Cali Pack — £0.20 per pack, min 50 pcs.",
+    price: 0.2,
+    categoryId: "cali-packs",
+    categorySlug: "cali-packs",
+    image: "/products/pack-109.webp",
+    images: ["/products/pack-109.webp"],
+    tags: ["cali-packs", "mylar", "wholesale", "new"],
+    inStock: true,
+    isNew: true,
+    isFeatured: true,
+    minOrder: 50,
+    sku: "CP-109",
+  },
+  {
+    id: "pack-110",
+    name: "Ice Cream Cake",
+    slug: "ice-cream-cake",
+    description: "Ice Cream Cake dessert-style 3.5g Cali Pack. £0.20 per pack. Minimum order 50 pcs. Smell-proof 3.5g Cali Pack with HD shop photography.",
+    shortDescription: "Ice Cream Cake dessert-style 3.5g Cali Pack — £0.20 per pack, min 50 pcs.",
+    price: 0.2,
+    categoryId: "cali-packs",
+    categorySlug: "cali-packs",
+    image: "/products/pack-110.webp",
+    images: ["/products/pack-110.webp"],
+    tags: ["cali-packs", "mylar", "wholesale", "new"],
+    inStock: true,
+    isNew: true,
+    isFeatured: true,
+    minOrder: 50,
+    sku: "CP-110",
+  },
+  {
+    id: "pack-111",
+    name: "Skywalker",
+    slug: "skywalker",
+    description: "Skywalker astronaut-art 3.5g Cali Pack. £0.20 per pack. Minimum order 50 pcs. Smell-proof 3.5g Cali Pack with HD shop photography.",
+    shortDescription: "Skywalker astronaut-art 3.5g Cali Pack — £0.20 per pack, min 50 pcs.",
+    price: 0.2,
+    categoryId: "cali-packs",
+    categorySlug: "cali-packs",
+    image: "/products/pack-111.webp",
+    images: ["/products/pack-111.webp"],
+    tags: ["cali-packs", "mylar", "wholesale", "new"],
+    inStock: true,
+    isNew: true,
+    isFeatured: true,
+    minOrder: 50,
+    sku: "CP-111",
+  },
+  ...shopStockProducts,
 ];
 
 export function getProductBySlug(slug: string): Product | undefined {
@@ -1803,11 +1859,14 @@ export function getShopDisplayProducts(limit = 8): Product[] {
 /** Non-overlapping homepage sets so no pack photo appears twice above the fold. */
 export function getHomepageSections() {
   const packs = products.filter((p) => p.categorySlug === "cali-packs");
+  const shopStock = products.filter((p) => p.categorySlug !== "cali-packs");
   return {
     latest: packs.slice(0, 8),
     more: packs.slice(8, 16),
     heroTiles: packs.slice(16, 20),
     featured: packs.slice(20, 24),
+    newPacks: packs.filter((p) => p.isNew).slice(-3),
+    shopStock,
   };
 }
 

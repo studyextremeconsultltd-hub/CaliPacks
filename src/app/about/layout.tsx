@@ -11,7 +11,7 @@ export const metadata: Metadata = {
     url: pageUrl("/about"),
     title: "About Smoke Cali | Manchester Cali Packs",
     description:
-      "A real Manchester shop supplying 108 HD Cali Packs. £0.20 per pack, minimum 50 pcs.",
+      "A real Manchester shop supplying 111 HD Cali Packs. £0.20 per pack, minimum 50 pcs.",
   },
 };
 

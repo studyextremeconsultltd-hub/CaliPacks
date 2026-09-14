@@ -3,7 +3,7 @@ import { ArrowRight, CheckCircle2 } from "lucide-react";
 import { PageHero } from "@/components/layout/PageHero";
 
 const highlights = [
-  "108 HD Cali Pack designs, each named and photographed",
+  "111 HD Cali Pack designs, each named and photographed",
   "£0.20 per pack · minimum order 50 pcs",
   "Online cart and WhatsApp ordering",
   "Fast 2–3 day UK delivery",
@@ -16,7 +16,7 @@ export default function AboutPage() {
         eyebrow="Real Manchester stock"
         title="About"
         accent="Smoke Cali"
-        description="A real Manchester shop supplying 108 HD Cali Packs. £0.20 per pack, minimum 50 pcs — shop online or visit us on Sagar Street."
+        description="A real Manchester shop supplying 111 HD Cali Packs. £0.20 per pack, minimum 50 pcs — shop online or visit us on Sagar Street."
         images={[
           "/cali-shop-hero.webp",
           "/products/pack-030.webp",

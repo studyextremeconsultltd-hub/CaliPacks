@@ -1,5 +1,6 @@
 import type { MetadataRoute } from "next";
 import { products } from "@/data/products";
+import { categories } from "@/data/categories";
 import { pageUrl } from "@/lib/site";
 
 export const dynamic = "force-static";
@@ -12,6 +13,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
     lastModified: now,
     changeFrequency: "weekly" as const,
     priority: 0.8,
+  }));
+
+  const categoryUrls = categories.map((category) => ({
+    url: pageUrl(`/shop/${category.slug}`),
+    lastModified: now,
+    changeFrequency: "weekly" as const,
+    priority: 0.85,
   }));
 
   const staticPages = [
@@ -32,5 +40,5 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: page.priority,
   }));
 
-  return [...staticPages, ...productUrls];
+  return [...staticPages, ...categoryUrls, ...productUrls];
 }

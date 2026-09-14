@@ -5,6 +5,7 @@ import Link from "next/link";
 import { Minus, Plus, Trash2, ShoppingBag, ArrowRight } from "lucide-react";
 import { useCart } from "@/context/CartContext";
 import { formatPrice } from "@/lib/utils";
+import { productImageClass, productUnit } from "@/lib/product";
 
 export default function CartPage() {
   const { items, subtotal, updateQuantity, removeItem, clearCart } = useCart();
@@ -68,7 +69,7 @@ export default function CartPage() {
                     fill
                     sizes="96px"
                     quality={75}
-                    className="pack-fill"
+                    className={productImageClass(item.product)}
                   />
                 </Link>
                 <div className="flex-1 min-w-0">
@@ -79,8 +80,8 @@ export default function CartPage() {
                     {item.product.name}
                   </Link>
                   <p className="text-sm text-surface-800/60 mt-1">
-                    {formatPrice(item.product.price)} per pack
-                    {item.product.minOrder
+                    {formatPrice(item.product.price)} {productUnit(item.product)}
+                    {item.product.minOrder && item.product.minOrder > 1
                       ? ` · min ${item.product.minOrder} pcs`
                       : ""}
                   </p>

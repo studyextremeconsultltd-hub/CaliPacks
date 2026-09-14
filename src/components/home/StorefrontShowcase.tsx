@@ -30,8 +30,8 @@ export function StorefrontShowcase() {
               <span className="text-gradient-pink">Smoke Cali</span>
             </h2>
             <p className="mt-4 max-w-md text-base font-semibold leading-relaxed text-white/75 sm:text-lg">
-              Explore our real shop stock online — 108 HD Cali Packs at £0.20
-              per pack, minimum 50 pcs, plus in-store essentials.
+              Explore our real shop stock online — 111 HD Cali Packs at £0.20
+              per pack, minimum 50 pcs, plus grinders, glass, hookahs, and more.
             </p>
 
             <div className="mt-6 flex items-start gap-3 rounded-2xl border border-white/15 bg-white/10 p-4 backdrop-blur-md">

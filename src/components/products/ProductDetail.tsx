@@ -5,6 +5,7 @@ import Image from "next/image";
 import { Minus, Plus, ShoppingBag, Check } from "lucide-react";
 import { Product } from "@/types";
 import { formatPrice } from "@/lib/utils";
+import { productImageClass } from "@/lib/product";
 import { useCart } from "@/context/CartContext";
 
 interface AddToCartButtonProps {
@@ -97,7 +98,7 @@ export function ProductGallery({ product }: ProductGalleryProps) {
           alt={product.name}
           fill
           sizes="(max-width: 1024px) 100vw, 480px"
-          className="pack-fill"
+          className={productImageClass(product)}
           priority
           quality={80}
         />

@@ -38,7 +38,7 @@ export const metadata: Metadata = {
     template: `%s | ${SITE_NAME}`,
   },
   description:
-    "Smoke Cali is a Manchester smoke shop for wholesale Cali Packs. 108 HD designs, £0.20 per pack, minimum 50 pcs, UK delivery in 2–3 days.",
+    "Smoke Cali is a Manchester smoke shop for wholesale Cali Packs. 111 HD designs, £0.20 per pack, minimum 50 pcs, UK delivery in 2–3 days.",
   keywords: [
     "Smoke Cali",
     "Cali Packs UK",
@@ -58,7 +58,7 @@ export const metadata: Metadata = {
     siteName: SITE_NAME,
     title: "Smoke Cali | Cali Packs £0.20 · Manchester",
     description:
-      "108 HD Cali Packs from Smoke Cali Manchester. £0.20 per pack, minimum 50 pcs. Shop online or visit Sagar Street.",
+      "111 HD Cali Packs from Smoke Cali Manchester. £0.20 per pack, minimum 50 pcs. Shop online or visit Sagar Street.",
     images: [
       {
         url: "/hero-cali-packs.jpg",
@@ -71,7 +71,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "Smoke Cali | Cali Packs £0.20",
-    description: "108 HD Cali Packs. £0.20 per pack, min 50 pcs. Manchester smoke shop.",
+    description: "111 HD Cali Packs. £0.20 per pack, min 50 pcs. Manchester smoke shop.",
     images: ["/hero-cali-packs.jpg"],
   },
   robots: {

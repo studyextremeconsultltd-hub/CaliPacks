@@ -8,6 +8,7 @@ import { ProductCard } from "@/components/products/ProductCard";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { formatPrice } from "@/lib/utils";
 import { SITE_NAME, SITE_URL, pageUrl } from "@/lib/site";
+import { isCaliPack, productUnit } from "@/lib/product";
 
 interface ProductPageProps {
   params: Promise<{ slug: string }>;
@@ -22,19 +23,25 @@ export async function generateMetadata({ params }: ProductPageProps): Promise<Me
   const product = getProductBySlug(slug);
   if (!product) return { title: "Product Not Found" };
 
+  const pack = isCaliPack(product);
+  const titleName = pack ? `${product.name} Cali Pack` : product.name;
+  const priceLabel = pack
+    ? "£0.20 per pack, minimum 50 pcs"
+    : `${formatPrice(product.price)} each`;
+
   return {
-    title: `${product.name} Cali Pack`,
-    description: `Buy ${product.name} Cali Pack from Smoke Cali. £0.20 per pack, minimum 50 pcs. HD photo, UK delivery in 2–3 days.`,
+    title: titleName,
+    description: `Buy ${product.name} from Smoke Cali. ${priceLabel}. HD photo, UK delivery in 2–3 days.`,
     openGraph: {
       type: "website",
       url: pageUrl(`/product/${product.slug}`),
-      title: `${product.name} — £0.20 per pack | Smoke Cali`,
+      title: `${product.name} — ${formatPrice(product.price)} ${productUnit(product)} | Smoke Cali`,
       description: product.shortDescription,
       images: [{ url: product.image, alt: product.name }],
     },
     twitter: {
       card: "summary_large_image",
-      title: `${product.name} Cali Pack`,
+      title: titleName,
       description: product.shortDescription,
       images: [product.image],
     },
@@ -61,7 +68,7 @@ export default async function ProductPage({ params }: ProductPageProps) {
           {
             "@context": "https://schema.org",
             "@type": "Product",
-            name: `${product.name} Cali Pack`,
+            name: isCaliPack(product) ? `${product.name} Cali Pack` : product.name,
             image: `${SITE_URL}${product.image}`,
             description: product.description,
             sku: product.sku,
@@ -108,7 +115,9 @@ export default async function ProductPage({ params }: ProductPageProps) {
         <nav className="text-sm text-surface-800/40 mb-8">
           <Link href="/" className="hover:text-brand-700">Home</Link>
           <span className="mx-2">/</span>
-          <Link href="/shop" className="hover:text-brand-700">Cali Packs</Link>
+          <Link href={category ? `/shop/${category.slug}` : "/shop"} className="hover:text-brand-700">
+            {category?.name ?? "Shop"}
+          </Link>
           <span className="mx-2">/</span>
           <span className="text-surface-800 line-clamp-1">{product.name}</span>
         </nav>
@@ -134,7 +143,7 @@ export default async function ProductPage({ params }: ProductPageProps) {
                   {formatPrice(product.originalPrice)}
                 </span>
               )}
-              <span className="text-sm text-brand-600 font-bold">per pack</span>
+              <span className="text-sm text-brand-600 font-bold">{productUnit(product)}</span>
             </div>
 
             <p className="text-black/70 leading-relaxed mb-8 font-semibold">
@@ -157,13 +166,13 @@ export default async function ProductPage({ params }: ProductPageProps) {
                   <div>
                     <dt className="text-surface-800/40">Category</dt>
                     <dd>
-                      <Link href="/shop" className="font-medium text-brand-700 hover:underline">
+                      <Link href={`/shop/${category.slug}`} className="font-medium text-brand-700 hover:underline">
                         {category.name}
                       </Link>
                     </dd>
                   </div>
                 )}
-                {product.minOrder && (
+                {product.minOrder && product.minOrder > 1 && (
                   <div>
                     <dt className="text-surface-800/40">Min. Order</dt>
                     <dd className="font-medium">{product.minOrder} pcs</dd>

@@ -7,6 +7,7 @@ import { useRouter } from "next/navigation";
 import { MessageCircle, CreditCard, ArrowLeft } from "lucide-react";
 import { useCart } from "@/context/CartContext";
 import { formatPrice } from "@/lib/utils";
+import { productImageClass } from "@/lib/product";
 import { whatsappOrderNumber } from "@/data/social";
 
 export default function CheckoutPage() {
@@ -203,7 +204,7 @@ export default function CheckoutPage() {
                         fill
                         sizes="56px"
                         quality={75}
-                        className="pack-fill"
+                        className={productImageClass(item.product)}
                       />
                     </div>
                     <div className="min-w-0 flex-1">

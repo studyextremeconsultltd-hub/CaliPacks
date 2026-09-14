@@ -45,14 +45,14 @@ export function HeroBannerSlider({ products }: HeroBannerSliderProps) {
                   Smoke Cali · Manchester
                 </p>
                 <h1 className="font-display text-3xl font-black leading-[1.08] tracking-tight text-white drop-shadow-lg sm:text-4xl lg:text-[2.85rem]">
-                  108 Cali Packs. Studio HD.
+                  111 Cali Packs. Studio HD.
                 </h1>
                 <p className="mb-7 mt-3 max-w-md text-sm font-semibold leading-relaxed text-white/80 sm:text-base">
                   £0.20 per pack · Minimum 50 pcs. Smell-proof 3.5g designs photographed for the web.
                 </p>
                 <div className="flex flex-wrap gap-2.5 sm:gap-3">
                   <Link
-                    href="/shop"
+                    href="/shop/cali-packs"
                     className="inline-flex items-center gap-2 rounded-xl bg-brand-600 px-5 py-3 text-sm font-extrabold text-white shadow-lg shadow-brand-600/40 transition hover:bg-brand-500 sm:text-base"
                   >
                     Shop Cali Packs
@@ -71,7 +71,7 @@ export function HeroBannerSlider({ products }: HeroBannerSliderProps) {
             <div className="relative px-3 pb-6 pt-2 sm:p-5 lg:p-6 lg:pl-2">
               <div className="mb-2 flex items-center justify-between px-1 text-[10px] font-black uppercase tracking-[0.16em] text-white/70 sm:text-xs">
                 <span>Featured packs</span>
-                <span>108 designs · £0.20 · min 50</span>
+                <span>111 designs · £0.20 · min 50</span>
               </div>
               <div className="grid grid-cols-2 gap-2 sm:min-h-[340px] sm:gap-3.5 lg:min-h-[390px]">
                 {tiles.map((product, index) => (

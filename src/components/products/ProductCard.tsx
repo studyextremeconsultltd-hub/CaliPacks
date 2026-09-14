@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { Product } from "@/types";
 import { formatPrice } from "@/lib/utils";
+import { productImageClass, productUnit } from "@/lib/product";
 import { AddToCartMini } from "./AddToCartMini";
 
 interface ProductCardProps {
@@ -47,7 +48,7 @@ export function ProductCard({
             priority={priority}
             loading={priority ? "eager" : "lazy"}
             decoding="async"
-            className="pack-fill transition-transform duration-300"
+            className={`${productImageClass(product)} transition-transform duration-300`}
           />
           {product.isNew && (
             <span className="absolute top-2 left-2 px-2 py-0.5 bg-brand-600 text-white text-[10px] font-bold uppercase tracking-wider rounded-full shadow-md z-10">
@@ -62,9 +63,14 @@ export function ProductCard({
           <span className="font-black text-base text-black">
             {formatPrice(product.price)}
           </span>
-          <span className="text-[11px] font-bold text-black/45">per pack</span>
+          {product.originalPrice ? (
+            <span className="text-[11px] font-bold text-black/35 line-through">
+              {formatPrice(product.originalPrice)}
+            </span>
+          ) : null}
+          <span className="text-[11px] font-bold text-black/45">{productUnit(product)}</span>
         </div>
-        {product.minOrder ? (
+        {product.minOrder && product.minOrder > 1 ? (
           <p className="mt-1 text-[11px] font-extrabold uppercase tracking-wide text-brand-700">
             Min. {product.minOrder} pcs
           </p>

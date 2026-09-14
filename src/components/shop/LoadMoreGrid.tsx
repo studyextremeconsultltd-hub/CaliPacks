@@ -30,10 +30,10 @@ export function LoadMoreGrid({ products }: { products: Product[] }) {
             onClick={() => setPage((p) => p + 1)}
             className="inline-flex items-center justify-center rounded-xl bg-brand-600 px-6 py-3 text-sm font-black text-white shadow-lg shadow-brand-200 transition hover:bg-brand-500"
           >
-            Load more packs
+            Load more
           </button>
           <p className="mt-2 text-xs font-semibold text-black/45">
-            {products.length - visibleCount} more designs
+            {products.length - visibleCount} more items
           </p>
         </div>
       )}

@@ -27,10 +27,10 @@ export function CategoryShowcase({ products }: { products: Product[] }) {
               </p>
             </div>
             <Link
-              href="/shop"
+              href="/shop/cali-packs"
               className="inline-flex w-fit items-center gap-2 rounded-xl bg-white px-5 py-3 text-sm font-black text-brand-800 shadow-lg transition hover:bg-brand-50"
             >
-              Shop all 108 packs
+              Shop all 111 packs
               <ArrowRight className="h-4 w-4" />
             </Link>
           </div>

@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { ShopLegacyRedirect } from "@/components/shop/ShopLegacyRedirect";
+import { Suspense } from "react";
+import { ShopCatalogue } from "@/components/shop/ShopCatalogue";
 import { getCategoryBySlug, categories } from "@/data/categories";
 import { pageUrl } from "@/lib/site";
 
@@ -18,13 +19,12 @@ export async function generateMetadata({ params }: CategoryPageProps): Promise<M
   if (!category) return { title: "Category Not Found" };
 
   return {
-    title: "Cali Packs",
+    title: category.name,
     description: category.description,
-    robots: { index: false, follow: true },
-    alternates: { canonical: pageUrl("/shop") },
+    alternates: { canonical: pageUrl(`/shop/${category.slug}`) },
     openGraph: {
-      url: pageUrl("/shop"),
-      title: "Cali Packs — £0.20 per pack | Smoke Cali",
+      url: pageUrl(`/shop/${category.slug}`),
+      title: `${category.name} | Smoke Cali`,
       description: category.description,
       images: [{ url: category.image, alt: category.name }],
     },
@@ -34,5 +34,10 @@ export async function generateMetadata({ params }: CategoryPageProps): Promise<M
 export default async function CategoryPage({ params }: CategoryPageProps) {
   const { category: slug } = await params;
   if (!getCategoryBySlug(slug)) notFound();
-  return <ShopLegacyRedirect />;
+
+  return (
+    <Suspense fallback={<div className="container-site py-16 font-semibold text-black/50">Loading shop…</div>}>
+      <ShopCatalogue categorySlug={slug} />
+    </Suspense>
+  );
 }
