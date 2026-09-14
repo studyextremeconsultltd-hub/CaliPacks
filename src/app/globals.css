@@ -98,9 +98,18 @@
     transform: scale(1.2);
   }
 
+  .product-fit {
+    object-fit: contain;
+    object-position: center;
+  }
+
   @media (min-width: 768px) {
     .group:hover .pack-fill {
       transform: scale(1.26);
+    }
+
+    .group:hover .product-fit {
+      transform: scale(1.04);
     }
   }
 

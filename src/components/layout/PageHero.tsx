@@ -13,7 +13,7 @@ interface PageHeroProps {
 }
 
 function isProductShot(src: string) {
-  return src.includes("/products/");
+  return src.includes("/products/") || src.includes("/shop/");
 }
 
 /**
@@ -85,7 +85,9 @@ export function PageHero({
                     quality={75}
                   className={
                     product
-                      ? "pack-fill"
+                      ? src.includes("/shop/") || /pack-080|pack-109|pack-110|pack-111/.test(src)
+                        ? "product-fit"
+                        : "pack-fill"
                       : "object-cover object-center"
                   }
                   />

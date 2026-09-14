@@ -48,7 +48,7 @@ export function CategoryHub() {
                   className={
                     category.slug === "cali-packs"
                       ? "pack-fill transition-transform duration-300"
-                      : "object-cover object-center transition-transform duration-300 group-hover:scale-105"
+                      : "product-fit transition-transform duration-300"
                   }
                 />
               </div>

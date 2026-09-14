@@ -44,7 +44,7 @@ export function ProductCard({
             alt={product.name}
             fill
             sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 260px"
-            quality={70}
+            quality={80}
             priority={priority}
             loading={priority ? "eager" : "lazy"}
             decoding="async"

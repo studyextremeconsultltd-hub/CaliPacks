@@ -100,7 +100,7 @@ export function ProductGallery({ product }: ProductGalleryProps) {
           sizes="(max-width: 1024px) 100vw, 480px"
           className={productImageClass(product)}
           priority
-          quality={80}
+          quality={88}
         />
       </div>
       {images.length > 1 && (
