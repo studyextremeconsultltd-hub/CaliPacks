@@ -1,5 +1,6 @@
 # dependencies
 /node_modules
+cloudflare/checkout-worker/node_modules
 /.pnp
 .pnp.*
 .yarn/*
@@ -36,6 +37,11 @@ yarn-error.log*
 
 # env files
 .env*
+!.env.example
+cloudflare/checkout-worker/.dev.vars
+
+# local Stripe reference dumps
+/scripts/_rose-refs/
 
 # vercel
 .vercel

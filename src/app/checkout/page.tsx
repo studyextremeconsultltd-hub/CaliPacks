@@ -1,20 +1,28 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import { MessageCircle, CreditCard, ArrowLeft } from "lucide-react";
+import { MessageCircle, CreditCard, ArrowLeft, Loader2 } from "lucide-react";
 import { useCart } from "@/context/CartContext";
 import { formatPrice } from "@/lib/utils";
 import { productImageClass } from "@/lib/product";
 import { whatsappOrderNumber } from "@/data/social";
-import { STRIPE_PAYMENT_LINK } from "@/lib/payments";
+import { checkoutCreateUrl } from "@/lib/payments";
+import { openStripeCheckoutWindow, STRIPE_MESSAGE } from "@/lib/stripe-window";
+import { StripePayOverlay } from "@/components/payments/StripePayOverlay";
+
+type OverlayStatus = "preparing" | "waiting" | "blocked" | "error";
 
 export default function CheckoutPage() {
   const { items, subtotal, clearCart } = useCart();
   const router = useRouter();
   const [submitting, setSubmitting] = useState(false);
+  const [overlayOpen, setOverlayOpen] = useState(false);
+  const [overlayStatus, setOverlayStatus] = useState<OverlayStatus>("preparing");
+  const [overlayMessage, setOverlayMessage] = useState("");
+  const [cancelNote, setCancelNote] = useState(false);
 
   const shipping = subtotal >= 150 ? 0 : 8.99;
   const total = subtotal + shipping;
@@ -35,6 +43,34 @@ export default function CheckoutPage() {
     return `https://wa.me/${whatsappOrderNumber}?text=${encodeURIComponent(text)}`;
   }, [items, subtotal, shipping, total]);
 
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    if (params.get("checkout") === "cancel") {
+      setCancelNote(true);
+      if (window.opener) {
+        window.opener.postMessage({ type: STRIPE_MESSAGE.cancel }, window.location.origin);
+        window.close();
+      }
+    }
+  }, []);
+
+  useEffect(() => {
+    function onMessage(event: MessageEvent) {
+      if (event.origin !== window.location.origin) return;
+      if (event.data?.type === STRIPE_MESSAGE.success) {
+        clearCart();
+        router.push("/checkout/success");
+      }
+      if (event.data?.type === STRIPE_MESSAGE.cancel) {
+        setOverlayOpen(false);
+        setSubmitting(false);
+        setCancelNote(true);
+      }
+    }
+    window.addEventListener("message", onMessage);
+    return () => window.removeEventListener("message", onMessage);
+  }, [clearCart, router]);
+
   if (items.length === 0) {
     return (
       <div className="py-20 text-center container-site">
@@ -46,11 +82,10 @@ export default function CheckoutPage() {
     );
   }
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setSubmitting(true);
     const form = new FormData(e.currentTarget);
-    const order = {
+    const customer = {
       name: String(form.get("name") || ""),
       email: String(form.get("email") || ""),
       phone: String(form.get("phone") || ""),
@@ -58,23 +93,84 @@ export default function CheckoutPage() {
       city: String(form.get("city") || ""),
       postcode: String(form.get("postcode") || ""),
       notes: String(form.get("notes") || ""),
-      items: items.map((i) => ({
-        name: i.product.name,
-        qty: i.quantity,
-        price: i.product.price,
-      })),
-      total,
     };
-    sessionStorage.setItem("calipacks-last-order", JSON.stringify(order));
-    if (STRIPE_PAYMENT_LINK) {
-      window.open(STRIPE_PAYMENT_LINK, "_blank", "noopener,noreferrer");
+
+    const endpoint = checkoutCreateUrl();
+    if (!endpoint) {
+      setOverlayOpen(true);
+      setOverlayStatus("error");
+      setOverlayMessage("Card checkout is being connected. Use WhatsApp to order, or try again shortly.");
+      return;
     }
-    clearCart();
-    router.push("/checkout/success");
+
+    setSubmitting(true);
+    setOverlayOpen(true);
+    setOverlayStatus("preparing");
+    setOverlayMessage("");
+    setCancelNote(false);
+
+    try {
+      const response = await fetch(endpoint, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          customerEmail: customer.email,
+          notes: customer.notes,
+          domain: window.location.origin,
+          shippingAddress: {
+            name: customer.name,
+            phone: customer.phone,
+            line1: customer.address,
+            city: customer.city,
+            postcode: customer.postcode,
+          },
+          items: items.map((i) => ({
+            title: i.product.name,
+            quantity: i.quantity,
+            unitPrice: i.product.price,
+            productId: i.product.id,
+          })),
+        }),
+      });
+      const data = await response.json().catch(() => ({}));
+      if (!response.ok || data.status !== "success" || !data.url) {
+        throw new Error(data.message || "Stripe checkout is unavailable right now.");
+      }
+
+      sessionStorage.setItem(
+        "calipacks-last-order",
+        JSON.stringify({
+          name: customer.name,
+          email: customer.email,
+          total,
+        })
+      );
+
+      const popup = openStripeCheckoutWindow(data.url);
+      if (!popup) {
+        setOverlayStatus("blocked");
+        window.location.href = data.url;
+        return;
+      }
+      setOverlayStatus("waiting");
+    } catch (err) {
+      setOverlayStatus("error");
+      setOverlayMessage(err instanceof Error ? err.message : "Could not start Stripe checkout.");
+      setSubmitting(false);
+    }
   };
 
   return (
     <div className="py-10 md:py-14">
+      <StripePayOverlay
+        open={overlayOpen}
+        status={overlayStatus}
+        message={overlayMessage}
+        onClose={() => {
+          setOverlayOpen(false);
+          setSubmitting(false);
+        }}
+      />
       <div className="container-site max-w-5xl">
         <Link
           href="/cart"
@@ -84,7 +180,16 @@ export default function CheckoutPage() {
           Back to cart
         </Link>
 
-        <h1 className="font-display text-3xl font-bold text-surface-950 mb-8">Checkout</h1>
+        <h1 className="font-display text-3xl font-bold text-surface-950 mb-2">Secure checkout</h1>
+        <p className="mb-8 text-sm font-semibold text-surface-800/55">
+          Pay by card in a separate Stripe window — your details never sit on this page.
+        </p>
+
+        {cancelNote && (
+          <p className="mb-6 rounded-xl border border-brand-200 bg-brand-50 px-4 py-3 text-sm font-semibold text-brand-800">
+            Payment was cancelled. Your cart is still here whenever you&apos;re ready.
+          </p>
+        )}
 
         <div className="grid lg:grid-cols-5 gap-8">
           <form onSubmit={handleSubmit} className="lg:col-span-3 space-y-4">
@@ -101,6 +206,7 @@ export default function CheckoutPage() {
                     id="name"
                     name="name"
                     required
+                    autoComplete="name"
                     className="w-full px-4 py-3 rounded-xl border border-surface-200 focus:border-brand-300 focus:ring-2 focus:ring-brand-200 focus:outline-none text-sm"
                   />
                 </div>
@@ -113,6 +219,7 @@ export default function CheckoutPage() {
                     name="email"
                     type="email"
                     required
+                    autoComplete="email"
                     className="w-full px-4 py-3 rounded-xl border border-surface-200 focus:border-brand-300 focus:ring-2 focus:ring-brand-200 focus:outline-none text-sm"
                   />
                 </div>
@@ -125,6 +232,7 @@ export default function CheckoutPage() {
                     name="phone"
                     type="tel"
                     required
+                    autoComplete="tel"
                     className="w-full px-4 py-3 rounded-xl border border-surface-200 focus:border-brand-300 focus:ring-2 focus:ring-brand-200 focus:outline-none text-sm"
                   />
                 </div>
@@ -136,6 +244,7 @@ export default function CheckoutPage() {
                     id="address"
                     name="address"
                     required
+                    autoComplete="street-address"
                     className="w-full px-4 py-3 rounded-xl border border-surface-200 focus:border-brand-300 focus:ring-2 focus:ring-brand-200 focus:outline-none text-sm"
                   />
                 </div>
@@ -147,6 +256,7 @@ export default function CheckoutPage() {
                     id="city"
                     name="city"
                     required
+                    autoComplete="address-level2"
                     className="w-full px-4 py-3 rounded-xl border border-surface-200 focus:border-brand-300 focus:ring-2 focus:ring-brand-200 focus:outline-none text-sm"
                   />
                 </div>
@@ -158,6 +268,7 @@ export default function CheckoutPage() {
                     id="postcode"
                     name="postcode"
                     required
+                    autoComplete="postal-code"
                     className="w-full px-4 py-3 rounded-xl border border-surface-200 focus:border-brand-300 focus:ring-2 focus:ring-brand-200 focus:outline-none text-sm"
                   />
                 </div>
@@ -178,16 +289,20 @@ export default function CheckoutPage() {
             <button
               type="submit"
               disabled={submitting}
-              className="w-full flex items-center justify-center gap-2 px-6 py-4 rounded-xl bg-gradient-to-r from-[#635BFF] via-[#7A73FF] to-brand-600 text-white font-black shadow-[0_10px_28px_rgba(99,91,255,0.4)] hover:brightness-110 transition"
+              className="w-full flex items-center justify-center gap-2 px-6 py-4 rounded-xl bg-gradient-to-r from-[#635BFF] via-[#7A73FF] to-brand-600 text-white font-black shadow-[0_10px_28px_rgba(99,91,255,0.4)] hover:brightness-110 transition disabled:opacity-70"
             >
-              <CreditCard className="w-5 h-5" />
-              {submitting ? "Processing…" : "Pay Now"}
+              {submitting ? (
+                <Loader2 className="w-5 h-5 animate-spin" />
+              ) : (
+                <CreditCard className="w-5 h-5" />
+              )}
+              {submitting ? "Opening Stripe…" : "Pay Now"}
               <span className="rounded-md bg-white/15 px-1.5 py-0.5 text-[10px] font-black tracking-wide">
                 Stripe
               </span>
             </button>
             <p className="text-center text-xs font-semibold text-surface-800/45">
-              Secure card checkout with Stripe.
+              Card details are entered only on Stripe&apos;s secure window — never on smokecali.co.uk.
             </p>
 
             <a

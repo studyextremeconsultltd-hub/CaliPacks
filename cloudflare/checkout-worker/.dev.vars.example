@@ -1,0 +1,11 @@
+# Local Worker secrets — never commit
+STRIPE_SECRET_KEY=
+STRIPE_WEBHOOK_SECRET=
+# Optional
+STRIPE_SECRET_KEY_TEST=
+STRIPE_WEBHOOK_SECRET_TEST=
+ZAPIER_WEBHOOK_URL=
+RESEND_API_KEY=
+OWNER_NOTIFY_EMAIL=hello@calipacks.co.uk
+RESEND_FROM_EMAIL=Smoke Cali <orders@smokecali.co.uk>
+SITE_URL=https://smokecali.co.uk

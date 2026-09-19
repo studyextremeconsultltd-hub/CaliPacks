@@ -1,7 +1,6 @@
 import Link from "next/link";
 import { CreditCard } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { STRIPE_PAYMENT_LINK } from "@/lib/payments";
 
 interface PayNowButtonProps {
   href?: string;
@@ -10,17 +9,13 @@ interface PayNowButtonProps {
 }
 
 export function PayNowButton({
-  href,
+  href = "/checkout",
   className,
   compact = false,
 }: PayNowButtonProps) {
-  const target = href || STRIPE_PAYMENT_LINK || "/checkout";
-  const external = target.startsWith("http");
-
   return (
     <Link
-      href={target}
-      {...(external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+      href={href}
       className={cn(
         "pay-now-btn inline-flex items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-[#635BFF] via-[#7A73FF] to-brand-600 font-black text-white shadow-[0_10px_28px_rgba(99,91,255,0.4)] transition hover:brightness-110 hover:-translate-y-0.5",
         compact ? "px-3 py-2.5 text-xs sm:px-3.5 sm:text-sm" : "w-full px-6 py-4 text-base",

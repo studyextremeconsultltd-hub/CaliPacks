@@ -27,7 +27,7 @@ jobs:
       - run: npm run build
         env:
           NODE_OPTIONS: --max-old-space-size=4096
-          NEXT_PUBLIC_STRIPE_PAYMENT_LINK: ${{ secrets.NEXT_PUBLIC_STRIPE_PAYMENT_LINK }}
+          NEXT_PUBLIC_CHECKOUT_API_URL: ${{ secrets.NEXT_PUBLIC_CHECKOUT_API_URL }}
       - name: Add GitHub Pages domain files
         run: |
           echo smokecali.co.uk > out/CNAME

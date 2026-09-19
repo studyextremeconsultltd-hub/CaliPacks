@@ -103,6 +103,10 @@
     padding: 1%;
   }
 
+  .pay-now-bar {
+    animation: pay-now-slide 1.4s ease-in-out infinite;
+  }
+
   .logo-pulse {
     animation: logo-glow 2.6s ease-in-out infinite;
   }
@@ -322,6 +326,15 @@
   }
   to {
     transform: scaleX(1);
+  }
+}
+
+@keyframes pay-now-slide {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(220%);
   }
 }
 
