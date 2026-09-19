@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight, Sparkles } from "lucide-react";
+import { cn } from "@/lib/utils";
 
 interface PageHeroProps {
   eyebrow: string;
@@ -10,6 +11,7 @@ interface PageHeroProps {
   images: string[];
   ctaLabel?: string;
   ctaHref?: string;
+  size?: "default" | "showcase";
 }
 
 function isProductShot(src: string) {
@@ -19,6 +21,7 @@ function isProductShot(src: string) {
 /**
  * Page hero with properly framed images:
  * - Product shots: white frame + object-contain (full product visible)
+ * - Showcase: zoomed so the product fills the tile
  * - Scene photos: object-cover
  */
 export function PageHero({
@@ -29,13 +32,22 @@ export function PageHero({
   images,
   ctaLabel,
   ctaHref,
+  size = "default",
 }: PageHeroProps) {
   const showcase = images.filter(Boolean).slice(0, 3);
+  const large = size === "showcase";
 
   return (
     <section className="bg-gradient-to-b from-brand-50/80 to-white py-4 sm:py-7">
       <div className="container-site">
-        <div className="grid overflow-hidden rounded-[1.75rem] bg-gradient-to-br from-brand-950 via-brand-900 to-fuchsia-800 shadow-[0_22px_65px_rgba(190,24,93,0.24)] lg:min-h-[340px] lg:grid-cols-[0.95fr_1.05fr]">
+        <div
+          className={cn(
+            "grid overflow-hidden rounded-[1.75rem] bg-gradient-to-br from-brand-950 via-brand-900 to-fuchsia-800 shadow-[0_22px_65px_rgba(190,24,93,0.24)]",
+            large
+              ? "lg:min-h-[520px] lg:grid-cols-[0.72fr_1.28fr]"
+              : "lg:min-h-[340px] lg:grid-cols-[0.95fr_1.05fr]"
+          )}
+        >
           <div className="flex flex-col justify-center px-6 py-9 sm:px-9 lg:px-12">
             <div className="mb-4 inline-flex w-fit items-center gap-2 rounded-full bg-white/10 px-3 py-1.5 text-[10px] font-black uppercase tracking-[0.18em] text-brand-100 sm:text-xs">
               <Sparkles className="h-3.5 w-3.5 text-brand-300" />
@@ -61,16 +73,21 @@ export function PageHero({
             )}
           </div>
 
-          <div className="grid h-56 grid-cols-2 grid-rows-2 gap-2.5 bg-black/20 p-3 sm:h-72 sm:gap-3 sm:p-4 lg:h-auto lg:min-h-[340px]">
+          <div
+            className={cn(
+              "grid grid-cols-2 grid-rows-2 gap-2 bg-black/20 p-2.5 sm:gap-3 sm:p-3",
+              large ? "h-80 sm:h-[28rem] lg:h-auto lg:min-h-[520px]" : "h-56 sm:h-72 lg:h-auto lg:min-h-[340px]"
+            )}
+          >
             {showcase.map((src, index) => {
               const product = isProductShot(src);
               const isMain = index === 0;
               return (
                 <div
                   key={`${src}-${index}`}
-                  className={`relative overflow-hidden rounded-2xl ring-1 ring-white/15 ${
+                  className={`relative overflow-hidden rounded-2xl bg-white ring-1 ring-white/15 ${
                     isMain ? "row-span-2" : ""
-                  } ${product ? "bg-white" : "bg-brand-950"}`}
+                  }`}
                 >
                   <Image
                     src={src}
@@ -79,17 +96,25 @@ export function PageHero({
                     priority={isMain}
                     sizes={
                       isMain
-                        ? "(max-width: 1024px) 50vw, 28vw"
-                        : "(max-width: 1024px) 25vw, 16vw"
+                        ? large
+                          ? "(max-width: 1024px) 70vw, 42vw"
+                          : "(max-width: 1024px) 50vw, 28vw"
+                        : large
+                          ? "(max-width: 1024px) 40vw, 22vw"
+                          : "(max-width: 1024px) 25vw, 16vw"
                     }
-                    quality={75}
-                  className={
-                    product
-                      ? src.includes("/shop/") || /pack-080|pack-109|pack-110|pack-111/.test(src)
-                        ? "product-fit"
-                        : "pack-fill"
-                      : "object-cover object-center"
-                  }
+                    quality={82}
+                    className={
+                      product
+                        ? large
+                          ? isMain
+                            ? "hero-zoom-lg"
+                            : "hero-zoom"
+                          : src.includes("/shop/") || /pack-080|pack-109|pack-110|pack-111/.test(src)
+                            ? "product-fit"
+                            : "pack-fill"
+                        : "object-cover object-center"
+                    }
                   />
                 </div>
               );

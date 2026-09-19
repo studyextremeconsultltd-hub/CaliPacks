@@ -106,6 +106,20 @@
     background: #ffffff;
   }
 
+  .hero-zoom {
+    object-fit: cover;
+    object-position: center;
+    transform: scale(1.28);
+    background: #ffffff;
+  }
+
+  .hero-zoom-lg {
+    object-fit: cover;
+    object-position: center;
+    transform: scale(1.42);
+    background: #ffffff;
+  }
+
   .pay-now-bar {
     animation: pay-now-slide 1.4s ease-in-out infinite;
   }

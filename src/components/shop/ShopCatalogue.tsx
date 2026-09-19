@@ -69,7 +69,7 @@ export function ShopCatalogue({ categorySlug }: ShopCatalogueProps) {
   const heroImages = category
     ? [category.image, ...displayProducts.slice(0, 2).map((p) => p.image)]
     : isNew
-      ? ["/products/pack-109.webp", "/shop/candy-stash-cans.webp", "/shop/mini-glass-bubblers.webp"]
+      ? ["/shop/cartoon-travel-kit.webp", "/shop/gold-honeycomb-grinder.webp", "/shop/candy-stash-cans.webp"]
       : ["/products/pack-040.webp", "/shop/colour-novelty-hookah.webp", "/shop/gold-honeycomb-grinder.webp"];
 
   return (
@@ -94,6 +94,7 @@ export function ShopCatalogue({ categorySlug }: ShopCatalogueProps) {
         accent={accent}
         description={description}
         images={heroImages}
+        size={isNew ? "showcase" : "default"}
         ctaLabel={isNew ? "View all products" : undefined}
         ctaHref={isNew ? "/shop" : undefined}
       />
