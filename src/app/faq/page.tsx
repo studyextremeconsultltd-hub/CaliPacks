@@ -19,8 +19,8 @@ const faqs = [
     a: "In-stock items are dispatched within 2–3 business days. UK delivery typically takes 1–2 additional days. Custom orders take 5–7 business days after design approval.",
   },
   {
-    q: "Do you offer free delivery?",
-    a: "Yes! We offer free UK delivery on all orders over £150. Orders below this threshold have a flat £8.99 shipping fee.",
+    q: "How much is courier delivery?",
+    a: "Every order includes UK courier service for £2.50 GBP. The fee is added at checkout and on Stripe. Dispatch is 2–3 business days, then 1–2 days in transit.",
   },
   {
     q: "Can I upload my own design?",

@@ -13,7 +13,7 @@ export function AnnouncementBar() {
         </span>
         <span className="hidden sm:inline text-white/30">·</span>
         <span>
-          Free UK delivery over <span className="text-brand-300 font-black">£150</span>
+          UK courier <span className="text-brand-300 font-black">£2.50</span>
         </span>
         <span className="hidden sm:inline text-white/30">·</span>
         <a
@@ -35,14 +35,14 @@ export function TrustBadges() {
   const badges = [
     {
       icon: Truck,
-      title: "2–3 Day Delivery",
-      desc: "Fast UK dispatch",
+      title: "Courier £2.50",
+      desc: "UK tracked delivery",
       tint: "from-brand-500 to-brand-700",
     },
     {
       icon: Shield,
-      title: "Real Shop Stock",
-      desc: "Photos from our shelves",
+      title: "HD Studio Photos",
+      desc: "Clear white background",
       tint: "from-black to-surface-800",
     },
     {

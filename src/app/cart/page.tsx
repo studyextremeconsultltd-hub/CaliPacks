@@ -7,6 +7,7 @@ import { useCart } from "@/context/CartContext";
 import { formatPrice } from "@/lib/utils";
 import { productImageClass, productUnit } from "@/lib/product";
 import { PayNowButton } from "@/components/payments/PayNowButton";
+import { COURIER_FEE_GBP, COURIER_LABEL, COURIER_NOTE, orderTotal } from "@/lib/shipping";
 
 export default function CartPage() {
   const { items, subtotal, updateQuantity, removeItem, clearCart, ready } = useCart();
@@ -42,8 +43,8 @@ export default function CartPage() {
     );
   }
 
-  const shipping = subtotal >= 150 ? 0 : 8.99;
-  const total = subtotal + shipping;
+  const shipping = COURIER_FEE_GBP;
+  const total = orderTotal(subtotal);
 
   return (
     <div className="py-8 md:py-12">
@@ -151,25 +152,17 @@ export default function CartPage() {
                   <dd className="font-medium">{formatPrice(subtotal)}</dd>
                 </div>
                 <div className="flex justify-between">
-                  <dt className="text-surface-800/60">Shipping</dt>
-                  <dd className="font-medium">
-                    {shipping === 0 ? (
-                      <span className="text-brand-700">Free</span>
-                    ) : (
-                      formatPrice(shipping)
-                    )}
-                  </dd>
-                </div>
-                {subtotal < 150 && (
-                  <p className="text-xs text-brand-700 bg-brand-50 rounded-lg p-2">
-                    Add {formatPrice(150 - subtotal)} more for free UK delivery
-                  </p>
-                )}
-                <div className="border-t border-surface-200 pt-3 flex justify-between">
-                  <dt className="font-semibold">Total</dt>
-                  <dd className="font-bold text-lg">{formatPrice(total)}</dd>
+                  <dt className="text-surface-800/60">{COURIER_LABEL}</dt>
+                  <dd className="font-medium">{formatPrice(shipping)}</dd>
                 </div>
               </dl>
+              <p className="text-xs font-bold text-brand-700 bg-brand-50 rounded-lg p-2 mt-3">
+                {COURIER_NOTE}
+              </p>
+              <div className="border-t border-surface-200 pt-3 flex justify-between text-sm">
+                <span className="font-semibold">Total</span>
+                <span className="font-bold text-lg">{formatPrice(total)}</span>
+              </div>
               <PayNowButton href="/checkout" className="mt-6" />
               <Link
                 href="/shop"

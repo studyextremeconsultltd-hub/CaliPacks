@@ -95,12 +95,15 @@
   .pack-fill {
     object-fit: contain;
     object-position: center;
+    padding: 3%;
+    background: #ffffff;
   }
 
   .product-fit {
     object-fit: contain;
     object-position: center;
-    padding: 1%;
+    padding: 4%;
+    background: #ffffff;
   }
 
   .pay-now-bar {

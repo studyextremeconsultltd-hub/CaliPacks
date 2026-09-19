@@ -13,7 +13,7 @@ const pages: Record<string, { title: string; content: string }> = {
   },
   shipping: {
     title: "Shipping Policy",
-    content: "We dispatch in-stock orders within 2–3 business days. UK standard delivery takes 1–2 additional business days. Free delivery is available on orders over £150. Tracking information is provided via email once your order ships.",
+    content: "We dispatch in-stock orders within 2–3 business days. UK courier service is £2.50 GBP on every order and is added at Stripe checkout. Tracking information is provided via email once your order ships.",
   },
   returns: {
     title: "Returns Policy",

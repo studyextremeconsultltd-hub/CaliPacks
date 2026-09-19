@@ -64,6 +64,9 @@ export function StripePayOverlay({
           </p>
           <h2 className="mt-2 font-display text-2xl font-black text-surface-950">{title}</h2>
           <p className="mt-3 text-sm font-semibold leading-relaxed text-surface-800/70">{body}</p>
+          <p className="mt-3 rounded-xl bg-brand-50 px-3 py-2 text-xs font-black text-brand-800">
+            Courier service: £2.50 GBP
+          </p>
           {(status === "preparing" || status === "waiting") && (
             <div className="mt-6 h-1.5 overflow-hidden rounded-full bg-brand-100">
               <div className="pay-now-bar h-full w-1/2 rounded-full bg-gradient-to-r from-[#635BFF] to-brand-500" />

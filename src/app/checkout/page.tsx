@@ -12,6 +12,7 @@ import { whatsappOrderNumber } from "@/data/social";
 import { checkoutCreateUrl } from "@/lib/payments";
 import { openStripeCheckoutWindow, STRIPE_MESSAGE } from "@/lib/stripe-window";
 import { StripePayOverlay } from "@/components/payments/StripePayOverlay";
+import { COURIER_FEE_GBP, COURIER_LABEL, COURIER_NOTE, orderTotal } from "@/lib/shipping";
 
 type OverlayStatus = "preparing" | "waiting" | "blocked" | "error";
 
@@ -24,8 +25,8 @@ export default function CheckoutPage() {
   const [overlayMessage, setOverlayMessage] = useState("");
   const [cancelNote, setCancelNote] = useState(false);
 
-  const shipping = subtotal >= 150 ? 0 : 8.99;
-  const total = subtotal + shipping;
+  const shipping = COURIER_FEE_GBP;
+  const total = orderTotal(subtotal);
 
   const whatsappHref = useMemo(() => {
     const lines = items.map(
@@ -37,7 +38,7 @@ export default function CheckoutPage() {
       ...lines,
       "",
       `Subtotal: ${formatPrice(subtotal)}`,
-      `Shipping: ${shipping === 0 ? "Free" : formatPrice(shipping)}`,
+      `${COURIER_LABEL}: ${formatPrice(shipping)}`,
       `Total: ${formatPrice(total)}`,
     ].join("\n");
     return `https://wa.me/${whatsappOrderNumber}?text=${encodeURIComponent(text)}`;
@@ -328,6 +329,7 @@ export default function CheckoutPage() {
             </button>
             <p className="text-center text-xs font-semibold text-surface-800/45">
               Card details are entered only on checkout.stripe.com — never on this website.
+              Courier service is added on Stripe as <span className="text-brand-700">£2.50 GBP</span>.
             </p>
 
             <a
@@ -372,14 +374,17 @@ export default function CheckoutPage() {
                   <dd>{formatPrice(subtotal)}</dd>
                 </div>
                 <div className="flex justify-between">
-                  <dt className="text-surface-800/60">Shipping</dt>
-                  <dd>{shipping === 0 ? "Free" : formatPrice(shipping)}</dd>
+                  <dt className="text-surface-800/60">{COURIER_LABEL}</dt>
+                  <dd>{formatPrice(shipping)}</dd>
                 </div>
                 <div className="flex justify-between font-bold text-base pt-2">
                   <dt>Total</dt>
                   <dd>{formatPrice(total)}</dd>
                 </div>
               </dl>
+              <p className="text-xs font-bold text-brand-700 mt-3 rounded-lg bg-brand-50 px-3 py-2">
+                {COURIER_NOTE}
+              </p>
               <p className="text-xs text-surface-800/45 mt-4">
                 Estimated delivery: 2–3 business days across the UK.
               </p>

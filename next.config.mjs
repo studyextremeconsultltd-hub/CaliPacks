@@ -6,9 +6,11 @@ const nextConfig = {
     "localhost",
     "127.0.0.1",
     "192.168.1.17",
+    "192.168.1.12",
     "http://localhost:3000",
     "http://127.0.0.1:3000",
     "http://192.168.1.17:3000",
+    "http://192.168.1.12:3000",
   ],
   images: {
     unoptimized: true,

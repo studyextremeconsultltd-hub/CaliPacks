@@ -15,8 +15,7 @@
  *   SITE_URL
  */
 
-const FREE_SHIPPING_THRESHOLD = 150;
-const SHIPPING_FEE = 8.99;
+const SHIPPING_FEE = 2.5;
 const DEFAULT_OWNER_EMAIL = "hello@calipacks.co.uk";
 
 const ALLOWED_ORIGINS = new Set([
@@ -27,6 +26,7 @@ const ALLOWED_ORIGINS = new Set([
   "http://127.0.0.1:8787",
   "http://localhost:8787",
   "http://192.168.1.17:3000",
+  "http://192.168.1.12:3000",
 ]);
 
 const ALLOWED_DOMAINS = new Set([
@@ -35,6 +35,7 @@ const ALLOWED_DOMAINS = new Set([
   "http://127.0.0.1:3000",
   "http://localhost:3000",
   "http://192.168.1.17:3000",
+  "http://192.168.1.12:3000",
 ]);
 
 function corsHeaders(origin) {
@@ -197,7 +198,7 @@ function buildTotals(items) {
     subtotal += qty * unit;
   }
   if (!cleaned.length) throw new Error("Cart is empty.");
-  const shipping = subtotal >= FREE_SHIPPING_THRESHOLD ? 0 : SHIPPING_FEE;
+  const shipping = SHIPPING_FEE;
   return { items: cleaned, subtotal, shipping, total: subtotal + shipping };
 }
 
@@ -457,7 +458,7 @@ async function createStripeSession(env, body) {
   const shippingPence = Math.round(totals.shipping * 100);
   if (shippingPence > 0) {
     params.set(`line_items[${idx}][price_data][currency]`, "gbp");
-    params.set(`line_items[${idx}][price_data][product_data][name]`, "UK shipping");
+    params.set(`line_items[${idx}][price_data][product_data][name]`, "Courier service");
     params.set(`line_items[${idx}][price_data][unit_amount]`, String(shippingPence));
     params.set(`line_items[${idx}][quantity]`, "1");
   }
@@ -513,9 +514,11 @@ export default {
           enabled: configured,
           currency: "GBP",
           shippingFee: SHIPPING_FEE,
-          freeShippingOver: FREE_SHIPPING_THRESHOLD,
+          courierFee: SHIPPING_FEE,
+          courierLabel: "Courier service",
+          freeShippingOver: null,
           message: configured
-            ? "Stripe ready. Card checkout opens in a secure window."
+            ? "Stripe ready. Courier service is £2.50 GBP."
             : "Set STRIPE_SECRET_KEY on the checkout worker.",
         },
         200,
