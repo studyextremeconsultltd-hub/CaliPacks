@@ -9,6 +9,7 @@ import { useCart } from "@/context/CartContext";
 import { formatPrice } from "@/lib/utils";
 import { productImageClass } from "@/lib/product";
 import { whatsappOrderNumber } from "@/data/social";
+import { STRIPE_PAYMENT_LINK } from "@/lib/payments";
 
 export default function CheckoutPage() {
   const { items, subtotal, clearCart } = useCart();
@@ -65,6 +66,9 @@ export default function CheckoutPage() {
       total,
     };
     sessionStorage.setItem("calipacks-last-order", JSON.stringify(order));
+    if (STRIPE_PAYMENT_LINK) {
+      window.open(STRIPE_PAYMENT_LINK, "_blank", "noopener,noreferrer");
+    }
     clearCart();
     router.push("/checkout/success");
   };
@@ -174,11 +178,17 @@ export default function CheckoutPage() {
             <button
               type="submit"
               disabled={submitting}
-              className="w-full flex items-center justify-center gap-2 px-6 py-4 bg-brand-600 text-white font-semibold rounded-xl hover:bg-brand-500 transition-colors"
+              className="w-full flex items-center justify-center gap-2 px-6 py-4 rounded-xl bg-gradient-to-r from-[#635BFF] via-[#7A73FF] to-brand-600 text-white font-black shadow-[0_10px_28px_rgba(99,91,255,0.4)] hover:brightness-110 transition"
             >
               <CreditCard className="w-5 h-5" />
-              {submitting ? "Placing order…" : "Place order online"}
+              {submitting ? "Processing…" : "Pay Now"}
+              <span className="rounded-md bg-white/15 px-1.5 py-0.5 text-[10px] font-black tracking-wide">
+                Stripe
+              </span>
             </button>
+            <p className="text-center text-xs font-semibold text-surface-800/45">
+              Secure card checkout with Stripe.
+            </p>
 
             <a
               href={whatsappHref}

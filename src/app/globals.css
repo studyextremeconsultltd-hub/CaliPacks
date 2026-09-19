@@ -100,7 +100,7 @@
   .product-fit {
     object-fit: contain;
     object-position: center;
-    padding: 4%;
+    padding: 1%;
   }
 
   .logo-pulse {

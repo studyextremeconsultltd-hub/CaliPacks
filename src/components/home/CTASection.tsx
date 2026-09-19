@@ -80,6 +80,12 @@ export function CTASection() {
               <ArrowRight className="w-4 h-4" />
             </Link>
             <Link
+              href="/checkout"
+              className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-[#635BFF] to-[#0A2540] text-white font-extrabold rounded-xl hover:brightness-110 transition-colors shadow-lg"
+            >
+              Pay Now
+            </Link>
+            <Link
               href="/custom-orders"
               className="btn-shine-white inline-flex items-center gap-2 px-6 py-3 font-extrabold rounded-xl text-black"
             >

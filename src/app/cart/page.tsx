@@ -6,6 +6,7 @@ import { Minus, Plus, Trash2, ShoppingBag, ArrowRight } from "lucide-react";
 import { useCart } from "@/context/CartContext";
 import { formatPrice } from "@/lib/utils";
 import { productImageClass, productUnit } from "@/lib/product";
+import { PayNowButton } from "@/components/payments/PayNowButton";
 
 export default function CartPage() {
   const { items, subtotal, updateQuantity, removeItem, clearCart } = useCart();
@@ -161,12 +162,7 @@ export default function CartPage() {
                   <dd className="font-bold text-lg">{formatPrice(total)}</dd>
                 </div>
               </dl>
-              <Link
-                href="/checkout"
-                className="w-full mt-6 px-6 py-4 bg-brand-600 text-white font-semibold rounded-xl hover:bg-brand-500 transition-colors flex items-center justify-center"
-              >
-                Proceed to Checkout
-              </Link>
+              <PayNowButton href="/checkout" className="mt-6" />
               <Link
                 href="/shop"
                 className="block text-center text-sm text-brand-700 hover:underline mt-4"

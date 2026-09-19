@@ -6,6 +6,7 @@ import { Search, ShoppingBag, User, Menu, X, ChevronDown } from "lucide-react";
 import { mainNav } from "@/data/navigation";
 import { useCart } from "@/context/CartContext";
 import { Logo } from "@/components/layout/Logo";
+import { PayNowButton } from "@/components/payments/PayNowButton";
 import { cn } from "@/lib/utils";
 
 export function Header() {
@@ -82,6 +83,7 @@ export function Header() {
           </nav>
 
           <div className="flex items-center gap-1 sm:gap-2">
+            <PayNowButton compact className="!w-auto shrink-0 max-[380px]:px-2" />
             <button
               type="button"
               onClick={() => {
@@ -179,6 +181,9 @@ export function Header() {
             >
               My Account
             </Link>
+            <div className="px-4 pt-3">
+              <PayNowButton className="w-full" />
+            </div>
           </nav>
         </div>
       )}
