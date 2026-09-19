@@ -6,9 +6,10 @@ import { cn } from "@/lib/utils";
 
 interface ShopCategoriesNavProps {
   activeSlug?: string;
+  isNew?: boolean;
 }
 
-export function ShopCategoriesNav({ activeSlug }: ShopCategoriesNavProps) {
+export function ShopCategoriesNav({ activeSlug, isNew = false }: ShopCategoriesNavProps) {
   return (
     <nav
       aria-label="Product categories"
@@ -16,20 +17,31 @@ export function ShopCategoriesNav({ activeSlug }: ShopCategoriesNavProps) {
     >
       <div className="flex min-w-max gap-2 px-1">
         <Link
-          href="/shop"
+          href="/shop/"
           className={cn(
             "rounded-full border-2 px-4 py-2 text-sm font-black transition",
-            !activeSlug
+            !activeSlug && !isNew
               ? "border-black bg-black text-white"
               : "border-brand-200 bg-white text-black/70 hover:border-brand-400 hover:text-brand-700"
           )}
         >
           All
         </Link>
+        <Link
+          href="/shop/?filter=new"
+          className={cn(
+            "rounded-full border-2 px-4 py-2 text-sm font-black transition",
+            isNew
+              ? "border-brand-600 bg-brand-600 text-white"
+              : "border-brand-200 bg-white text-black/70 hover:border-brand-400 hover:text-brand-700"
+          )}
+        >
+          New
+        </Link>
         {categories.map((category) => (
           <Link
             key={category.slug}
-            href={`/shop/${category.slug}`}
+            href={`/shop/${category.slug}/`}
             className={cn(
               "rounded-full border-2 px-4 py-2 text-sm font-black transition",
               activeSlug === category.slug

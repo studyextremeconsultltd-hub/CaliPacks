@@ -50,7 +50,7 @@ function cartReducer(state: CartState, action: CartAction): CartState {
         return {
           items: state.items.map((i) =>
             i.product.id === action.product.id
-              ? { ...i, quantity: i.quantity + action.quantity }
+              ? { ...i, quantity: minQty(action.product, i.quantity + action.quantity) }
               : i
           ),
         };
@@ -100,9 +100,12 @@ export function CartProvider({ children }: { children: ReactNode }) {
       const stored = localStorage.getItem(STORAGE_KEY);
       if (stored) {
         const parsed = JSON.parse(stored) as CartItem[];
-        const items = parsed.filter(
-          (item) => item?.product?.id && item?.product?.image
-        );
+        const items = parsed
+          .filter((item) => item?.product?.id && item?.product?.image)
+          .map((item) => ({
+            ...item,
+            quantity: minQty(item.product, item.quantity || 1),
+          }));
         dispatch({ type: "HYDRATE", items });
       }
     } catch {

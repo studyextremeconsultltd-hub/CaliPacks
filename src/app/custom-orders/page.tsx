@@ -1,6 +1,7 @@
 "use client";
 
 import { ShoppingBag, CreditCard, Truck } from "lucide-react";
+import { contactInfo } from "@/data/social";
 
 const steps = [
   {
@@ -24,6 +25,28 @@ const steps = [
 ];
 
 export default function CustomOrdersPage() {
+  function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    const form = new FormData(e.currentTarget);
+    const name = String(form.get("name") || "");
+    const email = String(form.get("email") || "");
+    const type = String(form.get("type") || "");
+    const qty = String(form.get("qty") || "");
+    const details = String(form.get("details") || "");
+    const body = [
+      "Custom order request",
+      `Name: ${name}`,
+      `Email: ${email}`,
+      `Product type: ${type}`,
+      qty ? `Quantity: ${qty}` : "",
+      "",
+      details,
+    ]
+      .filter(Boolean)
+      .join("\n");
+    window.location.href = `mailto:${contactInfo.email}?subject=${encodeURIComponent("Custom order request")}&body=${encodeURIComponent(body)}`;
+  }
+
   return (
     <div className="py-12 md:py-16">
       <div className="container-site max-w-3xl">
@@ -58,7 +81,7 @@ export default function CustomOrdersPage() {
 
         <form
           className="relative bg-white rounded-2xl border border-surface-200 p-6 md:p-8 space-y-4 overflow-hidden shadow-xl shadow-brand-100/50"
-          onSubmit={(e) => e.preventDefault()}
+          onSubmit={handleSubmit}
         >
           <div className="absolute top-0 left-0 w-24 h-24 bg-brand-500/20 rounded-br-[3rem]" />
           <div className="absolute top-0 right-0 w-20 h-20 bg-fuchsia-500/20 rounded-bl-[2.5rem]" />
@@ -74,6 +97,7 @@ export default function CustomOrdersPage() {
               </label>
               <input
                 id="co-name"
+                name="name"
                 type="text"
                 required
                 className="w-full px-4 py-3 rounded-xl border border-surface-200 focus:border-brand-300 focus:ring-2 focus:ring-brand-200 focus:outline-none text-sm"
@@ -85,6 +109,7 @@ export default function CustomOrdersPage() {
               </label>
               <input
                 id="co-email"
+                name="email"
                 type="email"
                 required
                 className="w-full px-4 py-3 rounded-xl border border-surface-200 focus:border-brand-300 focus:ring-2 focus:ring-brand-200 focus:outline-none text-sm"
@@ -97,6 +122,7 @@ export default function CustomOrdersPage() {
             </label>
             <select
               id="co-type"
+              name="type"
               className="w-full px-4 py-3 rounded-xl border border-surface-200 focus:border-brand-300 focus:ring-2 focus:ring-brand-200 focus:outline-none text-sm bg-white"
             >
               <option>Cali Packs</option>
@@ -113,6 +139,7 @@ export default function CustomOrdersPage() {
             </label>
             <input
               id="co-qty"
+              name="qty"
               type="text"
               placeholder="e.g. 500 packs"
               className="w-full px-4 py-3 rounded-xl border border-surface-200 focus:border-brand-300 focus:ring-2 focus:ring-brand-200 focus:outline-none text-sm"
@@ -124,6 +151,7 @@ export default function CustomOrdersPage() {
             </label>
             <textarea
               id="co-details"
+              name="details"
               rows={5}
               required
               placeholder="List designs, SKUs, or describe what you need..."

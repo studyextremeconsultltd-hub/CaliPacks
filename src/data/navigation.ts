@@ -17,14 +17,14 @@ export const mainNav: NavItem[] = [
     ],
   },
   { label: "About Us", href: "/about" },
-  { label: "New Arrivals", href: "/shop?filter=new" },
+  { label: "New Arrivals", href: "/shop/?filter=new" },
   { label: "Contact Us", href: "/contact" },
 ];
 
 export const footerNav = [
   { label: "Shop", href: "/shop" },
   { label: "About Us", href: "/about" },
-  { label: "New Arrivals", href: "/shop?filter=new" },
+  { label: "New Arrivals", href: "/shop/?filter=new" },
   { label: "Contact Us", href: "/contact" },
 ];
 
@@ -35,7 +35,7 @@ export const footerLinks = {
     { label: "Grinders", href: "/shop/grinders" },
     { label: "Glass", href: "/shop/glass" },
     { label: "Hookahs", href: "/shop/hookahs" },
-    { label: "New Arrivals", href: "/shop?filter=new" },
+    { label: "New Arrivals", href: "/shop/?filter=new" },
   ],
   company: [
     { label: "About Us", href: "/about" },

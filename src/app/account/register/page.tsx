@@ -10,15 +10,15 @@ export default function RegisterPage() {
   return (
     <div className="py-12 md:py-16">
       <div className="container-site max-w-md mx-auto text-center">
-        <h1 className="text-2xl font-bold text-surface-900 mb-2">Create an Account</h1>
+        <h1 className="text-2xl font-bold text-surface-900 mb-2">No account needed</h1>
         <p className="text-sm text-surface-800/60 mb-6">
-          Register for wholesale pricing, faster checkout, and order tracking.
+          Shop as a guest — add to cart and pay at checkout, or WhatsApp the shop.
         </p>
         <Link
-          href="/account"
+          href="/account/"
           className="inline-flex px-6 py-3 bg-brand-700 text-white font-semibold rounded-xl hover:bg-brand-800 transition-colors"
         >
-          Go to Registration
+          How to order
         </Link>
       </div>
     </div>

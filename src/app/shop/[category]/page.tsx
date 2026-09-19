@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { Suspense } from "react";
 import { ShopCatalogue } from "@/components/shop/ShopCatalogue";
 import { getCategoryBySlug, categories } from "@/data/categories";
 import { pageUrl } from "@/lib/site";
@@ -35,9 +34,5 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
   const { category: slug } = await params;
   if (!getCategoryBySlug(slug)) notFound();
 
-  return (
-    <Suspense fallback={<div className="container-site py-16 font-semibold text-black/50">Loading shop…</div>}>
-      <ShopCatalogue categorySlug={slug} />
-    </Suspense>
-  );
+  return <ShopCatalogue categorySlug={slug} />;
 }

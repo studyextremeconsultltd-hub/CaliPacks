@@ -143,6 +143,7 @@ export default function CheckoutPage() {
         quantity: i.quantity,
         unitPrice: i.product.price,
         productId: i.product.id,
+        minOrder: i.product.minOrder || 1,
       })),
     };
 

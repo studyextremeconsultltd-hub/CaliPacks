@@ -186,14 +186,18 @@ function buildTotals(items) {
   const cleaned = [];
   let subtotal = 0;
   for (const item of items || []) {
-    const qty = Math.max(0, parseInt(item.quantity, 10) || 0);
     const unit = Number(item.unitPrice) || 0;
+    const productId = clean(item.productId || item.id, 80);
+    const requestedMin = Math.max(1, parseInt(item.minOrder, 10) || 0);
+    const caliMin = productId.startsWith("pack-") || unit === 0.2 ? 50 : 1;
+    const minOrder = Math.max(requestedMin, caliMin);
+    const qty = Math.max(minOrder, parseInt(item.quantity, 10) || 0);
     if (qty < 1 || unit <= 0) continue;
     cleaned.push({
       title: clean(item.title || item.name, 140) || "Smoke Cali product",
       quantity: qty,
       unitPrice: unit,
-      productId: clean(item.productId || item.id, 80),
+      productId,
     });
     subtotal += qty * unit;
   }

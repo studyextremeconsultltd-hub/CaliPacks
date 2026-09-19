@@ -54,6 +54,20 @@ const socialCards = [
 ];
 
 export default function ContactPage() {
+  function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    const form = new FormData(e.currentTarget);
+    const name = String(form.get("name") || "");
+    const email = String(form.get("email") || "");
+    const phone = String(form.get("phone") || "");
+    const subject = String(form.get("subject") || "Smoke Cali enquiry");
+    const message = String(form.get("message") || "");
+    const body = [`Name: ${name}`, `Email: ${email}`, phone ? `Phone: ${phone}` : "", "", message]
+      .filter(Boolean)
+      .join("\n");
+    window.location.href = `mailto:${contactInfo.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+  }
+
   return (
     <>
       <PageHero
@@ -171,7 +185,7 @@ export default function ContactPage() {
 
           <form
             className="relative bg-white rounded-2xl border-2 border-brand-200 p-5 md:p-7 space-y-3.5 overflow-hidden shadow-xl shadow-brand-100/50"
-            onSubmit={(e) => e.preventDefault()}
+            onSubmit={handleSubmit}
           >
             <div className="absolute top-0 left-0 w-16 h-16 bg-brand-500/25 rounded-br-[2rem]" />
             <div className="absolute top-0 right-0 w-14 h-14 bg-fuchsia-400/20 rounded-bl-[2rem]" />
@@ -183,10 +197,11 @@ export default function ContactPage() {
                 <label htmlFor="name" className="block text-xs font-bold mb-1 text-surface-800/70">
                   Name
                 </label>
-                <input
-                  id="name"
-                  type="text"
-                  required
+                  <input
+                    id="name"
+                    name="name"
+                    type="text"
+                    required
                   className="w-full px-3.5 py-2.5 rounded-xl border border-brand-100 focus:border-brand-400 focus:ring-2 focus:ring-brand-100 focus:outline-none text-sm"
                 />
               </div>
@@ -194,10 +209,11 @@ export default function ContactPage() {
                 <label htmlFor="contact-email" className="block text-xs font-bold mb-1 text-surface-800/70">
                   Email
                 </label>
-                <input
-                  id="contact-email"
-                  type="email"
-                  required
+                  <input
+                    id="contact-email"
+                    name="email"
+                    type="email"
+                    required
                   className="w-full px-3.5 py-2.5 rounded-xl border border-brand-100 focus:border-brand-400 focus:ring-2 focus:ring-brand-100 focus:outline-none text-sm"
                 />
               </div>
@@ -206,10 +222,11 @@ export default function ContactPage() {
               <label htmlFor="phone" className="block text-xs font-bold mb-1 text-surface-800/70">
                 Phone
               </label>
-              <input
-                id="phone"
-                type="tel"
-                placeholder={contactInfo.phone}
+                <input
+                  id="phone"
+                  name="phone"
+                  type="tel"
+                  placeholder={contactInfo.phone}
                 className="w-full px-3.5 py-2.5 rounded-xl border border-brand-100 focus:border-brand-400 focus:ring-2 focus:ring-brand-100 focus:outline-none text-sm"
               />
             </div>
@@ -217,10 +234,11 @@ export default function ContactPage() {
               <label htmlFor="subject" className="block text-xs font-bold mb-1 text-surface-800/70">
                 Subject
               </label>
-              <input
-                id="subject"
-                type="text"
-                required
+                <input
+                  id="subject"
+                  name="subject"
+                  type="text"
+                  required
                 className="w-full px-3.5 py-2.5 rounded-xl border border-brand-100 focus:border-brand-400 focus:ring-2 focus:ring-brand-100 focus:outline-none text-sm"
               />
             </div>
@@ -228,10 +246,11 @@ export default function ContactPage() {
               <label htmlFor="message" className="block text-xs font-bold mb-1 text-surface-800/70">
                 Message
               </label>
-              <textarea
-                id="message"
-                rows={4}
-                required
+                <textarea
+                  id="message"
+                  name="message"
+                  rows={4}
+                  required
                 className="w-full px-3.5 py-2.5 rounded-xl border border-brand-100 focus:border-brand-400 focus:ring-2 focus:ring-brand-100 focus:outline-none text-sm resize-none"
               />
             </div>

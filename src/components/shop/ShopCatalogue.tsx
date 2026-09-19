@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo } from "react";
+import { Suspense, useMemo } from "react";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { Sparkles } from "lucide-react";
@@ -18,10 +18,13 @@ interface ShopCatalogueProps {
   categorySlug?: string;
 }
 
-export function ShopCatalogue({ categorySlug }: ShopCatalogueProps) {
-  const params = useSearchParams();
-  const query = params.get("q") || "";
-  const isNew = !categorySlug && params.get("filter") === "new";
+interface ShopViewProps {
+  categorySlug?: string;
+  query: string;
+  isNew: boolean;
+}
+
+function ShopView({ categorySlug, query, isNew }: ShopViewProps) {
   const category = categorySlug ? getCategoryBySlug(categorySlug) : undefined;
 
   const scoped = useMemo(() => {
@@ -102,7 +105,7 @@ export function ShopCatalogue({ categorySlug }: ShopCatalogueProps) {
       <div className="container-site py-8 md:py-12">
         {categorySlug === "cali-packs" ? <WholesaleBanner /> : null}
 
-        <ShopCategoriesNav activeSlug={categorySlug} />
+        <ShopCategoriesNav activeSlug={categorySlug} isNew={isNew} />
 
         <div className="mb-8 overflow-hidden rounded-[1.6rem] border-2 border-brand-200 bg-gradient-to-br from-white via-brand-50/70 to-white p-4 shadow-[0_16px_40px_rgba(236,72,153,0.12)] sm:p-5">
           <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
@@ -130,7 +133,7 @@ export function ShopCatalogue({ categorySlug }: ShopCatalogueProps) {
             {!query && !categorySlug ? (
               <div className="flex rounded-2xl border-2 border-brand-200 bg-white p-1">
                 <Link
-                  href="/shop"
+                  href="/shop/"
                   className={cn(
                     "rounded-xl px-4 py-2.5 text-sm font-black transition",
                     !isNew
@@ -141,7 +144,7 @@ export function ShopCatalogue({ categorySlug }: ShopCatalogueProps) {
                   All {products.length}
                 </Link>
                 <Link
-                  href="/shop?filter=new"
+                  href="/shop/?filter=new"
                   className={cn(
                     "rounded-xl px-4 py-2.5 text-sm font-black transition",
                     isNew
@@ -154,7 +157,7 @@ export function ShopCatalogue({ categorySlug }: ShopCatalogueProps) {
               </div>
             ) : query ? (
               <Link
-                href="/shop"
+                href="/shop/"
                 className="inline-flex w-fit rounded-xl bg-black px-4 py-2.5 text-sm font-black text-white"
               >
                 Clear search
@@ -166,7 +169,7 @@ export function ShopCatalogue({ categorySlug }: ShopCatalogueProps) {
         {displayProducts.length === 0 ? (
           <div className="rounded-2xl border-2 border-dashed border-brand-200 py-16 text-center">
             <p className="mb-3 font-semibold text-black/60">No products found.</p>
-            <Link href="/shop" className="font-bold text-brand-600 hover:underline">
+            <Link href="/shop/" className="font-bold text-brand-600 hover:underline">
               Browse the shop
             </Link>
           </div>
@@ -175,5 +178,20 @@ export function ShopCatalogue({ categorySlug }: ShopCatalogueProps) {
         )}
       </div>
     </div>
+  );
+}
+
+function ShopCatalogueFromUrl({ categorySlug }: ShopCatalogueProps) {
+  const params = useSearchParams();
+  const query = params.get("q") || "";
+  const isNew = !categorySlug && params.get("filter") === "new";
+  return <ShopView categorySlug={categorySlug} query={query} isNew={isNew} />;
+}
+
+export function ShopCatalogue({ categorySlug }: ShopCatalogueProps) {
+  return (
+    <Suspense fallback={<ShopView categorySlug={categorySlug} query="" isNew={false} />}>
+      <ShopCatalogueFromUrl categorySlug={categorySlug} />
+    </Suspense>
   );
 }
