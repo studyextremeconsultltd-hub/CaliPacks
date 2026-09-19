@@ -135,9 +135,6 @@ export function Logo({
       style={{ ["--logo-orbit" as string]: s.orbit }}
     >
       <div className="logo-mark-wrap relative flex-shrink-0">
-        <span className="logo-halo" aria-hidden />
-        <span className="logo-spark" aria-hidden />
-        <span className="logo-spark logo-spark-b" aria-hidden />
         <LogoMark id={uid} size={s.box} />
         <span className="logo-sheen" aria-hidden />
       </div>

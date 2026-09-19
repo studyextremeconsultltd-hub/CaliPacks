@@ -8,7 +8,7 @@ export function productUnit(product: Product) {
   return isCaliPack(product) ? "per pack" : "each";
 }
 
-const framedPackIds = new Set(["pack-080", "pack-109", "pack-110", "pack-111"]);
+const framedPackIds = new Set(["pack-001", "pack-080", "pack-109", "pack-110", "pack-111"]);
 
 export function productImageClass(product: Product) {
   if (isCaliPack(product) && !framedPackIds.has(product.id)) return "pack-fill";

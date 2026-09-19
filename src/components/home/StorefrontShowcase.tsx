@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowRight, MapPin, Sparkles, Store } from "lucide-react";
+import { ArrowRight, MapPin, Sparkles, ShoppingBag } from "lucide-react";
 import { contactInfo } from "@/data/social";
 
 export function StorefrontShowcase() {
@@ -10,8 +10,8 @@ export function StorefrontShowcase() {
       <div className="container-site relative">
         <div className="relative min-h-[520px] overflow-hidden rounded-[2rem] border-2 border-brand-400 storefront-glow">
           <Image
-            src="/cali-smoke-storefront.webp"
-            alt="Smoke Cali shop front in Manchester"
+            src="/brand-showcase.webp"
+            alt="Smoke Cali holographic Cali Packs online collection"
             fill
             sizes="(max-width: 1280px) 100vw, 1280px"
             quality={70}
@@ -22,16 +22,17 @@ export function StorefrontShowcase() {
 
           <div className="relative z-10 flex min-h-[520px] max-w-xl flex-col justify-center p-7 sm:p-10 md:p-14">
             <div className="mb-5 inline-flex w-fit items-center gap-2 rounded-full border border-brand-300/50 bg-brand-600/20 px-3 py-1.5 text-xs font-black uppercase tracking-[0.18em] text-brand-200 backdrop-blur-md">
-              <Store className="h-4 w-4" />
-              Our Manchester Store
+              <ShoppingBag className="h-4 w-4" />
+              Shop Smoke Cali Online
             </div>
             <h2 className="font-display text-4xl font-black leading-tight text-white sm:text-5xl">
-              Step inside{" "}
-              <span className="text-gradient-pink">Smoke Cali</span>
+              111 Cali Packs.{" "}
+              <span className="text-gradient-pink">One click.</span>
             </h2>
             <p className="mt-4 max-w-md text-base font-semibold leading-relaxed text-white/75 sm:text-lg">
-              Explore our real shop stock online — 111 HD Cali Packs at £0.20
-              per pack, minimum 50 pcs, plus grinders, glass, hookahs, and more.
+              Browse HD product photos, pick your packs, and order online —
+              £0.20 per pack, minimum 50 pcs, plus grinders, glass, hookahs,
+              and more.
             </p>
 
             <div className="mt-6 flex items-start gap-3 rounded-2xl border border-white/15 bg-white/10 p-4 backdrop-blur-md">
@@ -49,7 +50,7 @@ export function StorefrontShowcase() {
                 href="/shop"
                 className="inline-flex items-center gap-2 rounded-xl bg-brand-600 px-6 py-3 font-black text-white shadow-lg shadow-brand-600/40 transition hover:bg-brand-500"
               >
-                Shop Store Products
+                Shop Cali Packs
                 <ArrowRight className="h-4 w-4" />
               </Link>
               <a
