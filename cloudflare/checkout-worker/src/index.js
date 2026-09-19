@@ -24,6 +24,9 @@ const ALLOWED_ORIGINS = new Set([
   "https://www.smokecali.co.uk",
   "http://127.0.0.1:3000",
   "http://localhost:3000",
+  "http://127.0.0.1:8787",
+  "http://localhost:8787",
+  "http://192.168.1.17:3000",
 ]);
 
 const ALLOWED_DOMAINS = new Set([
@@ -31,6 +34,7 @@ const ALLOWED_DOMAINS = new Set([
   "https://www.smokecali.co.uk",
   "http://127.0.0.1:3000",
   "http://localhost:3000",
+  "http://192.168.1.17:3000",
 ]);
 
 function corsHeaders(origin) {
@@ -480,12 +484,13 @@ export default {
   async fetch(request, env) {
     const origin = request.headers.get("Origin") || "";
     const url = new URL(request.url);
+    const path = url.pathname.replace(/\/+$/, "") || "/";
 
     if (request.method === "OPTIONS") {
       return new Response(null, { status: 204, headers: corsHeaders(origin) });
     }
 
-    if (url.pathname === "/health" && request.method === "GET") {
+    if (path === "/health" && request.method === "GET") {
       const configured = !isPlaceholderKey((env.STRIPE_SECRET_KEY || "").trim());
       return json(
         {
@@ -500,7 +505,7 @@ export default {
       );
     }
 
-    if (url.pathname === "/api/checkout/config" && request.method === "GET") {
+    if (path === "/api/checkout/config" && request.method === "GET") {
       const configured = !isPlaceholderKey((env.STRIPE_SECRET_KEY || "").trim());
       return json(
         {
@@ -518,7 +523,7 @@ export default {
       );
     }
 
-    if (url.pathname === "/api/checkout/create" && request.method === "POST") {
+    if (path === "/api/checkout/create" && request.method === "POST") {
       const ip =
         request.headers.get("CF-Connecting-IP") ||
         request.headers.get("X-Forwarded-For") ||
@@ -536,7 +541,7 @@ export default {
       return json(result.data, result.status, origin);
     }
 
-    if (url.pathname === "/api/stripe/webhook") {
+    if (path === "/api/stripe/webhook") {
       if (request.method === "GET" || request.method === "HEAD") {
         return json(
           {

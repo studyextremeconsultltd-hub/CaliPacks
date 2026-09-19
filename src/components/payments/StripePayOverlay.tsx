@@ -21,19 +21,19 @@ export function StripePayOverlay({
     status === "preparing"
       ? "Opening secure checkout…"
       : status === "waiting"
-        ? "Complete payment in the Stripe window"
+        ? "Complete payment on Stripe"
         : status === "blocked"
-          ? "Allow the checkout window"
+          ? "Opening Stripe checkout"
           : "Checkout could not start";
 
   const body =
     message ||
     (status === "waiting"
-      ? "A secure Stripe window is open. Keep this tab here — we’ll confirm as soon as the card payment succeeds."
+      ? "Stripe’s official checkout is open. Enter your card there — we’ll confirm as soon as payment succeeds."
       : status === "preparing"
-        ? "Connecting to Stripe over an encrypted session. Your card details never touch this website."
+        ? "Connecting to Stripe. Your card details are entered only on Stripe’s official page."
         : status === "blocked"
-          ? "Your browser blocked the payment window. We’ll send you to Stripe in this tab instead."
+          ? "Your browser blocked a new tab, so Stripe checkout is opening in this tab."
           : "Please try again, or order on WhatsApp if the problem continues.");
 
   return (
@@ -71,7 +71,7 @@ export function StripePayOverlay({
           )}
           {status === "waiting" && (
             <p className="mt-4 text-xs font-bold text-surface-800/45">
-              Don’t close this page until the Stripe window finishes.
+              Keep this tab open until Stripe confirms the payment.
             </p>
           )}
         </div>

@@ -3,7 +3,39 @@
 Same pattern as Rose Empire: **secret keys live only on a Cloudflare Worker**.  
 Nothing `sk_live` / `whsec` is stored in the public website.
 
-Pay Now opens a **separate Stripe window**. Card details are entered on Stripe, not on smokecali.co.uk.
+After the customer enters delivery details, **Pay Now** opens Stripe’s official hosted page (`checkout.stripe.com`). Card details are entered there, not on smokecali.co.uk. Money goes into whichever Stripe account’s **secret key** is on the worker.
+
+---
+
+## Local (`http://localhost:3000/checkout/`)
+
+Keep the Next.js site running (`npm run dev`). In a **second** terminal:
+
+```powershell
+cd "E:\Cali Packs"
+Copy-Item "cloudflare\checkout-worker\.dev.vars.example" "cloudflare\checkout-worker\.dev.vars"
+```
+
+Open `cloudflare/checkout-worker/.dev.vars` and set the **shop** Stripe secret (test or live):
+
+```
+STRIPE_SECRET_KEY=sk_test_...
+```
+
+or `sk_live_...` for the real shop account. Do **not** commit this file or paste the key into chat.
+
+Then start the payment worker:
+
+```powershell
+npm run checkout
+```
+
+Leave that terminal open. Checkout talks to `http://127.0.0.1:8787`.
+
+1. Add products to the cart  
+2. Open `http://localhost:3000/checkout/`  
+3. Fill delivery details → **Pay Now**  
+4. Stripe’s official checkout page opens for the card payment  
 
 ---
 

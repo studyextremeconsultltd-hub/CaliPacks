@@ -1,9 +1,10 @@
 {
   "name": "smoke-cali-checkout",
   "private": true,
+  "type": "module",
   "scripts": {
     "deploy": "wrangler deploy",
-    "dev": "wrangler dev"
+    "dev": "node local-dev-server.mjs"
   },
   "devDependencies": {
     "wrangler": "^4.40.0"

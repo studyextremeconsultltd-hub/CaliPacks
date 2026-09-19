@@ -25,6 +25,7 @@ interface CartContextValue {
   items: CartItem[];
   itemCount: number;
   subtotal: number;
+  ready: boolean;
   addItem: (product: Product, quantity?: number) => void;
   removeItem: (productId: string) => void;
   updateQuantity: (productId: string, quantity: number) => void;
@@ -125,6 +126,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
     items: state.items,
     itemCount,
     subtotal,
+    ready: hydrated,
     addItem: (product, quantity = product.minOrder || 1) =>
       dispatch({ type: "ADD_ITEM", product, quantity }),
     removeItem: (productId) =>

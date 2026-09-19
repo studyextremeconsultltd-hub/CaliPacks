@@ -9,7 +9,15 @@ import { productImageClass, productUnit } from "@/lib/product";
 import { PayNowButton } from "@/components/payments/PayNowButton";
 
 export default function CartPage() {
-  const { items, subtotal, updateQuantity, removeItem, clearCart } = useCart();
+  const { items, subtotal, updateQuantity, removeItem, clearCart, ready } = useCart();
+
+  if (!ready) {
+    return (
+      <div className="py-20 text-center container-site">
+        <p className="text-sm font-semibold text-surface-800/50">Loading cart…</p>
+      </div>
+    );
+  }
 
   if (items.length === 0) {
     return (

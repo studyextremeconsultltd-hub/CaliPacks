@@ -5,16 +5,22 @@ export const STRIPE_MESSAGE = {
   cancel: "smoke-cali-stripe-cancel",
 } as const;
 
+/**
+ * Opens Stripe's official hosted Checkout (checkout.stripe.com).
+ * Same-tab is used if the browser blocks a new window, so payment always starts.
+ */
 export function openStripeCheckoutWindow(url: string): Window | null {
-  const width = 520;
-  const height = 780;
-  const left = Math.max(0, Math.round(window.screenX + (window.outerWidth - width) / 2));
-  const top = Math.max(0, Math.round(window.screenY + (window.outerHeight - height) / 2));
-  return window.open(
-    url,
-    "smoke-cali-stripe",
-    `popup=yes,width=${width},height=${height},left=${left},top=${top},scrollbars=yes,resizable=yes`
-  );
+  const popup = window.open(url, "_blank");
+  if (popup && !popup.closed) {
+    try {
+      popup.focus();
+    } catch {
+      // ignore
+    }
+    return popup;
+  }
+  window.location.assign(url);
+  return null;
 }
 
 export function notifyOpener(type: string, extra: Record<string, string> = {}) {

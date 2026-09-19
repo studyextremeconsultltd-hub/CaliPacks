@@ -16,7 +16,7 @@ import { StripePayOverlay } from "@/components/payments/StripePayOverlay";
 type OverlayStatus = "preparing" | "waiting" | "blocked" | "error";
 
 export default function CheckoutPage() {
-  const { items, subtotal, clearCart } = useCart();
+  const { items, subtotal, clearCart, ready } = useCart();
   const router = useRouter();
   const [submitting, setSubmitting] = useState(false);
   const [overlayOpen, setOverlayOpen] = useState(false);
@@ -71,12 +71,27 @@ export default function CheckoutPage() {
     return () => window.removeEventListener("message", onMessage);
   }, [clearCart, router]);
 
+  if (!ready) {
+    return (
+      <div className="py-20 text-center container-site">
+        <p className="text-sm font-semibold text-surface-800/50">Loading checkout…</p>
+      </div>
+    );
+  }
+
   if (items.length === 0) {
     return (
       <div className="py-20 text-center container-site">
-        <h1 className="text-2xl font-bold mb-3">Your cart is empty</h1>
-        <Link href="/shop" className="text-brand-600 font-semibold hover:underline">
-          Back to shop
+        <h1 className="font-display text-3xl font-bold text-surface-950 mb-3">Checkout</h1>
+        <p className="text-surface-800/60 mb-8 max-w-md mx-auto">
+          Add products to your cart first. Then enter your details here and Stripe&apos;s official
+          payment page will open so you can pay by card.
+        </p>
+        <Link
+          href="/shop"
+          className="inline-flex items-center gap-2 px-6 py-3 bg-brand-600 text-white font-black rounded-xl hover:bg-brand-500"
+        >
+          Shop now
         </Link>
       </div>
     );
@@ -99,7 +114,9 @@ export default function CheckoutPage() {
     if (!endpoint) {
       setOverlayOpen(true);
       setOverlayStatus("error");
-      setOverlayMessage("Card checkout is being connected. Use WhatsApp to order, or try again shortly.");
+      setOverlayMessage(
+        "Card checkout is being connected. Add the shop Stripe secret on the checkout worker, then try again."
+      );
       return;
     }
 
@@ -109,28 +126,30 @@ export default function CheckoutPage() {
     setOverlayMessage("");
     setCancelNote(false);
 
+    const payload = {
+      customerEmail: customer.email,
+      notes: customer.notes,
+      domain: window.location.origin,
+      shippingAddress: {
+        name: customer.name,
+        phone: customer.phone,
+        line1: customer.address,
+        city: customer.city,
+        postcode: customer.postcode,
+      },
+      items: items.map((i) => ({
+        title: i.product.name,
+        quantity: i.quantity,
+        unitPrice: i.product.price,
+        productId: i.product.id,
+      })),
+    };
+
     try {
       const response = await fetch(endpoint, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          customerEmail: customer.email,
-          notes: customer.notes,
-          domain: window.location.origin,
-          shippingAddress: {
-            name: customer.name,
-            phone: customer.phone,
-            line1: customer.address,
-            city: customer.city,
-            postcode: customer.postcode,
-          },
-          items: items.map((i) => ({
-            title: i.product.name,
-            quantity: i.quantity,
-            unitPrice: i.product.price,
-            productId: i.product.id,
-          })),
-        }),
+        body: JSON.stringify(payload),
       });
       const data = await response.json().catch(() => ({}));
       if (!response.ok || data.status !== "success" || !data.url) {
@@ -149,13 +168,19 @@ export default function CheckoutPage() {
       const popup = openStripeCheckoutWindow(data.url);
       if (!popup) {
         setOverlayStatus("blocked");
-        window.location.href = data.url;
         return;
       }
       setOverlayStatus("waiting");
     } catch (err) {
+      const networkFail = err instanceof TypeError;
       setOverlayStatus("error");
-      setOverlayMessage(err instanceof Error ? err.message : "Could not start Stripe checkout.");
+      setOverlayMessage(
+        networkFail
+          ? "Payment server is not running. In a second terminal run npm run checkout, then add the shop Stripe secret key to cloudflare/checkout-worker/.dev.vars"
+          : err instanceof Error
+            ? err.message
+            : "Could not start Stripe checkout."
+      );
       setSubmitting(false);
     }
   };
@@ -182,7 +207,7 @@ export default function CheckoutPage() {
 
         <h1 className="font-display text-3xl font-bold text-surface-950 mb-2">Secure checkout</h1>
         <p className="mb-8 text-sm font-semibold text-surface-800/55">
-          Pay by card in a separate Stripe window — your details never sit on this page.
+          Enter your delivery details, then Pay Now opens Stripe&apos;s official checkout so you can pay by card.
         </p>
 
         {cancelNote && (
@@ -302,7 +327,7 @@ export default function CheckoutPage() {
               </span>
             </button>
             <p className="text-center text-xs font-semibold text-surface-800/45">
-              Card details are entered only on Stripe&apos;s secure window — never on smokecali.co.uk.
+              Card details are entered only on checkout.stripe.com — never on this website.
             </p>
 
             <a
